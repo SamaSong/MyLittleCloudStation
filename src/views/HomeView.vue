@@ -12,7 +12,8 @@
 <template>
   <div class="wrapper-container">
     <el-container>
-      <el-header class="page-header">我的云端小站</el-header>
+<!--      <el-header class="page-header">我的云端小站</el-header>-->
+      <el-header class="page-header">Cloud</el-header>
       <el-container>
         <el-aside class="page-aside">
           <Aside @jumpTo="jumpTo"/>
@@ -39,7 +40,7 @@
   }
   .page-aside {
     padding-top: 15px;
-    width: 320px;
+    width: 280px;
   }
   .page-main {
     width: 100%;

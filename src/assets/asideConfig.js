@@ -1,6 +1,6 @@
 let asideConfig = [
   {
-    name: '前端基础',
+    name: 'JS基础',
     children: [
       {
         name: 'BOM、DOM',

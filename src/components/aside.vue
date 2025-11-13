@@ -32,7 +32,12 @@
         <template #title>
           <span class="menu-title">{{ item.name }}</span>
         </template>
-        <el-sub-menu v-for="(groupItem, groupIndex) in item.children" :key="groupIndex" :index="groupItem.name" @click='clickSubMenu(groupItem.path, groupItem.name)'>
+        <el-sub-menu
+          v-for="(groupItem, groupIndex) in item.children"
+          :key="groupIndex"
+          :index="groupItem.name"
+          @click='clickSubMenu(groupItem.path, groupItem.name)'
+        >
           <template #title>
             <span :class="{ 'active' : activeName === groupItem.name }">{{ groupItem.name }}</span>
           </template>

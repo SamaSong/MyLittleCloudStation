@@ -30,3 +30,7 @@ a,
     /*padding: 2rem;*/
   }
 }
+
+code {
+  border-radius: 10px;
+}
