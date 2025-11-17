@@ -6,17 +6,13 @@
 
   const emit = defineEmits(['jumpTo'])
 
-  const handleOpen = (key, keyPath) => {
-
-  }
-
-  const handleClose = (key, keyPath) => {
-
-  }
-
   const clickSubMenu = (path, name) => {
     emit('jumpTo', path)
     activeName.value = name
+  }
+
+  const handleHref = (href) => {
+    return '#_' + href
   }
 </script>
 
@@ -24,8 +20,6 @@
   <div class="wrapper-aside">
     <el-menu
       class="aside-menu"
-      @open="handleOpen"
-      @close="handleClose"
       unique-opened
     >
       <el-sub-menu v-for="(item, index) in asideConfig" :key="index" :index="item.name">
@@ -41,8 +35,12 @@
           <template #title>
             <span :class="{ 'active' : activeName === groupItem.name }">{{ groupItem.name }}</span>
           </template>
-          <el-menu-item v-for="(subItem, subIndex) in groupItem.children" :key="subIndex" :index="subItem.name">
-            <span>{{ subItem.name }}</span>
+          <el-menu-item
+            v-for="(subItem, subIndex) in groupItem.children"
+            :key="subIndex"
+            :index="subItem.name"
+          >
+            <a class="menu-item-a" :href="handleHref(subItem.name)">{{ subItem.name }}</a>
           </el-menu-item>
         </el-sub-menu>
       </el-sub-menu>
@@ -53,6 +51,7 @@
 <style scoped lang="scss">
 .wrapper-aside {
   .aside-menu{
+    padding-top: 15px;
     height: calc(100vh - 100px);
     .menu-title {
       font-size: 18px;
@@ -61,6 +60,16 @@
     .active {
       color: #3FAE7C;
       font-weight: bold;
+    }
+    .menu-item-a {
+      display: flex;
+      flex: 1;
+      text-decoration: none;
+      color: #2c3e50;
+      outline: none;
+      &:hover {
+        background-color: unset;
+      }
     }
   }
 }
