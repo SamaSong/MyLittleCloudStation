@@ -1,9 +1,15 @@
 <script setup>
   import Aside from "@/components/aside.vue";
   import { RouterView, useRouter} from 'vue-router'
-  import { Share } from '@element-plus/icons-vue'
+  import { Share, Search } from '@element-plus/icons-vue'
+  import { useMenuItemNameStore } from "@/stores/menuItemName.js";
+  import asideConfig from '@/assets/asideConfig.js'
+  import { ref, watch } from "vue";
 
   const router = useRouter()
+  const menuStore = useMenuItemNameStore()
+  const footerData = ref(null)
+  const search = ref(null)
 
   const jumpTo = (path) => {
     router.push(path)
@@ -12,6 +18,37 @@
   const handleShare = () => {
     window.open('https://github.com/SamaSong')
   }
+
+  watch(() => router.currentRoute.value.path,() => {
+      footerData.value = asideConfig.map(item => {
+        let childrenIndex = item.children.findIndex(child => child.path === location.pathname)
+        return {
+          name: item.name,
+          childrenIndex: childrenIndex,
+          children: item.children
+        }
+      }).filter(ele => ele.childrenIndex !== -1)[0]
+    },
+    {
+      immediate: true,
+    }
+  )
+
+  const clickFooter = (data) => {
+    router.push({
+      path: data.path,
+    })
+    menuStore.menuRef.open(footerData.value.name)
+    menuStore.menuRef.open(data.name)
+    setTimeout(() => {
+      let element = document.getElementById(location.pathname)
+      element.click()
+    }, 0)
+  }
+
+  // const searchInput = (val) => {
+  //   console.log("=>(HomeView.vue:50) val", val);
+  // }
 </script>
 
 <template>
@@ -20,6 +57,16 @@
 <!--      <el-header class="page-header">我的云端小站</el-header>-->
       <el-header class="page-header">
         <div class="page-header-left">Cloud</div>
+<!--        <el-input-->
+<!--          v-model="search"-->
+<!--          @input="searchInput"-->
+<!--          style="max-width: 200px; margin-right: 20px;"-->
+<!--          class="search-input"-->
+<!--        >-->
+<!--          <template #prefix>-->
+<!--            <el-icon><Search /></el-icon>-->
+<!--          </template>-->
+<!--        </el-input>-->
         <div class="page-header-right" @click="handleShare()">GitHub<el-icon><Share /></el-icon></div>
       </el-header>
       <el-container>
@@ -28,6 +75,20 @@
         </el-aside>
         <el-main class="page-main">
           <RouterView></RouterView>
+          <el-footer class="page-footer">
+            <div class="page-footer-left" v-if="footerData.children[footerData.childrenIndex - 1]">
+              ←
+              <span
+                @click="clickFooter(footerData.children[footerData.childrenIndex - 1])"
+              >{{ footerData.children[footerData.childrenIndex - 1].name }}</span>
+            </div>
+            <div class="page-footer-right" v-if="footerData.children[footerData.childrenIndex + 1]">
+              <span
+                @click="clickFooter(footerData.children[footerData.childrenIndex + 1])"
+              >{{ footerData.children[footerData.childrenIndex + 1].name }}</span>
+              →
+            </div>
+          </el-footer>
         </el-main>
       </el-container>
     </el-container>
@@ -45,6 +106,11 @@
     font-weight: bold;
     align-items: center;
     border-bottom: 1px solid #eee;
+    .search-input {
+      :deep(.el-input__wrapper) {
+        border-radius: 30px;
+      }
+    }
     .page-header-left {
       display: flex;
       flex: 1;
@@ -71,6 +137,25 @@
     max-height: calc(100vh - 60px);
     overflow: hidden;
     overflow-y: auto;
+    .page-footer {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      border-top: 1px solid #eee;
+      padding: 20px 0;
+      font-size: 16px;
+      .page-footer-right {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+      }
+      span {
+        color: #3eaf7c;
+        font-weight: bold;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+    }
   }
 }
 </style>

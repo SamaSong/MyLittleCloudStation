@@ -15,6 +15,16 @@ const router = createRouter({
       component: () => import('../components/basic/bom-dom.vue'),
     },
     {
+      path: '/event',
+      name: 'Event',
+      component: () => import('../components/basic/event.vue'),
+    },
+    {
+      path: '/object',
+      name: 'Object',
+      component: () => import('../components/basic/object.vue'),
+    },
+    {
       path: '/priority',
       name: 'Priority',
       component: () => import('../components/cssBasic/priority.vue'),

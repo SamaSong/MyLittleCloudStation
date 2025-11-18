@@ -8,6 +8,45 @@ let asideConfig = [
         children: [
           {
             name: '1、window'
+          },
+          {
+            name: '2、定时器'
+          },
+          {
+            name: '3、location 对象'
+          },
+          {
+            name: '4、DOM节点操作方法'
+          },
+        ]
+      },
+      {
+        name: '事件',
+        path: '/event',
+        children: [
+          {
+            name: '1、事件流'
+          },
+          {
+            name: '2、事件处理程序'
+          },
+          {
+            name: '3、事件对象'
+          },
+          {
+            name: '4、事件类型'
+          },
+          {
+            name: '5、内存与性能'
+          }
+        ]
+      },
+      {
+        name: '对象、类与面向对象编程',
+        path: '/object',
+        children: [
+          {
+            name: '1、对象'
           }
         ]
       }
