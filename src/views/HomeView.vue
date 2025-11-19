@@ -4,12 +4,12 @@
   import { Share, Search } from '@element-plus/icons-vue'
   import { useMenuItemNameStore } from "@/stores/menuItemName.js";
   import asideConfig from '@/assets/asideConfig.js'
-  import { ref, watch } from "vue";
+  import {nextTick, onMounted, ref, watch} from "vue";
 
   const router = useRouter()
   const menuStore = useMenuItemNameStore()
   const footerData = ref(null)
-  const search = ref(null)
+  // const search = ref(null)
 
   const jumpTo = (path) => {
     router.push(path)
@@ -35,20 +35,38 @@
   )
 
   const clickFooter = (data) => {
-    router.push({
-      path: data.path,
-    })
-    menuStore.menuRef.open(footerData.value.name)
-    menuStore.menuRef.open(data.name)
+    router.push(data.path)
     setTimeout(() => {
-      let element = document.getElementById(location.pathname)
-      element.click()
-    }, 0)
+      menuStore.menuRef.open(footerData.value.name)
+      menuStore.menuRef.open(data.name)
+      setTimeout(() => {
+        let element = document.getElementById(location.pathname)
+        element.click()
+      }, 0)
+    }, 50)
   }
 
   // const searchInput = (val) => {
   //   console.log("=>(HomeView.vue:50) val", val);
   // }
+
+  onMounted(() => {
+    if (footerData.value) {
+      menuStore.menuRef.open(footerData.value.name)
+    }
+    if (location.pathname !== '/home' && footerData.value) {
+      let name = footerData.value.children.map(item => {
+        if (item.path === location.pathname) {
+          return item.name
+        }
+      }).filter(ele => ele && ele.trim())[0]
+      menuStore.menuRef.open(name)
+      setTimeout(() => {
+        let element = document.getElementById(location.pathname)
+        element.click()
+      }, 0)
+    }
+  })
 </script>
 
 <template>
@@ -75,7 +93,7 @@
         </el-aside>
         <el-main class="page-main">
           <RouterView></RouterView>
-          <el-footer class="page-footer">
+          <el-footer class="page-footer" v-if="footerData">
             <div class="page-footer-left" v-if="footerData.children[footerData.childrenIndex - 1]">
               ←
               <span
