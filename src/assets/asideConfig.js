@@ -47,7 +47,10 @@ let asideConfig = [
         children: [
           {
             name: '1、对象'
-          }
+          },
+          {
+            name: '2、创建对象'
+          },
         ]
       }
     ]
