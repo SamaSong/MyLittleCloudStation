@@ -51,6 +51,9 @@ let asideConfig = [
           {
             name: '2、创建对象'
           },
+          {
+            name: '3、继承'
+          }
         ]
       }
     ]

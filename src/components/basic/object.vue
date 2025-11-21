@@ -165,6 +165,33 @@
         person2.sayName(); // "Nicholas"
         console.log(person1.sayName == person2.sayName); // true</pre>
     </CodeBlock>
+    <h3>原型</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;无论何时，只要创建一个函数，就会按照特定的规则为这个函数创建一个 prototype 属性（指向
+      原型对象）。默认情况下，所有原型对象自动获得一个名为 constructor 的属性，指回与之关联的构
+      造函数。对前面的例子而言，Person.prototype.constructor 指向 Person。然后，因构造函数而
+      异，可能会给原型对象添加其他属性和方法。
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;<span class="sub-important">关于“原型”的详细解释，请阅读JavaScript高级程序设计(第4版)8.2.4</span>
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;关于构造函数、原型对象和实例的解释：<br>
+      1. 构造函数 (Constructor):构造函数是用来创建对象的特殊函数，通常以大写字母开头。<br>
+      2. 原型对象 (Prototype):每个函数都有一个 prototype 属性，指向原型对象。<br>
+      3. 实例 (Instance):通过构造函数创建的对象就是实例。
+    </span>
+    <h3>原型层级</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;在通过对象访问属性时，会按照这个属性的名称开始搜索。搜索开始于对象实例本身。如果在这个
+      实例上发现了给定的名称，则返回该名称对应的值。如果没有找到这个属性，则搜索会沿着指针进入原
+      型对象，然后在原型对象上找到属性后，再返回对应的值。
+    </span>
+    <h3>原型和 in 操作符</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;有两种方式使用 in 操作符：单独使用和在 for-in 循环中使用。在单独使用时，in 操作符会在可
+      以通过对象访问指定属性时返回 true，无论该属性是在实例上还是在原型上。
+    </span>
     <h3>对象迭代</h3>
     <span class="content">
       &nbsp;	&nbsp;   &nbsp;   &nbsp;两个静态方法
@@ -182,6 +209,12 @@
         console.log(Object.entries((o)));
         // [["foo", "bar"], ["baz", 1], ["qux", {}]]</pre>
     </CodeBlock>
+    <h1 id="_3、继承">3、继承</h1>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;继承是面向对象编程中讨论最多的话题。很多面向对象语言都支持两种继承：接口继承和实现继承。实现继承是 ECMAScript 唯一支持的继承方式，而这主要是通过原型链实现的。
+    </span>
+    <h3>原型链</h3>
+    <span class="content"><span class="sub-important">关于“原型链”的详细解释，请阅读JavaScript高级程序设计(第4版)8.3.1</span></span>
   </div>
 </template>
 
