@@ -53,6 +53,9 @@ let asideConfig = [
           },
           {
             name: '3、继承'
+          },
+          {
+            name: '4、类'
           }
         ]
       }

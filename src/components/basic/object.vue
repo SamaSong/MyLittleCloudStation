@@ -215,6 +215,110 @@
     </span>
     <h3>原型链</h3>
     <span class="content"><span class="sub-important">关于“原型链”的详细解释，请阅读JavaScript高级程序设计(第4版)8.3.1</span></span>
+    <h3>盗用构造函数</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;为了解决原型包含引用值(数组也属于引用值)导致的继承问题，需要使用“盗用构造函数”。基本思路很简单：在子类
+      构造函数中调用父类构造函数。因为毕竟函数就是在特定上下文中执行代码的简单对象，所以可以使用
+      apply()和 call()方法以新创建的对象为上下文执行构造函数。来看下面的例子：
+    </span>
+    <CodeBlock>
+      <pre>function SuperType() {
+         this.colors = ["red", "blue", "green"];
+        }
+        function SubType() {
+         // 继承 SuperType
+         SuperType.call(this);
+        }
+        let instance1 = new SubType();
+        instance1.colors.push("black");
+        console.log(instance1.colors); // "red,blue,green,black"
+        let instance2 = new SubType();
+        console.log(instance2.colors); // "red,blue,green"</pre>
+    </CodeBlock>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;盗用构造函数还有另外一个优点，可以在子类构造函数中向父类构造函数传参。
+    </span>
+    <CodeBlock>
+      <pre>function SuperType(name){
+         this.name = name;
+        }
+        function SubType() {
+         // 继承 SuperType 并传参
+         SuperType.call(this, "Nicholas");
+         // 实例属性
+         this.age = 29;
+        }
+        let instance = new SubType();
+        console.log(instance.name); // "Nicholas";
+        console.log(instance.age); // 29</pre>
+    </CodeBlock>
+    <span class="content"><span class="sub-important">盗用构造函数的主要缺点，也是使用构造函数模式自定义类型的问题：必须在构造函数中定义方法，因此函数不能重用。</span></span>
+    <span class="content"><span class="sub-important">其他继承方式请阅读JavaScript高级程序设计(第4版)8.3</span></span>
+    <h1 id="_4、类">4、类</h1>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;类（class）是ECMAScript 中新的基础性语法糖结构。
+    </span>
+    <h3>类定义</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;与函数类型相似，定义类也有两种主要方式：类声明和类表达式。这两种方式都使用 class 关键字加大括号：
+    </span>
+    <CodeBlock>
+      <pre>// 类声明
+        class Person {}
+        // 类表达式
+        const Animal = class {};</pre>
+    </CodeBlock>
+    <h3>类的构成</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;类可以包含构造函数方法、实例方法、获取函数、设置函数和静态类方法，但这些都不是必需的。
+      空的类定义照样有效。默认情况下，类定义中的代码都在严格模式下执行。
+    </span>
+    <h3>类构造函数</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;constructor 关键字用于在类定义块内部创建类的构造函数。方法名 constructor 会告诉解释器
+      在使用 new 操作符创建类的新实例时，应该调用这个函数。构造函数的定义不是必需的，不定义构造函
+      数相当于将构造函数定义为空函数。
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;类可以像函数一样在任何地方定义，比如在数组中。与立即调用函数表达式相似，类也可以立即实例化
+    </span>
+    <h3>实例、原型和类成员</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;每次通过new调用类标识符时，都会执行类构造函数。在这个函数内部，可以为新创建的实例（this）添加“自有”属性。每个实例都对应一个唯一的成员对象，这意味着所有成员都不会在原型上共享：
+    </span>
+    <CodeBlock>
+      <pre>class Person {
+          constructor() {
+           // 这个例子先使用对象包装类型定义一个字符串
+           // 为的是在下面测试两个对象的相等性
+           this.name = new String('Jack');
+           this.sayName = () => console.log(this.name);
+           this.nicknames = ['Jake', 'J-Dog']
+         }
+        }
+        let p1 = new Person(),
+        p2 = new Person();
+        p1.sayName(); // Jack
+        p2.sayName(); // Jack
+        console.log(p1.name === p2.name); // false
+        console.log(p1.sayName === p2.sayName); // false
+        console.log(p1.nicknames === p2.nicknames); // false
+        p1.name = p1.nicknames[0];
+        p2.name = p2.nicknames[1];
+        p1.sayName(); // Jake
+        p2.sayName(); // J-Dog</pre>
+    </CodeBlock>
+    <h3>静态类方法</h3>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;可以在类上定义静态方法。这些方法通常用于执行不特定于实例的操作，也不要求存在类的实例。与原型成员类似，静态成员每个类上只能有一个。
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;   &nbsp;   &nbsp;静态类成员在类定义中使用 static 关键字作为前缀。在静态成员中，this 引用类自身。
+    </span>
+    <h3>类的继承</h3>
+    <span class="content">&nbsp;	&nbsp;   &nbsp;   &nbsp;
+      <span class="sub-important">建议直接阅读JavaScript高级程序设计(第4版)8.4.4</span>
+    </span>
   </div>
 </template>
 
