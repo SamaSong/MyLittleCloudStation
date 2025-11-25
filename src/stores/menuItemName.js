@@ -6,7 +6,7 @@ export const useMenuItemNameStore = defineStore('menuItemName', () => {
   const menuRef = ref(null)
 
   function setMenuRef(ref) {
-    this.menuRef = ref
+    menuRef.value = ref.value
   }
 
   return { menuItemName, menuRef, setMenuRef }
