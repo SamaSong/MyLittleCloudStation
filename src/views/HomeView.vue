@@ -1,15 +1,21 @@
 <script setup>
   import Aside from "@/components/aside.vue";
-  import { RouterView, useRouter} from 'vue-router'
+  import { RouterView, useRouter } from 'vue-router'
   import { Share, Search } from '@element-plus/icons-vue'
   import { useMenuItemNameStore } from "@/stores/menuItemName.js";
   import asideConfig from '@/assets/asideConfig.js'
-  import {nextTick, onMounted, ref, watch} from "vue";
+  import {computed, nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
 
   const router = useRouter()
   const menuStore = useMenuItemNameStore()
   const footerData = ref(null)
-  // const search = ref(null)
+  const searchKeyword = ref('') // 搜索框关键字
+  const isSearchActive = ref(false) // 控制面板显示/隐藏
+  const searchContainerRef = ref(null) // 记录搜索区域 DOM
+  const shouldShowSearchPanel = computed(() => {
+    // 有输入内容且处于激活态才需要展示下拉面板
+    return isSearchActive.value && !!searchKeyword.value.trim()
+  })
 
   const jumpTo = (path) => {
     router.push(path)
@@ -46,11 +52,121 @@
     }, 50)
   }
 
-  // const searchInput = (val) => {
-  //   console.log("=>(HomeView.vue:50) val", val);
-  // }
+  // 第二层级（含路由的分组）列表
+  const groupSearchItems = computed(() => {
+    return asideConfig.flatMap(section => {
+      return section.children?.filter(group => group.path)?.map(group => ({
+        id: `group-${group.path}`,
+        section: section.name,
+        group: group.name,
+        path: group.path,
+        type: 'group'
+      })) ?? []
+    })
+  })
+
+  // 第三层级（具体知识点）列表，扁平化并保留层级信息
+  const childSearchItems = computed(() => {
+    return asideConfig.flatMap(section => {
+      return section.children?.flatMap(group => {
+        if (!group.path) {
+          return []
+        }
+        return group.children?.map(child => ({
+          id: `${group.path}-${child.name}`,
+          section: section.name,
+          group: group.name,
+          child: child.name,
+          path: group.path,
+          anchorId: `_${child.name}`,
+          type: 'child'
+        })) ?? []
+      }) ?? []
+    })
+  })
+
+
+  // 根据输入关键字过滤可选项，支持多层级模糊匹配
+  const filteredSearchItems = computed(() => {
+    const keyword = searchKeyword.value.trim().toLowerCase()
+    if (!keyword) {
+      return []
+    }
+    const matchedGroups = groupSearchItems.value.filter(item => {
+      return item.group.toLowerCase().includes(keyword)
+    })
+    if (matchedGroups.length) {
+      return matchedGroups
+    }
+    return childSearchItems.value.filter(item => {
+      return (
+        item.section.toLowerCase().includes(keyword) ||
+        item.group.toLowerCase().includes(keyword) ||
+        item.child.toLowerCase().includes(keyword)
+      )
+    })
+  })
+
+  const handleSearchFocus = () => {
+    isSearchActive.value = true
+  }
+
+  const closeSearchPanel = () => {
+    isSearchActive.value = false
+  }
+
+  // 监听全局点击用于收起面板
+  const handleClickOutside = (event) => {
+    if (!searchContainerRef.value) return
+    if (!searchContainerRef.value.contains(event.target)) {
+      closeSearchPanel()
+    }
+  }
+
+  // 点击搜索结果：展开侧边菜单、切换路由并滚动到对应标题
+  const locateContent = async (item) => {
+    console.log("=>(HomeView.vue:127) item", item);
+    if (!item.path) return
+    closeSearchPanel()
+    const keywordBeforeJump = item.child
+    searchKeyword.value = ''
+    if (item.type === 'child') {
+      menuStore.menuItemName = keywordBeforeJump
+    } else {
+      menuStore.menuItemName = null
+    }
+
+    if (menuStore.menuRef) {
+      menuStore.menuRef.open(item.section)
+      menuStore.menuRef.open(item.group)
+      setTimeout(() => {
+        let element = document.getElementById(item.path)
+        element.click()
+      }, 0)
+    }
+    if (router.currentRoute.value.path !== item.path) {
+      await router.push(item.path)
+    }
+    await nextTick()
+    if (item.type === 'child') {
+      const anchor = document.getElementById(item.anchorId)
+      if (anchor) {
+        anchor.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    } else {
+      const mainContainer = document.querySelector('.page-main')
+      mainContainer?.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   onMounted(() => {
+    document.addEventListener('click', handleClickOutside)
     if (footerData.value) {
       menuStore.menuRef.open(footerData.value.name)
     }
@@ -67,6 +183,10 @@
       }, 0)
     }
   })
+
+  onBeforeUnmount(() => {
+    document.removeEventListener('click', handleClickOutside)
+  })
 </script>
 
 <template>
@@ -75,16 +195,41 @@
 <!--      <el-header class="page-header">我的云端小站</el-header>-->
       <el-header class="page-header">
         <div class="page-header-left">Cloud</div>
-<!--        <el-input-->
-<!--          v-model="search"-->
-<!--          @input="searchInput"-->
-<!--          style="max-width: 200px; margin-right: 20px;"-->
-<!--          class="search-input"-->
-<!--        >-->
-<!--          <template #prefix>-->
-<!--            <el-icon><Search /></el-icon>-->
-<!--          </template>-->
-<!--        </el-input>-->
+        <div ref="searchContainerRef" class="search-wrapper" @click.stop>
+          <el-input
+            v-model="searchKeyword"
+            placeholder="搜索知识点"
+            class="search-input"
+            clearable
+            @focus="handleSearchFocus"
+          >
+            <template #prefix>
+              <el-icon><Search /></el-icon>
+            </template>
+          </el-input>
+          <div v-if="shouldShowSearchPanel" class="search-panel">
+            <div
+              v-if="filteredSearchItems.length"
+              class="search-panel-list"
+            >
+              <div
+                class="search-panel-item"
+                v-for="item in filteredSearchItems"
+                :key="item.id"
+                @click="locateContent(item)"
+              >
+                <span class="search-panel-item__section">{{ item.section }}</span>
+                <span class="search-panel-item__divider">/</span>
+                <span class="search-panel-item__group">{{ item.group }}</span>
+                <template v-if="item.type === 'child'">
+                  <span class="search-panel-item__divider">/</span>
+                  <span class="search-panel-item__child">{{ item.child }}</span>
+                </template>
+              </div>
+            </div>
+            <div v-else class="search-panel-empty">暂无匹配内容</div>
+          </div>
+        </div>
         <div class="page-header-right" @click="handleShare()">GitHub<el-icon><Share /></el-icon></div>
       </el-header>
       <el-container>
@@ -127,6 +272,59 @@
     .search-input {
       :deep(.el-input__wrapper) {
         border-radius: 30px;
+      }
+    }
+    .search-wrapper {
+      position: relative;
+      max-width: 320px;
+      width: 100%;
+      margin-right: 20px;
+      .search-panel {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+        padding: 8px 0;
+        z-index: 10;
+        .search-panel-list {
+          max-height: 320px;
+          overflow-y: auto;
+        }
+        .search-panel-item {
+          display: flex;
+          align-items: center;
+          padding: 6px 16px;
+          font-size: 13px;
+          cursor: pointer;
+          color: #2c3e50;
+          transition: background-color 0.2s ease;
+          &:hover {
+            background-color: rgba(63, 174, 124, 0.08);
+          }
+        }
+        .search-panel-item__section {
+          color: #909399;
+        }
+        .search-panel-item__group {
+          color: #606266;
+        }
+        .search-panel-item__child {
+          color: #303133;
+          font-weight: 600;
+        }
+        .search-panel-item__divider {
+          padding: 0 6px;
+          color: #c0c4cc;
+        }
+        .search-panel-empty {
+          text-align: center;
+          color: #999;
+          font-size: 13px;
+          padding: 8px 0;
+        }
       }
     }
     .page-header-left {

@@ -33,7 +33,16 @@ const router = createRouter({
       name: 'Priority',
       component: () => import('../components/cssBasic/priority.vue'),
     },
-
+    {
+      path: '/trivial',
+      name: 'Trivial',
+      component: () => import('../components/basic/trivial.vue'),
+    },
+    {
+      path: '/dataStructure',
+      name: 'DataStructure',
+      component: () => import('../components/agorithmBasic/dataStructure.vue'),
+    },
   ],
 })
 

@@ -58,6 +58,21 @@ let asideConfig = [
             name: '4、类'
           }
         ]
+      },
+      {
+        name: '琐碎知识🧀',
+        path: '/trivial',
+        children: [
+          {
+            name: '1、JS相关'
+          },
+          {
+            name: '2、对象相关'
+          },
+          {
+            name: '3、数组相关'
+          }
+        ]
       }
     ]
   },
@@ -80,6 +95,7 @@ let asideConfig = [
     children: [
       {
         name: '常用数据结构处理',
+        path: '/dataStructure',
         children: [
           {
             name: '1、扁平数组转换为树结构'
