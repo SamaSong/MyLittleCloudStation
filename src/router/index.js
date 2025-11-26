@@ -34,9 +34,14 @@ const router = createRouter({
       component: () => import('../components/cssBasic/priority.vue'),
     },
     {
-      path: '/trivial',
-      name: 'Trivial',
-      component: () => import('../components/basic/trivial.vue'),
+      path: '/jsTrivial',
+      name: 'JsTrivial',
+      component: () => import('../components/basic/jsTrivial.vue'),
+    },
+    {
+      path: '/cssTrivial',
+      name: 'CSSTrivial',
+      component: () => import('../components/cssBasic/cssTrivial.vue'),
     },
     {
       path: '/dataStructure',

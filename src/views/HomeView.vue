@@ -125,7 +125,6 @@
 
   // 点击搜索结果：展开侧边菜单、切换路由并滚动到对应标题
   const locateContent = async (item) => {
-    console.log("=>(HomeView.vue:127) item", item);
     if (!item.path) return
     closeSearchPanel()
     const keywordBeforeJump = item.child
@@ -192,9 +191,8 @@
 <template>
   <div class="wrapper-container">
     <el-container>
-<!--      <el-header class="page-header">我的云端小站</el-header>-->
       <el-header class="page-header">
-        <div class="page-header-left">Cloud</div>
+        <div class="page-header-left">前端小站</div>
         <div ref="searchContainerRef" class="search-wrapper" @click.stop>
           <el-input
             v-model="searchKeyword"

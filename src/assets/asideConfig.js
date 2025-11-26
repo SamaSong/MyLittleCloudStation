@@ -60,8 +60,8 @@ let asideConfig = [
         ]
       },
       {
-        name: '琐碎知识🧀',
-        path: '/trivial',
+        name: 'JS琐碎知识🧀',
+        path: '/jsTrivial',
         children: [
           {
             name: '1、JS相关'
@@ -71,6 +71,9 @@ let asideConfig = [
           },
           {
             name: '3、数组相关'
+          },
+          {
+            name: '4、字符串相关'
           }
         ]
       }
@@ -79,13 +82,22 @@ let asideConfig = [
   {
     name: 'CSS基础',
     children: [
+      // {
+      //   name: 'CSS继承和优先级',
+      //   path: '/priority',
+      //   children: [
+      //     {
+      //       name: '1、优先级'
+      //     }
+      //   ]
+      // },
       {
-        name: 'CSS继承和优先级',
-        path: '/priority',
+        name: 'CSS琐碎知识🧀',
+        path: '/cssTrivial',
         children: [
           {
-            name: '1、优先级'
-          }
+            name: '1、Element相关'
+          },
         ]
       }
     ]

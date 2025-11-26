@@ -67,3 +67,8 @@ h3 {
   display: flex;
   flex-direction: column;
 }
+.bgc {
+  background-color: #ECEDF0;
+  padding: 5px;
+  border-radius: 5px;
+}
