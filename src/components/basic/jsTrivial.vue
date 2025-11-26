@@ -38,6 +38,26 @@
         // [[2], [4], [6], [8]]
         </pre>
     </CodeBlock>
+    <h3>Array.from()</h3>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;<span class="bgc">Array.from()</span> 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
+    </span>
+    <CodeBlock><pre>
+      Array.from(arrayLike[, mapFn[, thisArg]])
+    </pre></CodeBlock>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;Array.from() 可以通过伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）或者 可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;Array.from() 方法有一个可选参数 mapFn，让你可以在最后生成的数组上再执行一次 map 方法后再返回。
+    </span>
+    <h3>fill()</h3>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;<span class="bgc">fill()</span> 方法用一个固定值填充一个数组中从起始索引到终止索引内的全部元素。不包括终止索引。
+    </span>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;<span class="bgc">fill</span>方法接受三个参数 value, start 以及 end. start 和 end 参数是可选的, 其默认值分别为 0 和 this 对象的 length 属性值。
+    </span>
     <h1 id="_4、字符串相关">4、字符串相关</h1>
     <h3>String.trim()</h3>
     <span class="content">
