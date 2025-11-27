@@ -6,6 +6,10 @@
   <div class="content-container">
     <span class="title">JS琐碎知识🧀</span>
     <h1 id="_1、JS相关">1、JS相关</h1>
+    <h3>展开运算符</h3>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;JavaScript展开运算符（...）是ES6引入的语法特性，用于将可迭代对象（如数组、对象、Set、Map）的元素展开为独立项。
+    </span>
     <h1 id="_2、对象相关">2、对象相关</h1>
     <h1 id="_3、数组相关">3、数组相关</h1>
     <h3>flatMap方法</h3>
@@ -71,6 +75,25 @@
 
         var orig = 'foo    ';
         console.log(orig.trim()); // 'foo'</pre>
+    </CodeBlock>
+    <h1 id="_5、路由相关">5、路由相关</h1>
+    <h3>开发路由的思路</h3>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;当我们在处理路由时，对于相同路径的组件加载，大可不必罗列路由配置。可以使用<span class="bgc">import.meta.glob</span>。例如：
+    </span>
+    <CodeBlock>
+      <pre>import.meta.glob('../components/**/*.vue')
+        // 会让 Vite 在构建阶段扫描 src/components/** 目录下的所有 .vue 文件，为每个文件生成一个按需导入的函数。返回结果是一个以文件相对路径为键、以懒加载函数为值的对象。
+      </pre>
+    </CodeBlock>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;如果有在不同目录下的懒加载路由。通过对象展开运算符把两个扫描结果合并成一个大对象。
+    </span>
+    <CodeBlock>
+      <pre>const moduleMap = {
+          ...import.meta.glob('../views/**/*.vue'),
+          ...import.meta.glob('../components/**/*.vue'),
+        }</pre>
     </CodeBlock>
   </div>
 

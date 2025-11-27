@@ -5,6 +5,7 @@ let asideConfig = [
       {
         name: 'BOM、DOM',
         path: '/bom-dom',
+        component: 'components/basic/bom-dom.vue',
         children: [
           {
             name: '1、window'
@@ -23,6 +24,7 @@ let asideConfig = [
       {
         name: '事件',
         path: '/event',
+        component: 'components/basic/event.vue',
         children: [
           {
             name: '1、事件流'
@@ -44,6 +46,7 @@ let asideConfig = [
       {
         name: '对象、类与面向对象编程',
         path: '/object',
+        component: 'components/basic/object.vue',
         children: [
           {
             name: '1、对象'
@@ -62,6 +65,7 @@ let asideConfig = [
       {
         name: 'JS琐碎知识🧀',
         path: '/jsTrivial',
+        component: 'components/basic/jsTrivial.vue',
         children: [
           {
             name: '1、JS相关'
@@ -74,6 +78,9 @@ let asideConfig = [
           },
           {
             name: '4、字符串相关'
+          },
+          {
+            name: '5、路由相关'
           }
         ]
       }
@@ -94,6 +101,7 @@ let asideConfig = [
       {
         name: 'CSS琐碎知识🧀',
         path: '/cssTrivial',
+        component: 'components/cssBasic/cssTrivial.vue',
         children: [
           {
             name: '1、Element相关'
@@ -108,6 +116,7 @@ let asideConfig = [
       {
         name: '常用数据结构处理',
         path: '/dataStructure',
+        component: 'components/agorithmBasic/dataStructure.vue',
         children: [
           {
             name: '1、扁平数组转换为树结构'

@@ -1,53 +1,73 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import asideConfig from '@/assets/asideConfig.js'
+
+const moduleMap = {
+  ...import.meta.glob('../views/**/*.vue'),
+  ...import.meta.glob('../components/**/*.vue'),
+}
+
+const toGlobPath = (relativePath) => {
+  return `../${relativePath.replace(/^\/+/, '')}`
+}
+
+const lazyLoad = (relativePath) => {
+  const loader = moduleMap[toGlobPath(relativePath)]
+  if (!loader) {
+    throw new Error(`[router] 未找到对应的组件文件：${relativePath}`)
+  }
+  return loader
+}
+
+const toRouteName = (path) => {
+  const cleanPath = path.replace(/^\//, '')
+  if (!cleanPath) return 'root'
+  return cleanPath
+    .split('/')
+    .map((segment) =>
+      segment.replace(/(^|-)(\w)/g, (_, __, letter) => letter.toUpperCase())
+    )
+    .join('')
+}
+
+const buildContentRoutes = () => {
+  return asideConfig.flatMap((section) => {
+    return (
+      section.children?.flatMap((group) => {
+        if (!group.path || !group.component) {
+          return []
+        }
+        return [
+          {
+            path: group.path,
+            name: group.routeName || toRouteName(group.path),
+            component: lazyLoad(group.component),
+            meta: {
+              section: section.name,
+              title: group.name,
+            },
+          },
+        ]
+      }) ?? []
+    )
+  })
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/home',
     },
     {
       path: '/home',
-      name: 'home',
-      component: () => import('../views/index.vue'),
+      name: 'Home',
+      component: lazyLoad('views/index.vue'),
+      meta: {
+        title: '首页',
+      },
     },
-    {
-      path: '/bom-dom',
-      name: 'BOM-DOM',
-      component: () => import('../components/basic/bom-dom.vue'),
-    },
-    {
-      path: '/event',
-      name: 'Event',
-      component: () => import('../components/basic/event.vue'),
-    },
-    {
-      path: '/object',
-      name: 'Object',
-      component: () => import('../components/basic/object.vue'),
-    },
-    {
-      path: '/priority',
-      name: 'Priority',
-      component: () => import('../components/cssBasic/priority.vue'),
-    },
-    {
-      path: '/jsTrivial',
-      name: 'JsTrivial',
-      component: () => import('../components/basic/jsTrivial.vue'),
-    },
-    {
-      path: '/cssTrivial',
-      name: 'CSSTrivial',
-      component: () => import('../components/cssBasic/cssTrivial.vue'),
-    },
-    {
-      path: '/dataStructure',
-      name: 'DataStructure',
-      component: () => import('../components/agorithmBasic/dataStructure.vue'),
-    },
+    ...buildContentRoutes(),
   ],
 })
 
