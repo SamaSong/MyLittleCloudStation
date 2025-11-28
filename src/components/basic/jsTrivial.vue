@@ -10,6 +10,28 @@
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;JavaScript展开运算符（...）是ES6引入的语法特性，用于将可迭代对象（如数组、对象、Set、Map）的元素展开为独立项。
     </span>
+    <h3>原始类型 VS 包装对象</h3>
+    <span class="content">
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;原始类型:如 number 、 string 、 boolean ,在 JavaScript 中是简单数据 类型,它们在内存中占⽤空间少,处理速度快。 <br>
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;包装对象:如 Number 对象、 String 对象、 Boolean 对象,是复杂类型,在 内存中占⽤更多空间,在⽇常开发时很少由开发⼈员⾃⼰创建包装对象。<br>
+      &nbsp;	&nbsp;	&nbsp;	&nbsp;⾃动装箱:JavaScript 在必要时会⾃动将原始类型包装成对象,以便调⽤⽅法或访问属性。<br>
+    </span>
+    <CodeBlock>
+      <pre>// 原始类型字符串
+        let str = 'hello';
+        // 当访问str.length时,JavaScript引擎做了以下⼯作:
+        // 1. ⾃动装箱:创建⼀个临时的String对象包装原始字符串
+        let size = (function(){
+          let tempStringObject = new String(str);
+          // 2. 访问String对象的length属性
+          let lengthValue = tempStringObject.length;
+          // 3. 销毁临时对象,返回⻓度值
+          // (JavaScript引擎⾃动处理对象销毁,开发者⽆感知)
+          return lengthValue;
+        })();
+
+        console.log(size); // 输出: 5</pre>
+    </CodeBlock>
     <h2 id="_2、对象相关">2、对象相关</h2>
     <h2 id="_3、数组相关">3、数组相关</h2>
     <h3>flatMap方法</h3>

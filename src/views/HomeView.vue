@@ -192,7 +192,7 @@
   <div class="wrapper-container">
     <el-container>
       <el-header class="page-header">
-        <div class="page-header-left">前端小站</div>
+        <div class="page-header-left">前端充电小站🔋</div>
         <div ref="searchContainerRef" class="search-wrapper" @click.stop>
           <el-input
             v-model="searchKeyword"

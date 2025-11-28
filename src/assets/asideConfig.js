@@ -122,6 +122,43 @@ let asideConfig = [
       }
     ]
   },
+  {
+    name: 'TypeScript系列',
+    children: [
+      {
+        name: 'TypeScript概念（基本内容）',
+        path: '/TypeScriptSeriesConcept',
+        component: 'components/TypeScriptSeries/Concept.vue',
+        children: [
+          {
+            name: '概念'
+          },
+          {
+            name: '类型声明'
+          },
+          {
+            name: '类型判断'
+          }
+        ]
+      },
+      {
+        name: 'TypeScript-基础类型',
+        path: '/basicTypes',
+        component: 'components/TypeScriptSeries/basicTypes.vue',
+        children: [
+          {
+            name: 'unknown'
+          },
+          {
+            name: 'never'
+          },
+          {
+            name: 'void'
+          }
+        ]
+      }
+    ]
+  }
 ]
 
 export default asideConfig
