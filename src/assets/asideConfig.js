@@ -89,15 +89,6 @@ let asideConfig = [
   {
     name: 'CSS基础',
     children: [
-      // {
-      //   name: 'CSS继承和优先级',
-      //   path: '/priority',
-      //   children: [
-      //     {
-      //       name: '1、优先级'
-      //     }
-      //   ]
-      // },
       {
         name: '网格布局',
         path: '/gridLayout',
