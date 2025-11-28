@@ -4,8 +4,8 @@
 
 <template>
   <div class="content-container">
-    <span class="title">CSS琐碎知识🧀</span>
-    <h1 id="_1、Element相关">1、Element相关</h1>
+    <h1 class="title">CSS琐碎知识🧀</h1>
+    <h2 id="_1、Element相关">1、Element相关</h2>
     <h3>锚点定位 Element：scrollIntoView() 方法</h3>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;Element 接口的 scrollIntoView() 方法会滚动元素的祖先容器，使得被调用该方法的元素对用户可见。<br>

@@ -4,9 +4,9 @@
 
 <template>
   <div class="content-container">
-    <span class="title">BOM、DOM</span>
+    <h1 class="title">BOM、DOM</h1>
     <span class="sub-title">DOM、BOM相关的一些概念以及属性</span>
-    <h1 id="_1、window">1、window</h1>
+    <h2 id="_1、window">1、window</h2>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;	BOM 的核心是 window 对象，表示浏览器的实例。window 对象在浏览器中有两重身份，一个是
       ECMAScript 中的 Global 对象，另一个就是浏览器窗口的 JavaScript 接口。这意味着网页中定义的所有
@@ -22,11 +22,11 @@
         sayAge(); // 29
         window.sayAge(); // 29</pre>
     </CodeBlock>
-    <h1 id="_2、定时器">2、定时器</h1>
+    <h2 id="_2、定时器">2、定时器</h2>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;setTimeout()用于指定在一定时间后执行某些代码，而 setInterval()用于指定每隔一段时间执行某些代码。
     </span>
-    <h1 id="_3、location 对象">3、location 对象</h1>
+    <h2 id="_3、location 对象">3、location 对象</h2>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;location 是最有用的 BOM 对象之一，提供了当前窗口中加载文档的信息，以及通常的导航功能。
       这个对象独特的地方在于，它既是 window 的属性，也是 document 的属性。也就是说，
@@ -64,7 +64,7 @@
     <CodeBlock>
       <pre>let searchParams = new URLSearchParams(location.search);</pre>
     </CodeBlock>
-    <h1 id="_4、DOM节点操作方法">4、DOM节点操作方法</h1>
+    <h2 id="_4、DOM节点操作方法">4、DOM节点操作方法</h2>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;最常用的方法是
       appendChild()，用于在 childNodes 列表末尾添加节点。添加新节点会更新相关的关系指针，包括

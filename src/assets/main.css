@@ -36,16 +36,18 @@ code {
 }
 
 .title {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 .sub-title {
   font-size: 14px;
   margin: 20px 0;
 }
-h1 {
+h2 {
   border-bottom: 1px solid #eee;
   width: 100%;
+  font-weight: bold;
 }
 h3 {
   margin-top: 10px;

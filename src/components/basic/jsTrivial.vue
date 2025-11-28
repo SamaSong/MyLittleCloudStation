@@ -4,14 +4,14 @@
 
 <template>
   <div class="content-container">
-    <span class="title">JS琐碎知识🧀</span>
-    <h1 id="_1、JS相关">1、JS相关</h1>
+    <h1 class="title">JS琐碎知识🧀</h1>
+    <h2 id="_1、JS相关">1、JS相关</h2>
     <h3>展开运算符</h3>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;JavaScript展开运算符（...）是ES6引入的语法特性，用于将可迭代对象（如数组、对象、Set、Map）的元素展开为独立项。
     </span>
-    <h1 id="_2、对象相关">2、对象相关</h1>
-    <h1 id="_3、数组相关">3、数组相关</h1>
+    <h2 id="_2、对象相关">2、对象相关</h2>
+    <h2 id="_3、数组相关">3、数组相关</h2>
     <h3>flatMap方法</h3>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;flatMap() 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 连着深度值为1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
@@ -62,7 +62,7 @@
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;<span class="bgc">fill</span>方法接受三个参数 value, start 以及 end. start 和 end 参数是可选的, 其默认值分别为 0 和 this 对象的 length 属性值。
     </span>
-    <h1 id="_4、字符串相关">4、字符串相关</h1>
+    <h2 id="_4、字符串相关">4、字符串相关</h2>
     <h3>String.trim()</h3>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;trim()方法返回一个两头都去掉空白的字符串，并不影响原字符串本身。应用场景为：搜索框中的字符串处理。
@@ -76,7 +76,7 @@
         var orig = 'foo    ';
         console.log(orig.trim()); // 'foo'</pre>
     </CodeBlock>
-    <h1 id="_5、路由相关">5、路由相关</h1>
+    <h2 id="_5、路由相关">5、路由相关</h2>
     <h3>开发路由的思路</h3>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;	&nbsp;当我们在处理路由时，对于相同路径的组件加载，大可不必罗列路由配置。可以使用<span class="bgc">import.meta.glob</span>。例如：

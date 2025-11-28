@@ -4,12 +4,12 @@
 
 <template>
   <div class="content-container">
-    <span class="title">对象、类与面向对象编程</span>
+    <h1 class="title">对象、类与面向对象编程</h1>
     <span class="sub-title">&nbsp;	&nbsp;	&nbsp;	ECMA-262 将对象定义为一组属性的无序集合。严格来说，这意味着对象就是一组没有特定顺序的
     值。对象的每个属性或方法都由一个名称来标识，这个名称映射到一个值。正因为如此（以及其他还未
     讨论的原因），可以把 ECMAScript 的对象想象成一张散列表，其中的内容就是一组名/值对，值可以是
     数据或者函数。</span>
-    <h1 id="_1、对象">1、对象</h1>
+    <h2 id="_1、对象">1、对象</h2>
     <span class="content">
       &nbsp;	&nbsp;	&nbsp;通过New Object()创建一个对象。<br>
       ECMAScript 提供了 Object.defineProperties()方法。这个方法可以通过多个描述符一次性定义多个属性。它接收两个参数：要为之添
@@ -82,7 +82,7 @@
       意味着在对象解构的上下文中，原始值会被当成对象。这也意味着（根据 ToObject()的定义），null
       和 undefined 不能被解构，否则会抛出错误。</span>
     </span>
-    <h1 id="_2、创建对象">2、创建对象</h1>
+    <h2 id="_2、创建对象">2、创建对象</h2>
     <h3>工厂模式</h3>
     <span class="content">
       &nbsp;	&nbsp;   &nbsp;   &nbsp;工厂模式是一种众所周知的设计模式，广泛应用于软件工程领域，用于抽象创建特定对象的过程。
@@ -209,7 +209,7 @@
         console.log(Object.entries((o)));
         // [["foo", "bar"], ["baz", 1], ["qux", {}]]</pre>
     </CodeBlock>
-    <h1 id="_3、继承">3、继承</h1>
+    <h2 id="_3、继承">3、继承</h2>
     <span class="content">
       &nbsp;	&nbsp;   &nbsp;   &nbsp;继承是面向对象编程中讨论最多的话题。很多面向对象语言都支持两种继承：接口继承和实现继承。实现继承是 ECMAScript 唯一支持的继承方式，而这主要是通过原型链实现的。
     </span>
@@ -254,7 +254,7 @@
     </CodeBlock>
     <span class="content"><span class="sub-important">盗用构造函数的主要缺点，也是使用构造函数模式自定义类型的问题：必须在构造函数中定义方法，因此函数不能重用。</span></span>
     <span class="content"><span class="sub-important">其他继承方式请阅读JavaScript高级程序设计(第4版)8.3</span></span>
-    <h1 id="_4、类">4、类</h1>
+    <h2 id="_4、类">4、类</h2>
     <span class="content">
       &nbsp;	&nbsp;   &nbsp;   &nbsp;类（class）是ECMAScript 中新的基础性语法糖结构。
     </span>

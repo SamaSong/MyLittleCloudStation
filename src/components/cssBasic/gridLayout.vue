@@ -4,7 +4,7 @@ import CodeBlock from '@/common/components/codeBlock.vue'
 
 <template>
   <div class="content-container">
-    <span class="title">网格布局</span>
+    <h1 class="title">网格布局</h1>
   </div>
 </template>
 
