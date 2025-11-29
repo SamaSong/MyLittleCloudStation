@@ -41,16 +41,18 @@
     }
   )
 
-  const clickFooter = (data) => {
-    router.push(data.path)
-    setTimeout(() => {
-      menuStore.menuRef.open(footerData.value.name)
-      menuStore.menuRef.open(data.name)
-      setTimeout(() => {
-        let element = document.getElementById(location.pathname)
-        element.click()
-      }, 0)
-    }, 50)
+  const clickFooter = async (data) => {
+    await router.push(data.path)
+    await nextTick()
+    menuStore.menuRef.open(footerData.value.name)
+    menuStore.menuRef.open(data.name)
+    let element = document.getElementById(location.pathname)
+    element.click()
+    const mainContainer = document.querySelector('.page-main')
+    mainContainer?.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 
   // 第二层级（含路由的分组）列表
