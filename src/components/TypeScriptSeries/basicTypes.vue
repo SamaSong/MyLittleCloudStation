@@ -174,18 +174,18 @@
             }
         </pre>
       </CodeBlock>
-      <span class="blue">
+      <div class="blue">
         <span style="font-weight: bolder">理解 void 与 undefined</span><br>
         &nbsp;	&nbsp; &nbsp;	&nbsp;void 是⼀个⼴泛的概念,⽤来表达"空",⽽ undefined 则是这种"空"的具体 实现。 <br>
         &nbsp;	&nbsp; &nbsp;	&nbsp;因此可以说 undefined 是 void 能接受的⼀种"空"的状态。 <br>
         &nbsp;	&nbsp; &nbsp;	&nbsp;也可以理解为: void 包含 undefined ,但 void 所表达的语义超越了 undefined , void 是⼀种意图上的约定,⽽不仅仅是特定值的限制。 <br>
-      </span>
-      <span class="attention">
+      </div>
+      <div class="attention">
         <span style="font-weight: bolder">总结</span><br>
         如果⼀个函数返回类型为 void ,那么:<br>
         &nbsp;	&nbsp; &nbsp;	&nbsp;1、从语法上讲:函数是可以返回 undefined 的,⾄于显式返回,还是隐式返回,这⽆ 所谓!<br>
         &nbsp;	&nbsp; &nbsp;	&nbsp;2、从语义上讲:函数调⽤者不应关⼼函数返回的值,也不应依赖返回值进⾏任何操作! 即使我们知道它返回了 undefined 。<br>
-      </span>
+      </div>
     </div>
   </div>
 </template>
