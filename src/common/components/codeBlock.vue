@@ -23,7 +23,7 @@
     position: relative;
     h6 {
       position: absolute;
-      top: 30px;
+      top: 10px;
       left: 10px;
       color: white;
     }

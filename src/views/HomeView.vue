@@ -5,6 +5,7 @@
   import { useMenuItemNameStore } from "@/stores/menuItemName.js";
   import asideConfig from '@/assets/asideConfig.js'
   import {computed, nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
+  import debounce from '@/common/tools/debounce.js'
 
   const router = useRouter()
   const menuStore = useMenuItemNameStore()
@@ -164,7 +165,21 @@
     }
   }
 
+  const findCustomAtrEle = (element) => {
+    if (!element) return null
+    if (element.getAttribute('data-custom')) return element
+    return findCustomAtrEle(element.parentElement)
+  }
+
+  const handleScroll = () => {
+    const element = document.elementFromPoint(840, 300)
+    const parentElement = findCustomAtrEle(element)
+    const name = parentElement.getAttribute('data-custom')
+    if (name) menuStore.menuItemName = name
+  }
+
   onMounted(() => {
+    document.querySelector('.page-main').addEventListener('scroll', debounce(handleScroll, 300))
     document.addEventListener('click', handleClickOutside)
     if (footerData.value) {
       menuStore.menuRef.open(footerData.value.name)
@@ -185,6 +200,7 @@
 
   onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
+    document.querySelector('.page-main').removeEventListener('scroll', handleScroll)
   })
 </script>
 
