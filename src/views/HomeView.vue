@@ -174,6 +174,7 @@
   const handleScroll = () => {
     const element = document.elementFromPoint(840, 300)
     const parentElement = findCustomAtrEle(element)
+    if (!parentElement) return
     const name = parentElement.getAttribute('data-custom')
     if (name) menuStore.menuItemName = name
   }
