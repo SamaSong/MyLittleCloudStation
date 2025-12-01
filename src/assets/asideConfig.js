@@ -169,6 +169,12 @@ let asideConfig = [
           },
           {
             name: '⼀个特殊情况'
+          },
+          {
+            name: '抽象类'
+          },
+          {
+            name: 'interface(接⼝)'
           }
         ]
       }

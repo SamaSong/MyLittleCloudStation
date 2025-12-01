@@ -559,6 +559,197 @@
       </CodeBlock>
       <div class="blue">官⽅⽂档的说明: <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#assignability-of-functions" target="_blank">Assignability of Functions</a> </div>
     </div>
+    <div data-custom="抽象类">
+      <h2 id="_抽象类">抽象类</h2>
+      <ul>
+        <li><b>概述</b>:抽象类是⼀种⽆法被实例化的类,专⻔⽤来定义类的结构和⾏为,类中可以写抽象 ⽅法,也可以写具体实现。抽象类主要⽤来为其派⽣类提供⼀个基础结构,要求其派⽣类  必须实现其中的抽象⽅法。</li>
+        <li><b>简记</b>:抽象类<span class="bgc">不能实例化</span>,其意义是<span class="bgc">可以被继承</span>,抽象类⾥可以有<span class="bgc">普通⽅法</span>、也可以有<span class="bgc">抽象⽅法</span>。 </li>
+      </ul>
+      <span class="content" style="font-weight: bolder">通过以下场景,理解抽象类:</span>
+      <span class="content">我们定义⼀个抽象类 Package ,表示所有包裹的基本结构,任何包裹都有重量属性 weigh t ,包裹都需要计算运费。但不同类型的包裹(如:标准速度、特快专递)都有不同的运费计算 ⽅式,因此⽤于计算运费的 calculate ⽅法是⼀个抽象⽅法,必须由具体的⼦类来实现。</span>
+      <span class="content">Package 类 TypeScript</span>
+      <CodeBlock language="ts">
+        <pre>abstract class Package {
+          constructor(public weight: number){}
+          // 抽象⽅法:⽤来计算运费,不同类型包裹有不同的计算⽅式
+          abstract calculate(): number // 通⽤⽅法:打印包裹详情
+          printPackage() {
+          console.log(`包裹重量为: ${this.weight}kg,运费为: ${this.calculate()}元`);
+          }
+        }</pre>
+      </CodeBlock>
+      <span class="content">StandardPackage 类继承了 Package ,实现了 calculate ⽅法:</span>
+      <CodeBlock language="ts">
+        <pre>// 标准包裹
+        class StandardPackage extends Package {
+          constructor( weight: number,
+          public unitPrice: number // 每公⽄的固定费率
+          ) { super(weight) }
+
+          // 实现抽象⽅法:计算运费
+          calculate(): number {
+            return this.weight * this.unitPrice;
+          }
+        }
+
+        // 创建标准包裹实例
+        const s1 = new StandardPackage(10,5)
+        s1.printPackage()</pre>
+      </CodeBlock>
+      <span class="content">
+        ExpressPackage 类继承了 Package ,实现了 calculate ⽅法:ExpressPackage 类(特快包裹)
+      </span>
+      <CodeBlock language="ts">
+        <pre>class ExpressPackage extends Package {
+          constructor(
+            private weight: number, // 每公⽄的固定费率(快速包裹更⾼)
+            private unitPrice: number,  private additional: number // 超出10kg以后的附加费
+          ){ super(weight) }
+
+           // 实现抽象⽅法:计算运费
+           calculate(): number {
+             if(this.weight > 10){
+             // 超出10kg的部分,每公⽄多收additional对应的价格
+             return 10 * this.unitPrice + (this.weight - 10) * this.additional
+             }else {
+             return this.weight * this.unitPrice;
+             }
+           }
+        }
+        // 创建特快包裹实例
+        const e1 = new ExpressPackage(13,8,2)
+        e1.printPackage()</pre>
+      </CodeBlock>
+      <div class="blue">
+        <span style="font-weight: bolder">总结:何时使⽤抽象类?</span>
+        <ul>
+          <li>定义通用接口 :为⼀组相关的类定义通⽤的⾏为(⽅法或属性)时。</li>
+          <li>提供基础实现：在抽象类中提供某些⽅法或为其提供基础实现,这样派⽣类就可以继承这 些实现。</li>
+          <li>确保关键实现：强制派⽣类实现⼀些关键⾏为。</li>
+          <li>共享代码和逻辑:当多个类需要共享部分代码时,抽象类可以避免代码重复。</li>
+        </ul>
+      </div>
+    </div>
+    <div data-custom="interface(接⼝)">
+      <h2 id="_interface(接⼝)">interface(接⼝)</h2>
+      <span class="content">interface 是⼀种`定义结构`的⽅式,主要作⽤是为:类、对象、函数等规定`⼀种契约`,这样 可以确保代码的⼀致性和类型安全,但要注意 interface `只能`定义`格式`,`不能`包含`任何实现` !</span>
+      <h3>定义类结构</h3>
+      <CodeBlock language="ts">
+        <pre>// PersonInterface接口，用与限制Person类的格式
+        interface PersonInterface {
+            name: string;
+            age: number;
+            speak(n: number): void;
+        }
+
+        // 定义一个类Person，实现 PersonInterface 接口
+        class Person implements PersonInterface {
+            constructor(
+                public name: string,
+                public age: number
+            ) { }
+
+            // 实现接口中的 speak 方法
+            speak(n: number): void {
+                for (let i = 0; i < n; i++) {
+                    // 打印出包含名字和年龄的问候语句
+                    console.log(`你好，我叫${this.name}，我的年龄是${this.age}`);
+                }
+            }
+        }
+
+        // 创建一个 Person 类的实例 p1，传入名字 'tom' 和年龄 18
+        const p1 = new Person('tom', 18);
+        p1.speak(3);</pre>
+      </CodeBlock>
+      <h3>定义对象结构</h3>
+      <CodeBlock language="ts">
+        <pre>interface UserInterface {
+            name: string;
+            readonly gender: string; // 只读属性
+            age?: number; // 可选属性
+            run: (n: number) => void;
+        }
+
+        const user: UserInterface = {
+            name: "张三",
+            gender: '男',
+            age: 18,
+            run(n) {
+                console.log(`奔跑了${n}米`);
+            }
+        };</pre>
+      </CodeBlock>
+      <h3>定义函数结构</h3>
+      <CodeBlock language="ts">
+        <pre>// 定义函数结构
+        interface CountInterface {
+            (a: number, b: number): number;
+        }
+
+        const count: CountInterface = (x, y) => {
+            return x + y;
+        }</pre>
+      </CodeBlock>
+      <h3>接口之间的继承</h3>
+      <span class="content">一个 interface 继承另一个 interface，从而实现代码的复用</span>
+      <CodeBlock language="ts">
+        <pre>interface PersonInterface {
+            name: string; // 姓名
+            age: number; // 年龄
+        }
+
+        interface StudentInterface extends PersonInterface {
+            grade: string; // 年级
+        }
+
+        const stu: StudentInterface = {
+            name: "张三",
+            age: 25,
+            grade: '高三'
+        }</pre>
+      </CodeBlock>
+      <h3>接口自动合井（可重复定义）</h3>
+      <CodeBlock language="ts">
+        <pre>// PersonInterface接口
+        interface PersonInterface {
+          // 属性声明
+          name: string;
+          age: number;
+        }
+
+        // 给PersonInterface接口添加新属性
+        interface PersonInterface {
+          // 方法声明
+          speak(): void;
+        }
+
+        // Person类实现PersonInterface
+        class Person implements PersonInterface {
+          name: string;
+          age: number;
+
+          // 构造器
+          constructor(name: string, age: number) {
+            this.name = name;
+            this.age = age;
+          }
+
+          // 方法
+          speak() {
+            console.log('你好!我是老师:', this.name);
+          }
+        }</pre>
+      </CodeBlock>
+      <div class="blue">
+        <span style="font-weight: bolder">总结:何时使⽤接⼝?</span>
+        <ul>
+          <li>定义对象的格式: 描述数据模型、API 响应格式、配置对象........等等,是开发中⽤的最多 的场景。</li>
+          <li>类的契约:规定⼀个类需要实现哪些属性和⽅法。</li>
+          <li>扩展已有接⼝:⼀般⽤于扩展第三⽅库的类型, 这种特性在⼤型项⽬中可能会⽤到。</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
