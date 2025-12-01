@@ -142,7 +142,7 @@ let asideConfig = [
         ]
       },
       {
-        name: 'TypeScript-基础类型',
+        name: 'TypeScript-常用类型',
         path: '/basicTypes',
         component: 'components/TypeScriptSeries/basicTypes.vue',
         children: [
@@ -154,6 +154,21 @@ let asideConfig = [
           },
           {
             name: 'void'
+          },
+          {
+            name: 'object'
+          },
+          {
+            name: 'tuple'
+          },
+          {
+            name: 'enum'
+          },
+          {
+            name: 'type'
+          },
+          {
+            name: '⼀个特殊情况'
           }
         ]
       }
