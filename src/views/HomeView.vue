@@ -143,10 +143,10 @@
     if (menuStore.menuRef) {
       menuStore.menuRef.open(item.section)
       menuStore.menuRef.open(item.group)
-      setTimeout(() => {
+      await new Promise(() => {
         let element = document.getElementById(item.path)
         element.click()
-      }, 0)
+      })
     }
     if (router.currentRoute.value.path !== item.path) {
       await router.push(item.path)
@@ -183,7 +183,7 @@
     if (name) menuStore.menuItemName = name
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     document.querySelector('.page-main').addEventListener('scroll', scrollEvent)
     document.addEventListener('click', handleClickOutside)
     if (footerData.value) {
@@ -196,10 +196,10 @@
         }
       }).filter(ele => ele && ele.trim())[0]
       menuStore.menuRef.open(name)
-      setTimeout(() => {
+      await new Promise(() => {
         let element = document.getElementById(location.pathname)
         element.click()
-      }, 0)
+      })
     }
   })
 
