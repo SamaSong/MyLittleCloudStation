@@ -9,10 +9,8 @@ import App from './App.vue'
 import router from './router'
 
 // 导入 vue-highlight-js 和 highlight.js 的样式
-import VueHighlightJS from 'vue-highlightjs'
 import 'highlight.js/styles/atom-one-dark.css'
 import hljs from 'highlight.js/lib/core';
-import hljsVuePlugin from "@highlightjs/vue-plugin";
 import 'highlight.js/lib/common';
 
 const app = createApp(App)
@@ -28,8 +26,6 @@ app.directive('highlight', function (el) {
 
 app.use(createPinia())
 app.use(ElementPlus)
-app.use(VueHighlightJS)
-app.use(hljsVuePlugin)
 app.use(router)
 
 app.mount('#app')

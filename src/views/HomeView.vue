@@ -17,6 +17,8 @@
     // 有输入内容且处于激活态才需要展示下拉面板
     return isSearchActive.value && !!searchKeyword.value.trim()
   })
+  // 注册滚动事件
+  const scrollEvent = debounce(handleScroll, 300)
 
   const jumpTo = (path) => {
     router.push(path)
@@ -173,7 +175,7 @@
     return findCustomAtrEle(element.parentElement)
   }
 
-  const handleScroll = () => {
+  function handleScroll() {
     const element = document.elementFromPoint(840, 300)
     const parentElement = findCustomAtrEle(element)
     if (!parentElement) return
@@ -182,7 +184,7 @@
   }
 
   onMounted(() => {
-    document.querySelector('.page-main').addEventListener('scroll', debounce(handleScroll, 300))
+    document.querySelector('.page-main').addEventListener('scroll', scrollEvent)
     document.addEventListener('click', handleClickOutside)
     if (footerData.value) {
       menuStore.menuRef.open(footerData.value.name)
@@ -203,7 +205,7 @@
 
   onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
-    document.querySelector('.page-main').removeEventListener('scroll', handleScroll)
+    document.querySelector('.page-main').removeEventListener('scroll', scrollEvent)
   })
 </script>
 
