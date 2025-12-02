@@ -165,10 +165,20 @@ let asideConfig = [
             name: 'enum'
           },
           {
-            name: 'type'
+            name: '⼀个特殊情况'
+          },
+        ]
+      },
+      {
+        name: 'TypeScript-高级类型',
+        path: '/advancedTypes',
+        component: 'components/TypeScriptSeries/advancedTypes.vue',
+        children: [
+          {
+            name: '泛型'
           },
           {
-            name: '⼀个特殊情况'
+            name: 'type'
           },
           {
             name: '抽象类'
