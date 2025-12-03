@@ -192,6 +192,41 @@ let asideConfig = [
         ]
       }
     ]
+  },
+  {
+    name: 'WebAPI',
+    children: [
+      {
+        name: '基本API',
+        path: '/basicApi',
+        component: 'components/webAPI/basicApi.vue',
+        children: [
+          {
+            name: ''
+          }
+        ]
+      },
+      {
+        name: '网络请求API',
+        path: '/requestsApi',
+        component: 'components/webAPI/requestsApi.vue',
+        children: [
+          {
+            name: ''
+          }
+        ]
+      },
+      {
+        name: '服务器通信API',
+        path: '/serverCommunicationApi',
+        component: 'components/webAPI/serverCommunicationApi.vue',
+        children: [
+          {
+            name: ''
+          }
+        ]
+      }
+    ]
   }
 ]
 
