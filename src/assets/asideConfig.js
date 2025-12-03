@@ -202,7 +202,16 @@ let asideConfig = [
         component: 'components/webAPI/basicApi.vue',
         children: [
           {
-            name: ''
+            name: 'ArrayBuffer，二进制数组'
+          },
+          {
+            name: 'TextDecoder和TextEncoder'
+          },
+          {
+            name: 'Blob'
+          },
+          {
+            name: 'File和FileReader'
           }
         ]
       },
@@ -212,7 +221,16 @@ let asideConfig = [
         component: 'components/webAPI/requestsApi.vue',
         children: [
           {
-            name: ''
+            name: 'Fetch'
+          },
+          {
+            name: 'FormData'
+          },
+          {
+            name: 'Fetch：下载进度'
+          },
+          {
+            name: 'Fetch：中止（Abort）'
           }
         ]
       },

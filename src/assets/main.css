@@ -65,7 +65,7 @@ h3 {
   flex-direction: column;
 }
 .content {
-  padding: 20px 0;
+  padding: 10px 0;
   font-size: 16px;
   line-height: 30px;
 }
@@ -95,4 +95,7 @@ h3 {
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
+}
+.b {
+  font-weight: bolder;
 }
