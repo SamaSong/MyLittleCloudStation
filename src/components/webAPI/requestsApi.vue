@@ -212,6 +212,88 @@ import CodeBlock from "@/common/components/codeBlock.vue";
         </pre>
       </CodeBlock>
     </div>
+    <div data-custom="Fetch API">
+      <h2 id="Fetch API">Fetch API</h2>
+      <span class="content">fetch 的剩余 API</span>
+      <CodeBlock>
+        <pre>let promise = fetch(url, {
+        method: "GET", // POST，PUT，DELETE，等。
+        headers: {
+          // 内容类型 header 值通常是自动设置的
+          // 取决于 request body
+          "Content-Type": "text/plain;charset=UTF-8"
+        },
+        body: undefined // string，FormData，Blob，BufferSource，或 URLSearchParams
+        referrer: "about:client", // 或 "" 以不发送 Referer header，
+        // 或者是当前源的 url
+        referrerPolicy: "no-referrer-when-downgrade", // no-referrer，origin，same-origin...
+        mode: "cors", // same-origin，no-cors
+        credentials: "same-origin", // omit，include
+        cache: "default", // no-store，reload，no-cache，force-cache，或 only-if-cached
+        redirect: "follow", // manual，error
+        integrity: "", // 一个 hash，像 "sha256-abcdef1234567890"
+        keepalive: false, // true
+        signal: undefined, // AbortController 来中止请求
+        window: window // null
+      });</pre>
+      </CodeBlock>
+      <h3>keepalive</h3>
+      <span class="content">keepalive 选项表示该请求可能会在网页关闭后继续存在。</span>
+      <span class="content">例如，我们收集有关当前访问者是如何使用我们的页面（鼠标点击，他查看的页面片段）的统计信息，以分析和改善用户体验。当访问者离开我们的网页时 —— 我们希望能够将数据保存到我们的服务器上。我们可以使用 window.onunload 事件来实现：</span>
+      <CodeBlock>
+        <pre>window.onunload = function() {
+          fetch('/analytics', {
+            method: 'POST',
+            body: "statistics",
+            keepalive: true
+          });
+        };</pre>
+      </CodeBlock>
+      <span class="content">通常，当一个文档被卸载时（unloaded），所有相关的网络请求都会被中止。但是，keepalive 选项告诉浏览器，即使在离开页面后，也要在后台执行请求。所以，此选项对于我们的请求成功至关重要。</span>
+      <ul>
+        它有一些限制：
+        <li>
+          我们无法发送兆字节的数据：keepalive 请求的 body 限制为 64KB。
+          <ul>
+            <li>如果我们需要收集有关访问的大量统计信息，我们则应该将其定期以数据包的形式发送出去，这样就不会留下太多数据给最后的 onunload 请求了。</li>
+            <li>此限制是被应用于当前所有 keepalive 请求的总和的。换句话说，我们可以并行执行多个 keepalive 请求，但它们的 body 长度之和不得超过 64KB。</li>
+          </ul>
+        </li>
+        <li>
+          如果文档（document）已卸载（unloaded），我们就无法处理服务器响应。因此，在我们的示例中，因为 keepalive，所以 fetch 会成功，但是后续的函数将无法正常工作。
+          <ul>
+            <li>在大多数情况下，例如发送统计信息，这不是问题，因为服务器只接收数据，并通常向此类请求发送空的响应。</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div data-custom="URL 对象">
+      <h2 id="_URL 对象">URL 对象</h2>
+      <span class="content">内建的 URL 类提供了用于创建和解析 URL 的便捷接口。</span>
+      <h3>创建 URL 对象</h3>
+      <CodeBlock>
+        <pre>new URL(url, [base])</pre>
+      </CodeBlock>
+      <ul>
+        <li><span class="b">url</span> —— 完整的 URL，或者仅路径（如果设置了 base）</li>
+        <li><span class="b">base</span> —— 可选的 base URL：如果设置了此参数，且参数 url 只有路径，则会根据这个 base 生成 URL</li>
+      </ul>
+      <span class="content">URL 对象立即允许我们访问其组件，因此这是一个解析 url 的好方法，例如：</span>
+      <CodeBlock>
+        <pre>let url = new URL('https://javascript.info/url');
+
+        alert(url.protocol); // https:
+        alert(url.host);     // javascript.info
+        alert(url.pathname); // /url</pre>
+      </CodeBlock>
+      <ul>
+        这是 URL 组件的备忘单：
+        <li>href 是完整的 URL，与 url.toString() 相同</li>
+        <li>protocol 以冒号字符 : 结尾</li>
+        <li>search —— 以问号 ? 开头的一串参数</li>
+        <li>hash 以哈希字符 # 开头</li>
+      </ul>
+    </div>
   </div>
 </template>
 

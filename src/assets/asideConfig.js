@@ -231,6 +231,12 @@ let asideConfig = [
           },
           {
             name: 'Fetch：中止（Abort）'
+          },
+          {
+            name: 'Fetch API'
+          },
+          {
+            name: 'URL 对象'
           }
         ]
       },
