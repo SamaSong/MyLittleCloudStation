@@ -1,9 +1,11 @@
 <script setup>
-
+import IndexHome from "@/views/indexHome.jsx";
 </script>
 
 <template>
-  111
+  <div class="content-container">
+    <IndexHome />
+  </div>
 </template>
 
 <style scoped lang="scss">
