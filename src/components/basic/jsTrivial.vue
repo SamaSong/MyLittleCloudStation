@@ -1,7 +1,7 @@
 <script setup>
   import CodeBlock from "@/common/components/codeBlock.vue";
   import AnchorComponents from "@/components/anchorComponents.jsx";
-  import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT } from './static.js'
+  import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
 </script>
 
 <template>
@@ -197,6 +197,12 @@
         // 转换为对象
         const params = Object.fromEntries(urlParams.entries());</pre>
       </CodeBlock>
+    </div>
+    <div data-custom="6、其他">
+      <h2 id="_6、其他">6、其他</h2>
+      <AnchorComponents :data="OTHERS_ANCHOR_POINT" />
+      <h3 id="others_1">待续</h3>
+      <span class="content"></span>
     </div>
   </div>
 </template>

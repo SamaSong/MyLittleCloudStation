@@ -22,3 +22,7 @@ export const ROUTE__ANCHOR_POINT = [
   ['route_1', '开发路由的思路'],
   ['route_2', '如何优雅的获取路由参数']
 ]
+
+export const OTHERS_ANCHOR_POINT = [
+  ['others_1', '待续'],
+]

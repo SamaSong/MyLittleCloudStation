@@ -81,6 +81,9 @@ let asideConfig = [
           },
           {
             name: '5、路由相关'
+          },
+          {
+            name: '6、其他'
           }
         ]
       }
