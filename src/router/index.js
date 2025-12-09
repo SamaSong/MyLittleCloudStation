@@ -62,7 +62,7 @@ const router = createRouter({
     {
       path: '/home',
       name: 'Home',
-      component: lazyLoad('views/index.vue'),
+      component: lazyLoad('views/HomeView.vue'),
       meta: {
         title: '首页',
       },
