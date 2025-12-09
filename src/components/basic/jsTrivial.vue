@@ -1,6 +1,6 @@
 <script setup>
   import CodeBlock from "@/common/components/codeBlock.vue";
-  import AnchorComponents from "@/components/anchorComponents.jsx";
+  import AnchorComponents from "@/common/components/anchorComponents.jsx";
   import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
 </script>
 

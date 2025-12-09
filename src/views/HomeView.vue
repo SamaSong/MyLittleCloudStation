@@ -1,9 +1,9 @@
 <script setup>
-  import Aside from "@/components/aside.vue";
+  import Aside from "@/views/aside.vue";
   import { RouterView, useRouter } from 'vue-router'
   import { Share, Search } from '@element-plus/icons-vue'
   import { useMenuItemNameStore } from "@/stores/menuItemName.js";
-  import asideConfig from '@/assets/asideConfig.js'
+  import asideConfig from '@/common/config/asideConfig.js'
   import {computed, nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
   import debounce from '@/common/tools/debounce.js'
 

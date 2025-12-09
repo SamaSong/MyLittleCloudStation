@@ -1,5 +1,5 @@
 <script setup>
-  import asideConfig from '@/assets/asideConfig.js'
+  import asideConfig from '@/common/config/asideConfig.js'
   import {ref, defineEmits, onMounted} from "vue";
   import { useMenuItemNameStore } from "@/stores/menuItemName.js";
 

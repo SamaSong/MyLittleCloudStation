@@ -1,5 +1,5 @@
 <script setup>
-  import AnchorComponents from "@/components/anchorComponents.jsx";
+  import AnchorComponents from "@/common/components/anchorComponents.jsx";
   import { CSS_ANCHOR_POINT } from './static.js'
 </script>
 

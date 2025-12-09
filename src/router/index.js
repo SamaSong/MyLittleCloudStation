@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import asideConfig from '@/assets/asideConfig.js'
+import asideConfig from '@/common/config/asideConfig.js'
 
 const moduleMap = {
   ...import.meta.glob('../views/**/*.vue'),
