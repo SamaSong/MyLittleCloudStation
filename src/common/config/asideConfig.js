@@ -1,11 +1,26 @@
 let asideConfig = [
   {
+    name: 'VUE3',
+    children: [
+      {
+        name: 'VUE3琐碎知识🧀',
+        path: '/Vue3',
+        component: 'components/Vue3/Vue3Trivial.vue',
+        children: [
+          {
+            name: '如何二次封装组件（终极版）',
+          }
+        ]
+      }
+    ]
+  },
+  {
     name: 'JS基础',
     children: [
       {
         name: 'BOM、DOM',
         path: '/bom-dom',
-        component: 'components/basic/bom-dom.vue',
+        component: 'components/jsBasic/bom-dom.vue',
         children: [
           {
             name: '1、window'
@@ -24,7 +39,7 @@ let asideConfig = [
       {
         name: '事件',
         path: '/event',
-        component: 'components/basic/event.vue',
+        component: 'components/jsBasic/event.vue',
         children: [
           {
             name: '1、事件流'
@@ -46,7 +61,7 @@ let asideConfig = [
       {
         name: '对象、类与面向对象编程',
         path: '/object',
-        component: 'components/basic/object.vue',
+        component: 'components/jsBasic/object.vue',
         children: [
           {
             name: '1、对象'
@@ -65,7 +80,7 @@ let asideConfig = [
       {
         name: 'JS琐碎知识🧀',
         path: '/jsTrivial',
-        component: 'components/basic/jsTrivial.vue',
+        component: 'components/jsBasic/jsTrivial.vue',
         children: [
           {
             name: '1、JS相关'
