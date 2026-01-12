@@ -1,7 +1,8 @@
 export const JS_ANCHOR_POINT = [
   ['js_1','展开运算符'],
   ['js_2', '原始类型 VS 包装对象'],
-  ['js_3', '关于window.addEventListener']
+  ['js_3', '关于window.addEventListener'],
+  ['js_4', '数组的结构赋值']
 ]
 
 export const OBJ_ANCHOR_POINT = [
@@ -20,7 +21,8 @@ export const STRING_ANCHOR_POINT = [
 
 export const ROUTE__ANCHOR_POINT = [
   ['route_1', '开发路由的思路'],
-  ['route_2', '如何优雅的获取路由参数']
+  ['route_2', '如何优雅的获取路由参数'],
+  ['route_3', '跳转路由时使用接口白名单']
 ]
 
 export const OTHERS_ANCHOR_POINT = [

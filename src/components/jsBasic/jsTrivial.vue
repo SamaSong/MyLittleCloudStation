@@ -57,6 +57,15 @@
         <li><span class="bgc">true</span>：捕获阶段处理</li>
         <li>或一个对象：<span class="bgc">{ capture: true, once: true, passive: true }</span></li>
       </ul>
+      <h3 id="js_4">数组的结构赋值</h3>
+      <span class="content">
+        善用数组的结构赋值，比如在Object.keys、Object.values后，当确定数组的元素数时
+      </span>
+      <CodeBlock>
+        <pre>const [key] = Object.keys(arr)
+          const [vlaue] = Object.values(arr)
+        </pre>
+      </CodeBlock>
     </div>
     <div data-custom="2、对象相关">
       <h2 id="_2、对象相关">2、对象相关</h2>
@@ -196,6 +205,26 @@
 
         // 转换为对象
         const params = Object.fromEntries(urlParams.entries());</pre>
+      </CodeBlock>
+      <h3 id="route_3">跳转路由时使用接口白名单</h3>
+      <span class="content">
+        当需要一个路由地址下的页面无需登录也可以访问时，除了使用路由白名单，也需要使用接口白名单，因为一般接口如果没有携带token的话会被重定向到login页
+      </span>
+      <CodeBlock>
+        <pre>// 接口白名单：无需 token 也允许访问
+          const requestWhiteList = [
+            "/****",
+          ];
+
+          const isWhiteRequest = requestWhiteList.some((url) => config.url.indexOf(url) > -1);
+
+          if (token) {
+            config.headers.Authorization = token;
+          } else if (!isWhiteRequest) {
+            // 白名单以外的接口仍然需要登录态
+            ****
+          }
+        </pre>
       </CodeBlock>
     </div>
     <div data-custom="6、其他">
