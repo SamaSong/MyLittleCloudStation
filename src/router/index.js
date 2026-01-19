@@ -67,6 +67,14 @@ const router = createRouter({
         title: '首页',
       },
     },
+    {
+      path: '/WebGL',
+      name: 'WebGL',
+      component: lazyLoad('views/WebGL.vue'),
+      meta: {
+        title: 'WebGL',
+      },
+    },
     ...buildContentRoutes(),
   ],
 })
