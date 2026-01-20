@@ -1,11 +1,6 @@
 <template>
   <div class="content-container">
     <IndexHome class="tt"/>
-    <MyInput ref="InputRef" v-model="modelValue"></MyInput>
-    <MyInputX aaa="hello">
-      <template #append>111</template>
-    </MyInputX>
-<!--    <div class="box"></div>-->
   </div>
 </template>
 

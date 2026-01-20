@@ -1,6 +1,7 @@
 import { defineComponent, ref, h, computed } from "vue";
 import { HOME_PROPS } from "@/views/static.js";
 
+// 写法一
 export default defineComponent({
   name: "IndexHome",
   props: {
@@ -20,3 +21,26 @@ export default defineComponent({
     )
   }
 })
+
+// 写法二
+// export default defineComponent(
+//   (props, ctx) => {
+//     const renderContent = () => {
+//       return (
+//         <h1>{ props.title }</h1>
+//       )
+//     }
+//
+//     return () => (
+//       <div>
+//         { renderContent() }
+//       </div>
+//     )
+//   },
+//   {
+//     inheritAttrs: false,
+//     props: {
+//       ...HOME_PROPS
+//     }
+//   }
+// )

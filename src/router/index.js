@@ -75,6 +75,14 @@ const router = createRouter({
         title: 'WebGL',
       },
     },
+    {
+      path: '/test',
+      name: 'forTest',
+      component: lazyLoad('components/forTest/index.vue'),
+      meta: {
+        title: 'forTest',
+      },
+    },
     ...buildContentRoutes(),
   ],
 })
