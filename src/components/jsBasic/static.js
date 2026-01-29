@@ -2,7 +2,8 @@ export const JS_ANCHOR_POINT = [
   ['js_1','展开运算符'],
   ['js_2', '原始类型 VS 包装对象'],
   ['js_3', '关于window.addEventListener'],
-  ['js_4', '数组的结构赋值']
+  ['js_4', '数组的解构赋值'],
+  ['js_5', 'while循环配合RegExp.exec()实现多次循环']
 ]
 
 export const OBJ_ANCHOR_POINT = [
@@ -26,5 +27,5 @@ export const ROUTE__ANCHOR_POINT = [
 ]
 
 export const OTHERS_ANCHOR_POINT = [
-  ['others_1', '待续'],
+  ['others_1', '正则匹配全字符内容的差异'],
 ]

@@ -57,7 +57,7 @@
         <li><span class="bgc">true</span>：捕获阶段处理</li>
         <li>或一个对象：<span class="bgc">{ capture: true, once: true, passive: true }</span></li>
       </ul>
-      <h3 id="js_4">数组的结构赋值</h3>
+      <h3 id="js_4">数组的解构赋值</h3>
       <span class="content">
         善用数组的结构赋值，比如在Object.keys、Object.values后，当确定数组的元素数时
       </span>
@@ -65,6 +65,46 @@
         <pre>const [key] = Object.keys(arr)
           const [vlaue] = Object.values(arr)
         </pre>
+      </CodeBlock>
+      <h3 id="js_5">while循环配合RegExp.exec()实现多次循环</h3>
+      <span class="content">RegExp.exec() 方法在一个指定字符串中执行一个搜索匹配。返回一个结果数组或 null。</span>
+      <span class="content">RegExp.exec()在全局模式（g标志） 或粘性模式（y标志）下，每次调用都会更新正则表达式的lastIndex属性，从而能够遍历字符串中的所有匹配项。</span>
+      <CodeBlock>
+        <pre>// 示例代码
+        const regex = /\d+/g;  // 匹配一个或多个数字
+        const str = "abc123def456ghi789";
+
+        console.log("初始状态: regex.lastIndex =", regex.lastIndex); // 0
+
+        let match;
+        let iteration = 1;
+
+        while ((match = regex.exec(str)) !== null) {
+            console.log(`\n第 ${iteration} 次迭代:`);
+            console.log(`匹配结果: ${match[0]}`);
+            console.log(`匹配位置: ${match.index}`);
+            console.log(`匹配后 lastIndex: ${regex.lastIndex}`);
+            iteration++;
+        }
+
+        console.log("\n循环结束，所有匹配已找到");</pre>
+      </CodeBlock>
+      <h4 style="font-weight: 600;">与String.matchAll()的对比</h4>
+      <span class="content">ES2020引入了String.matchAll()，它返回一个迭代器，可以更安全地遍历所有匹配：</span>
+      <CodeBlock>
+        <pre>const regex = /\d+/g;
+        const str = "abc123def456";
+
+        // 使用matchAll() - 更现代的方法
+        for (const match of str.matchAll(regex)) {
+            console.log(match[0]);
+        }
+
+        // 对比传统的exec()循环
+        let match;
+        while ((match = regex.exec(str)) !== null) {
+            console.log(match[0]);
+        }</pre>
       </CodeBlock>
     </div>
     <div data-custom="2、对象相关">
@@ -230,8 +270,39 @@
     <div data-custom="6、其他">
       <h2 id="_6、其他">6、其他</h2>
       <AnchorComponents :data="OTHERS_ANCHOR_POINT" />
-      <h3 id="others_1">待续</h3>
-      <span class="content"></span>
+      <h3 id="others_1">正则匹配全字符内容的差异</h3>
+      <span class="content">
+        <span class="bgc" style="margin-right: 5px;">.*?</span>和<span class="bgc" style="margin-left: 5px;">([\s\S]*?)</span>
+      </span>
+      <ul style="font-size: 16px; font-weight: 700;">
+        第一个正则
+        <li>使用 <span class="bgc" style="font-weight: 600;"> .</span>（点号） 匹配任意字符</li>
+        <li><span class="bgc" style="font-weight: 600;"> .</span>默认不匹配换行符（ <span class="bgc" style="font-weight: 600;">\n, \r</span> 等）</li>
+        <li>只能匹配单行内容</li>
+      </ul>
+      <ul style="font-size: 16px; font-weight: 700;">
+        第二个正则
+        <li>使用<span class="bgc" style="font-weight: 600;">[\s\S]</span>匹配所有字符</li>
+        <li><span class="bgc" style="font-weight: 600;">\s</span> 匹配空白字符（空格、制表符、换行符等）</li>
+        <li><span class="bgc" style="font-weight: 600;">\S</span> 匹配非空白字符</li>
+        <li>组合起来 <span class="bgc" style="font-weight: 600;">[\s\S]</span> 可以匹配包括换行符在内的所有字符</li>
+        <li>可以匹配多行内容</li>
+      </ul>
+      <div class="attention">括号 () 还创建了一个捕获组，可以提取匹配的内容。</div>
+      <CodeBlock>
+        <pre>str.replace(RegExp, (_, match) => {})
+          // _ : 带有匹配符合的内容
+          // match : 纯内容，没有匹配符号
+
+          //例如
+          let str = '#{答案}#'
+          const Reg = /\#{([\s\S]*?)}\#/gi;
+          str.replace(Reg, (_, match) => {
+            console.log('_ ==> ', _) // #{答案}#
+            console.log('match ==> ', match) // 答案
+          })
+        </pre>
+      </CodeBlock>
     </div>
   </div>
 </template>
