@@ -27,7 +27,6 @@ const template = {
   }]
 };
 const data = Mock.mock(template);
-console.log('data ==> ', data)
 
 onMounted(async () => {
   await nextTick()

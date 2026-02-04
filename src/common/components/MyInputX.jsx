@@ -1,6 +1,15 @@
 import { defineComponent, getCurrentInstance } from "vue";
 import { ElInput } from "element-plus";
 
+// 样式表
+const styleMap = {
+  divStyle: {
+    width: `100%`,
+    color: 'red',
+    fontSize: '16px',
+  }
+}
+
 export default defineComponent(
   (props, ctx) => {
     const vm = getCurrentInstance()
@@ -14,6 +23,9 @@ export default defineComponent(
         }
       }
     }
+
+    // 样式
+    const style = { ...styleMap }
 
     // ElInput 支持插槽渲染方法
     const slotsRender = () => {
@@ -36,6 +48,9 @@ export default defineComponent(
             </div>
           ) : (<div>footer插槽位置</div>)
         }
+        <div style={style.divStyle}>
+          div
+        </div>
       </div>
     )
   },
