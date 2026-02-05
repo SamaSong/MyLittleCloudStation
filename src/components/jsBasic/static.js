@@ -28,4 +28,5 @@ export const ROUTE__ANCHOR_POINT = [
 
 export const OTHERS_ANCHOR_POINT = [
   ['others_1', '正则匹配全字符内容的差异'],
+  ['others_2', '跨页签通讯'],
 ]

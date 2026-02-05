@@ -212,7 +212,8 @@
       </span>
       <CodeBlock>
         <pre>import.meta.glob('../components/**/*.vue')
-          // 会让 Vite 在构建阶段扫描 src/components/** 目录下的所有 .vue 文件，为每个文件生成一个按需导入的函数。返回结果是一个以文件相对路径为键、以懒加载函数为值的对象。
+        // import.meta.glob() 默认返回懒加载函数，每个匹配的文件对应一个 () => import('./xxx.vue') 形式的动态导入函数。
+        // 会让 Vite 在构建阶段扫描 src/components/** 目录下的所有 .vue 文件，为每个文件生成一个按需导入的函数。返回结果是一个以文件相对路径为键、以懒加载函数为值的对象。
         </pre>
       </CodeBlock>
       <span class="content">
@@ -220,9 +221,18 @@
       </span>
       <CodeBlock>
         <pre>const moduleMap = {
-            ...import.meta.glob('../views/**/*.vue'),
-            ...import.meta.glob('../components/**/*.vue'),
-          }</pre>
+          ...import.meta.glob('../views/**/*.vue'),
+          ...import.meta.glob('../components/**/*.vue')
+        }
+        const lazyLoad = (relativePath) => {
+          const loader = moduleMap[toGlobPath(relativePath)]
+          if (!loader) {
+            throw new Error(`[router] 未找到对应的组件文件：${relativePath}`)
+          }
+          return loader
+        }
+        // 通过形如lazyLoad的函数返回对应的组件懒加载函数
+        </pre>
       </CodeBlock>
       <h3 id="route_2">如何优雅的获取路由参数</h3>
       <span class="content">URLSearchParams API（现代浏览器）</span>
@@ -302,6 +312,23 @@
             console.log('match ==> ', match) // 答案
           })
         </pre>
+      </CodeBlock>
+      <h3 id="others_2">跨页签通讯</h3>
+      <span class="content">当我门需要跨页签通讯时可以采用以下方法: 例如当winA打开winB时</span>
+      <CodeBlock>
+        <pre>// winA
+        window.addEventListener('message', (event) => {
+          console.log('event.data ==> ', event.data)
+        })
+        // event.data 子窗口传递的message</pre>
+      </CodeBlock>
+      <CodeBlock>
+        <pre>// WinB
+        if (window.opener) {
+          window.opener.postMessage(message, targetOrigin, [transfer])
+        }
+        // message 要传递的数据，浏览器会自动序列化（无需手动 JSON.stringify）
+        // targetOrigin 目标窗口的源（协议 + 域名 + 端口），控制消息发送范围，核心安全参数 "任意源：*"</pre>
       </CodeBlock>
     </div>
   </div>

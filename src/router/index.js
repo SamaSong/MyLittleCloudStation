@@ -70,7 +70,7 @@ const router = createRouter({
     {
       path: '/WebGL',
       name: 'WebGL',
-      component: lazyLoad('views/WebGL.vue'),
+      component: lazyLoad('components/forTest/WebGL.vue'),
       meta: {
         title: 'WebGL',
       },

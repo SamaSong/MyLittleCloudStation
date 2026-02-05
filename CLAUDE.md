@@ -56,10 +56,9 @@ Routes are generated from `src/common/config/asideConfig.js`, which defines the 
 
 ## Known Technical Debt
 
-See `CODE_REVIEW.md` for detailed issues including:
-- Scroll event listener memory leak in HomeView (debounced ref not preserved across mount/unmount)
-- Fixed viewport coordinates (`elementFromPoint(840, 300)`) break on small screens
-- DOM-based menu control via `.click()` instead of reactive state
+See `CODE_REVIEW.md` for detailed issues. Current active issues in `src/views/index.vue`:
+- Fixed viewport coordinates (`elementFromPoint(840, 300)`) in `handleScroll` break on small screens
+- DOM-based menu control via `.click()` and `menuStore.menuRef.open()` instead of reactive state
 - Duplicate highlight.js integrations (vue-highlightjs, @highlightjs/vue-plugin, and custom directive all present)
 
 ## Build Configuration
