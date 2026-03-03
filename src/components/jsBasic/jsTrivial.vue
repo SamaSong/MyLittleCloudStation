@@ -330,6 +330,8 @@
         // message 要传递的数据，浏览器会自动序列化（无需手动 JSON.stringify）
         // targetOrigin 目标窗口的源（协议 + 域名 + 端口），控制消息发送范围，核心安全参数 "任意源：*"</pre>
       </CodeBlock>
+      <h3 id="others_3">文件导出</h3>
+      <span class="content">在文件导出（如 Excel、PDF 等）的接口请求中，设置 responseType: 'blob' 非常重要，它告诉浏览器期望的响应数据格式为二进制大对象（Blob）。responseType: 'blob' 是处理文件下载的标配，能保证二进制数据的完整性，同时兼容错误信息的提取。</span>
     </div>
   </div>
 </template>
