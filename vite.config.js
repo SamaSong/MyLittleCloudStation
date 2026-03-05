@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import markdown from 'vite-plugin-md'
+import cesium from 'vite-plugin-cesium'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +15,8 @@ export default defineConfig({
     }),
     vueDevTools(),
     vueJsx(),
-    markdown()
+    markdown(),
+    cesium()
   ],
   resolve: {
     alias: {

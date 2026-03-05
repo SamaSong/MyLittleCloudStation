@@ -83,6 +83,14 @@ const router = createRouter({
         title: 'forTest',
       },
     },
+    {
+      path: '/cesium',
+      name: 'cesium',
+      component: lazyLoad('components/forTest/cesium.vue'),
+      meta: {
+        title: 'cesium',
+      }
+    },
     ...buildContentRoutes(),
   ],
 })
