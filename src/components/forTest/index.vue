@@ -4,18 +4,41 @@
     <MyInputX v-model="modelValue" ref="myInputXRef">
       <template #append>append</template>
     </MyInputX>
+    <el-select
+      v-model="dealWithContent"
+      placeholder="请选择"
+      clearable
+      filterable
+      allow-create
+    >
+      <el-option
+        v-for="item in list"
+        :key="item.dictValue"
+        :label="item.dictLabel"
+        :value="item.dictValue"
+      >
+      </el-option>
+    </el-select>
 <!--    卡片3D翻转的实现 -->
-    <div class="card-container">
-      <div class="card" :class="{flipped: isFlipped}" @click="handleFlipped">
-        <div class="card-front">点击我</div>
-        <div class="card-back">你翻到了背面</div>
-      </div>
-    </div>
+<!--    <div class="card-container">-->
+<!--      <div class="card" :class="{flipped: isFlipped}" @click="handleFlipped">-->
+<!--        <div class="card-front">点击我</div>-->
+<!--        <div class="card-back">你翻到了背面</div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
 <script setup>
-import { nextTick, onMounted, ref, useTemplateRef } from "vue";
+import {
+  nextTick,
+  onBeforeMount,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  useTemplateRef
+} from "vue";
 import Mock from 'mockjs'
 // 引入组件
 import MyInput from "@/common/components/MyInput.vue";
@@ -23,6 +46,10 @@ import MyInputX from "@/common/components/MyInputX.jsx";
 
 const modelValue = ref('')
 const myInputXRef = useTemplateRef('myInputXRef')
+
+const dealWithContent = ref(null)
+
+const list = ref()
 
 const template = {
   'list|5-10': [{
@@ -41,18 +68,75 @@ const handleFlipped = () => {
   isFlipped.value = !isFlipped.value;
 }
 
-onMounted(async () => {
-  await nextTick()
+// const socket = new WebSocket('ws://localhost:3000');
+
+const initWebSocket = () => {
+  // 连接成功打开时触发
+  socket.addEventListener('open', function (event) {
+    console.log('Connected to WebSocket server');
+    // 发送消息给服务端
+    socket.send('Hello Server!');
+  });
+
+// 接收到服务器消息时触发
+  socket.addEventListener('message', function (event) {
+    console.log('收到服务器消息:', event.data);
+  });
+
+// 连接关闭时触发
+  socket.addEventListener('close', function (event) {
+    console.log('WebSocket 连接已关闭', event.code, event.reason);
+  });
+
+// 发生错误时触发
+  socket.addEventListener('error', function (event) {
+    console.error('WebSocket 错误:', event);
+  });
+}
+
+onBeforeMount(async () => {
+  // initWebSocket()
 })
 
-const createHelloWorld = function() {
-  return function(...args) {
-    console.log('Hello World')
+onBeforeUnmount(() => {
+  // socket.close();
+})
+
+onMounted(async () => {
+  await nextTick()
+  list.value =[
+    {
+      dictValue: 0,
+      dictLabel: '选项一'
+    },
+    {
+      dictValue: 1,
+      dictLabel: '选项二'
+    },
+    {
+      dictValue: 2,
+      dictLabel: '选项三'
+    },
+  ]
+  if (list.value.length > 0) {
+    dealWithContent.value = list.value[0].dictValue;
   }
+  list.value.push({
+    dictValue: 'test3',
+    dictLabel: 'test3'
+  })
+  dealWithContent.value = 'test3'
+})
+
+var trap = function(height) {
+
 };
 
-const f = createHelloWorld()
-f()
+const height = [0,1,0,2,1,0,1,3,2,1,2,1]
+
+const aaa = trap(height)
+
+console.log('aaa ==> ', aaa)
 </script>
 
 <style scoped lang="scss">
