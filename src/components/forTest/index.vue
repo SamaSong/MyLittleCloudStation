@@ -26,6 +26,8 @@
 <!--        <div class="card-back">你翻到了背面</div>-->
 <!--      </div>-->
 <!--    </div>-->
+    <div id="typewriter" class="typewriter"></div>
+    <button class="typewriter_button" @click="startTyping()">开始打印</button>
   </div>
 </template>
 
@@ -64,8 +66,36 @@ const data = Mock.mock(template);
 
 const isFlipped = ref(false);
 
+// 要打印的完整文本
+const fullText = "你好，我是 AI 助手。这段文字会一个一个显示出来，就像真人打字一样。";
+
+// 获取显示区域
+let container;
+
+const typewriterIndex = ref(0); // 当前已显示字符的位置
+
 const handleFlipped = () => {
   isFlipped.value = !isFlipped.value;
+}
+
+function startTyping() {
+  // 清空容器（如果希望重新开始）
+  container.textContent = '';
+  typewriterIndex.value = 0;
+
+  // 使用 setInterval 定时追加字符
+  const intervalId = setInterval(() => {
+    if (typewriterIndex.value < fullText.length) {
+      // 每次追加一个字符
+      container.textContent += fullText[typewriterIndex.value];
+      typewriterIndex.value++;
+    } else {
+      // 打印完毕，清除定时器
+      clearInterval(intervalId);
+      // 可选：移除光标闪烁（如果不需要）
+      container.style.borderRight = 'none';
+    }
+  }, 100); // 每 100 毫秒打印一个字符，可调整速度
 }
 
 // const socket = new WebSocket('ws://localhost:3000');
@@ -104,6 +134,7 @@ onBeforeUnmount(() => {
 
 onMounted(async () => {
   await nextTick()
+  container = document.getElementById('typewriter');
   list.value =[
     {
       dictValue: 0,
@@ -178,6 +209,23 @@ console.log('aaa ==> ', aaa)
   .flipped {
     transform: rotateY(180deg);
   }
+}
+
+.typewriter {
+  margin-top: 10px;
+  font-family: monospace;
+  white-space: pre-wrap; /* 保留空格和换行 */
+  border-right: 2px solid black; /* 模拟光标 */
+  padding-right: 4px;
+  animation: blink 0.7s step-end infinite;
+}
+.typewriter_button {
+  margin-top: 10px;
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
 }
 
 </style>
