@@ -28,6 +28,7 @@
 <!--    </div>-->
     <div id="typewriter" class="typewriter"></div>
     <button class="typewriter_button" @click="startTyping()">开始打印</button>
+    <CustomTable ref="tableRef"></CustomTable>
   </div>
 </template>
 
@@ -45,9 +46,12 @@ import Mock from 'mockjs'
 // 引入组件
 import MyInput from "@/common/components/MyInput.vue";
 import MyInputX from "@/common/components/MyInputX.jsx";
+import CustomTable from '@/common/components/customTable/index.vue'
 
 const modelValue = ref('')
 const myInputXRef = useTemplateRef('myInputXRef')
+// 表格实例
+const tableRef = ref(null);
 
 const dealWithContent = ref(null)
 
@@ -159,15 +163,6 @@ onMounted(async () => {
   dealWithContent.value = 'test3'
 })
 
-var trap = function(height) {
-
-};
-
-const height = [0,1,0,2,1,0,1,3,2,1,2,1]
-
-const aaa = trap(height)
-
-console.log('aaa ==> ', aaa)
 </script>
 
 <style scoped lang="scss">
