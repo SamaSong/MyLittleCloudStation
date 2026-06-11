@@ -39,13 +39,13 @@
     <div data-custom="4、事件类型">
       <h2 id="_4、事件类型">4、事件类型</h2>
       <span class="content">
-         用户界面事件（UIEvent）：涉及与 BOM 交互的通用浏览器事件。<br/>
-         焦点事件（FocusEvent）：在元素获得和失去焦点时触发。<br/>
-         鼠标事件（MouseEvent）：使用鼠标在页面上执行某些操作时触发。<br/>
-         滚轮事件（WheelEvent）：使用鼠标滚轮（或类似设备）时触发。<br/>
-         输入事件（InputEvent）：向文档中输入文本时触发。<br/>
-         键盘事件（KeyboardEvent）：使用键盘在页面上执行某些操作时触发。<br/>
-         合成事件（CompositionEvent）：在使用某种 IME（Input Method Editor，输入法编辑器）输入
+        · 用户界面事件（UIEvent）：涉及与 BOM 交互的通用浏览器事件。<br/>
+        · 焦点事件（FocusEvent）：在元素获得和失去焦点时触发。<br/>
+        · 鼠标事件（MouseEvent）：使用鼠标在页面上执行某些操作时触发。<br/>
+        · 滚轮事件（WheelEvent）：使用鼠标滚轮（或类似设备）时触发。<br/>
+        · 输入事件（InputEvent）：向文档中输入文本时触发。<br/>
+        · 键盘事件（KeyboardEvent）：使用键盘在页面上执行某些操作时触发。<br/>
+        · 合成事件（CompositionEvent）：在使用某种 IME（Input Method Editor，输入法编辑器）输入
         字符时触发。
       </span>
     </div>
@@ -112,9 +112,9 @@
       </span>
       <span class="content">
         事件委托具有如下优点。<br>
-         document 对象随时可用，任何时候都可以给它添加事件处理程序（不用等待 DOMContentLoaded或 load 事件）。这意味着只要页面渲染出可点击的元素，就可以无延迟地起作用。<br>
-         节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。<br>
-         减少整个页面所需的内存，提升整体性能。
+        · document 对象随时可用，任何时候都可以给它添加事件处理程序（不用等待 DOMContentLoaded或 load 事件）。这意味着只要页面渲染出可点击的元素，就可以无延迟地起作用。<br>
+        · 节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。<br>
+        · 减少整个页面所需的内存，提升整体性能。
       </span>
     </div>
   </div>
