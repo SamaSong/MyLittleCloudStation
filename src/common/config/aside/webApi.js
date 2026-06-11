@@ -51,7 +51,13 @@ export default {
       component: 'components/webAPI/serverCommunicationApi.vue',
       children: [
         {
-          name: '',
+          name: 'WebSocket',
+        },
+        {
+          name: 'Server-Sent Events',
+        },
+        {
+          name: '轮询与长轮询',
         },
       ],
     },

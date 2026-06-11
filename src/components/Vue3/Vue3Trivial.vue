@@ -1,7 +1,7 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
-import { inputWrapperExample } from './Vue3Trivial.examples.js'
+import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.js'
 </script>
 
 <template>
@@ -30,6 +30,18 @@ import { inputWrapperExample } from './Vue3Trivial.examples.js'
       <h3>暴露方法</h3>
       <span class="content">当这个组件挂载的时候会去调用changeRef方法，这个方法会返回一个exposed的对象，这个对象里就是这个组件暴露的方法。</span>
       <span class="content">然后我们通过getCurrentInstance()获取当前组件实例，并把当前组件实例的exposed替换为exposed</span>
+    </div>
+    <div data-custom="组合式函数封装">
+      <h2 id="_组合式函数封装">组合式函数封装</h2>
+      <span class="content">
+        当一段逻辑同时包含响应式状态、生命周期、副作用清理时，适合抽成 composable。它和普通工具函数的区别是：composable 可以使用 Vue 的响应式 API，并负责在组件卸载时清理副作用。
+      </span>
+      <CodeBlock language="js" :code="composableExample" />
+      <ul>
+        <li>命名使用 useXxx，调用方一眼能看出这是组合式函数。</li>
+        <li>返回 ref 或 computed，让使用方保留响应式能力。</li>
+        <li>凡是注册事件、定时器、观察器，都要在 onUnmounted 中释放。</li>
+      </ul>
     </div>
   </ArticleLayout>
 </template>

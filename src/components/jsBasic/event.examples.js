@@ -38,3 +38,26 @@ list.addEventListener("click", (event) => {
       break;
   }
 });`
+
+export const eventLoopExample = `console.log('script start')
+
+setTimeout(() => {
+  console.log('setTimeout')
+}, 0)
+
+Promise.resolve().then(() => {
+  console.log('promise then')
+})
+
+queueMicrotask(() => {
+  console.log('queueMicrotask')
+})
+
+console.log('script end')
+
+// 输出顺序:
+// script start
+// script end
+// promise then
+// queueMicrotask
+// setTimeout`

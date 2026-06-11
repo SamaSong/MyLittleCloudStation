@@ -30,10 +30,11 @@
       <article
         v-for="section in apiSections"
         :key="section.title"
+        :data-custom="section.title"
         class="api-section"
       >
         <div class="section-heading">
-          <h2>{{ section.title }}</h2>
+          <h2 :id="`_${section.title}`">{{ section.title }}</h2>
           <p>{{ section.description }}</p>
         </div>
 
@@ -52,8 +53,8 @@
         </div>
       </article>
 
-      <section class="tips-section">
-        <h2>开发注意点</h2>
+      <section class="tips-section" data-custom="开发注意点">
+        <h2 id="_开发注意点">开发注意点</h2>
         <ul>
           <li>
             Vue 组件卸载时调用 <code>viewer.destroy()</code>，否则 WebGL 上下文、
@@ -300,6 +301,49 @@ const cartographic = Cesium.Cartographic.fromCartesian(cartesian)`,
 if (Cesium.defined(pickedPosition)) {
   console.log(Cesium.Cartographic.fromCartesian(pickedPosition))
 }`,
+      },
+    ],
+  },
+  {
+    title: '7. 性能优化',
+    description: 'Cesium 性能主要受渲染帧率、数据规模、瓦片加载、实体数量和事件频率影响。',
+    items: [
+      {
+        name: 'requestRenderMode',
+        explain: '静态场景可以开启按需渲染，减少持续刷新带来的 CPU/GPU 消耗。数据或视角变化后调用 requestRender。',
+        code: `const viewer = new Cesium.Viewer(container, {
+  requestRenderMode: true,
+  maximumRenderTimeChange: Infinity,
+})
+
+viewer.scene.requestRender()`,
+      },
+      {
+        name: 'Entity 与 Primitive 取舍',
+        explain: '少量可编辑业务对象用 Entity 更方便；大量点线面优先用 Primitive、PointPrimitiveCollection 或批量数据源。',
+        code: `const points = viewer.scene.primitives.add(
+  new Cesium.PointPrimitiveCollection(),
+)
+
+points.add({
+  position: Cesium.Cartesian3.fromDegrees(116.39, 39.9),
+  pixelSize: 6,
+  color: Cesium.Color.YELLOW,
+})`,
+      },
+      {
+        name: '事件节流',
+        explain: '鼠标移动、相机变化等事件触发频率很高，业务计算、拾取和接口请求需要节流或按需执行。',
+        code: `let lastPickTime = 0
+
+handler.setInputAction((movement) => {
+  const now = performance.now()
+  if (now - lastPickTime < 80) return
+  lastPickTime = now
+
+  const picked = viewer.scene.pick(movement.endPosition)
+  viewer.scene.requestRender()
+}, Cesium.ScreenSpaceEventType.MOUSE_MOVE)`,
       },
     ],
   },

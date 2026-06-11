@@ -1,8 +1,9 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
-import CodeBlock from "@/common/components/codeBlock.vue";
+import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   delegateHtmlExample,
+  eventLoopExample,
   multipleHandlersExample,
   delegatedHandlerExample,
 } from './event.examples.js'
@@ -97,6 +98,18 @@ import {
         <li>document 对象随时可用，任何时候都可以给它添加事件处理程序（不用等待 DOMContentLoaded 或 load 事件）。这意味着只要页面渲染出可点击的元素，就可以无延迟地起作用。</li>
         <li>节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。</li>
         <li>减少整个页面所需的内存，提升整体性能。</li>
+      </ul>
+    </div>
+    <div data-custom="6、事件循环">
+      <h2 id="_6、事件循环">6、事件循环</h2>
+      <span class="content">
+        JavaScript 主线程一次只执行一个任务。同步代码先进入调用栈，异步回调会进入任务队列；每轮宏任务执行结束后，浏览器会先清空微任务队列，再进入渲染和下一轮宏任务。
+      </span>
+      <CodeBlock :code="eventLoopExample" />
+      <ul>
+        <li>常见宏任务：setTimeout、setInterval、I/O、用户交互事件。</li>
+        <li>常见微任务：Promise.then、queueMicrotask、MutationObserver。</li>
+        <li>微任务过多会阻塞页面渲染，递归追加微任务时要特别谨慎。</li>
       </ul>
     </div>
   </ArticleLayout>

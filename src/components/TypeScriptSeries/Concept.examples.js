@@ -29,3 +29,21 @@ b = 200 // 警告: 不能将类型 "200" 分配给类型 "100"`
 
 export const typeInferenceExample = `let d = -99 // TypeScript 会推断出变量 d 的类型是数字
 d = false // 警告: 不能将类型 "boolean" 分配给类型 "number"`
+
+export const typeNarrowingExample = `function printId(id: string | number) {
+  if (typeof id === 'string') {
+    console.log(id.toUpperCase())
+    return
+  }
+
+  console.log(id.toFixed(0))
+}
+
+type User = {
+  name: string
+  permissions?: string[]
+}
+
+function canEdit(user: User) {
+  return Array.isArray(user.permissions) && user.permissions.includes('edit')
+}`

@@ -15,6 +15,9 @@ export default {
         {
           name: '类型判断',
         },
+        {
+          name: '类型收窄',
+        },
       ],
     },
     {

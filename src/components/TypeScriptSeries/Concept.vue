@@ -1,9 +1,10 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
-import CodeBlock from "@/common/components/codeBlock.vue";
+import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   typeDeclarationExample,
   literalTypeExample,
+  typeNarrowingExample,
   typeInferenceExample,
 } from './Concept.examples.js'
 </script>
@@ -48,6 +49,18 @@ import {
       </span>
       <CodeBlock language="ts" :code="typeInferenceExample" />
       <span class="content"><span class="sub-important">但要注意,类型推断不是万能的,⾯对复杂类型时推断容易出问题,所以尽量还是明确的编写类型声明!</span></span>
+    </div>
+    <div data-custom="类型收窄">
+      <h2 id="_类型收窄">类型收窄</h2>
+      <span class="content">
+        类型收窄是把一个较宽的联合类型，通过判断语句逐步缩小到更具体类型的过程。实际开发中，它比直接使用 as 断言更安全，也能让编辑器在分支内给出正确提示。
+      </span>
+      <CodeBlock language="ts" :code="typeNarrowingExample" />
+      <ul>
+        <li>typeof 适合判断 string、number、boolean、function 等基础类型。</li>
+        <li>Array.isArray 适合判断数组，优先于 instanceof Array。</li>
+        <li>可选属性访问前先判断存在性，避免运行时读取 undefined。</li>
+      </ul>
     </div>
   </ArticleLayout>
 </template>
