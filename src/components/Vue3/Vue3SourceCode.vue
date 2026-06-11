@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-  import CodeBlock from "@/common/components/codeBlock.vue";
   import Summary from '../../../public/summary.md'
   import 'github-markdown-css'
 </script>

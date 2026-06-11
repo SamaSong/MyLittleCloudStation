@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, h } from 'vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'AnchorComponents',

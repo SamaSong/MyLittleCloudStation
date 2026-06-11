@@ -38,14 +38,10 @@ import {
   onBeforeMount,
   onBeforeUnmount,
   onMounted,
-  reactive,
   ref,
   useTemplateRef
 } from "vue";
-import Mock from 'mockjs'
-import _ from 'lodash'
 // 引入组件
-import MyInput from "@/common/components/MyInput.vue";
 import MyInputX from "@/common/components/MyInputX.jsx";
 import CustomTable from '@/common/components/customTable/index.vue'
 
@@ -58,18 +54,7 @@ const dealWithContent = ref(null)
 
 const list = ref()
 
-const template = {
-  'list|5-10': [{
-    'id|+1': 1,
-    'name': '@cname',
-    'age|18-60': 1,
-    'email': '@email',
-    'date': '@date'
-  }]
-};
-const data = Mock.mock(template);
-
-const isFlipped = ref(false);
+// const isFlipped = ref(false);
 
 // 要打印的完整文本
 const fullText = "你好，我是 AI 助手。这段文字会一个一个显示出来，就像真人打字一样。";
@@ -79,9 +64,9 @@ let container;
 
 const typewriterIndex = ref(0); // 当前已显示字符的位置
 
-const handleFlipped = () => {
-  isFlipped.value = !isFlipped.value;
-}
+// const handleFlipped = () => {
+//   isFlipped.value = !isFlipped.value;
+// }
 
 function startTyping() {
   // 清空容器（如果希望重新开始）
@@ -105,43 +90,32 @@ function startTyping() {
 
 // const socket = new WebSocket('ws://localhost:3000');
 
-const initWebSocket = () => {
-  // 连接成功打开时触发
-  socket.addEventListener('open', function (event) {
-    console.log('Connected to WebSocket server');
-    // 发送消息给服务端
-    socket.send('Hello Server!');
-  });
-
-// 接收到服务器消息时触发
-  socket.addEventListener('message', function (event) {
-    console.log('收到服务器消息:', event.data);
-  });
-
-// 连接关闭时触发
-  socket.addEventListener('close', function (event) {
-    console.log('WebSocket 连接已关闭', event.code, event.reason);
-  });
-
-// 发生错误时触发
-  socket.addEventListener('error', function (event) {
-    console.error('WebSocket 错误:', event);
-  });
-}
+// const initWebSocket = (socket) => {
+//   socket.addEventListener('open', function () {
+//     console.log('Connected to WebSocket server');
+//     socket.send('Hello Server!');
+//   });
+//
+//   socket.addEventListener('message', function (event) {
+//     console.log('收到服务器消息:', event.data);
+//   });
+//
+//   socket.addEventListener('close', function (event) {
+//     console.log('WebSocket 连接已关闭', event.code, event.reason);
+//   });
+//
+//   socket.addEventListener('error', function (event) {
+//     console.error('WebSocket 错误:', event);
+//   });
+// }
 
 /**
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-const setZeroes = function(matrix) {
-  let matrixMap = new Map()
-};
-
-const matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
-
-let xxx = setZeroes(matrix)
-
-console.log('xxx ==> ', xxx)
+// const setZeroes = function(matrix) {
+//   const matrixMap = new Map()
+// };
 
 onBeforeMount(async () => {
   // initWebSocket()

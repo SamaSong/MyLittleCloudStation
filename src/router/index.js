@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import asideConfig from '@/common/config/asideConfig.js'
 
 const moduleMap = {
-  ...import.meta.glob('../views/**/*.vue'),
+  ...import.meta.glob('../views/HomeView.vue'),
   ...import.meta.glob('../components/**/*.vue'),
 }
 
@@ -82,14 +82,6 @@ const router = createRouter({
       meta: {
         title: 'forTest',
       },
-    },
-    {
-      path: '/cesium',
-      name: 'cesium',
-      component: lazyLoad('components/forTest/cesium.vue'),
-      meta: {
-        title: 'cesium',
-      }
     },
     {
       path: '/fullStackPractice',

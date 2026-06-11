@@ -13,6 +13,7 @@
   const searchKeyword = ref('') // 搜索框关键字
   const isSearchActive = ref(false) // 控制面板显示/隐藏
   const searchContainerRef = ref(null) // 记录搜索区域 DOM
+  const pageMainRef = ref(null)
   const shouldShowSearchPanel = computed(() => {
     // 有输入内容且处于激活态才需要展示下拉面板
     return isSearchActive.value && !!searchKeyword.value.trim()
@@ -46,12 +47,10 @@
   const clickFooter = async (data) => {
     await router.push(data.path)
     await nextTick()
-    menuStore.menuRef.open(footerData.value.name)
-    menuStore.menuRef.open(data.name)
-    let element = document.getElementById(location.pathname)
-    element.click()
-    const mainContainer = document.querySelector('.page-main')
-    mainContainer?.scrollTo({
+    menuStore.menuRef?.open(footerData.value.name)
+    menuStore.menuRef?.open(data.name)
+    document.getElementById(location.pathname)?.click()
+    pageMainRef.value?.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
@@ -143,10 +142,7 @@
     if (menuStore.menuRef) {
       menuStore.menuRef.open(item.section)
       menuStore.menuRef.open(item.group)
-      await new Promise(() => {
-        let element = document.getElementById(item.path)
-        element.click()
-      })
+      document.getElementById(item.path)?.click()
     }
     if (router.currentRoute.value.path !== item.path) {
       await router.push(item.path)
@@ -161,8 +157,7 @@
         })
       }
     } else {
-      const mainContainer = document.querySelector('.page-main')
-      mainContainer?.scrollTo({
+      pageMainRef.value?.scrollTo({
         top: 0,
         behavior: 'smooth'
       })
@@ -184,10 +179,10 @@
   }
 
   onMounted(async () => {
-    document.querySelector('.page-main').addEventListener('scroll', scrollEvent)
+    pageMainRef.value?.addEventListener('scroll', scrollEvent)
     document.addEventListener('click', handleClickOutside)
     if (footerData.value) {
-      menuStore.menuRef.open(footerData.value.name)
+      menuStore.menuRef?.open(footerData.value.name)
     }
     if (location.pathname !== '/home' && footerData.value) {
       let name = footerData.value.children.map(item => {
@@ -195,17 +190,14 @@
           return item.name
         }
       }).filter(ele => ele && ele.trim())[0]
-      menuStore.menuRef.open(name)
-      await new Promise(() => {
-        let element = document.getElementById(location.pathname)
-        element.click()
-      })
+      menuStore.menuRef?.open(name)
+      document.getElementById(location.pathname)?.click()
     }
   })
 
   onBeforeUnmount(() => {
     document.removeEventListener('click', handleClickOutside)
-    document.querySelector('.page-main').removeEventListener('scroll', scrollEvent)
+    pageMainRef.value?.removeEventListener('scroll', scrollEvent)
   })
 </script>
 
@@ -255,7 +247,7 @@
         <el-aside class="page-aside">
           <Aside @jumpTo="jumpTo"/>
         </el-aside>
-        <el-main class="page-main">
+        <el-main ref="pageMainRef" class="page-main">
           <RouterView></RouterView>
           <el-footer class="page-footer" v-if="footerData">
             <div class="page-footer-left" v-if="footerData.children[footerData.childrenIndex - 1]">

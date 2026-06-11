@@ -1,5 +1,4 @@
 import { defineComponent, getCurrentInstance } from "vue";
-import { ElInput } from "element-plus";
 
 // 样式表
 const styleMap = {

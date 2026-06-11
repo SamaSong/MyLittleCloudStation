@@ -7,7 +7,11 @@ export default defineConfig([
   {
     name: 'app/files-to-lint',
     files: ['**/*.{js,mjs,jsx,vue}'],
-    parserOptions: { ecmaFeatures: { jsx: true } }
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
   },
 
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
@@ -22,4 +26,9 @@ export default defineConfig([
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+  {
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
 ])

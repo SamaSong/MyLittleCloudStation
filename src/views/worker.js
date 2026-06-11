@@ -1,4 +1,4 @@
-self.onmessage = (req) => {
+self.onmessage = () => {
   // const list = [];
   // for (let i = 0; i <= 100000000; i++) {
   //   list.push(Date.now());

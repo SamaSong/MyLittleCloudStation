@@ -1,4 +1,4 @@
-import { defineComponent, ref, h, computed } from "vue";
+import { defineComponent } from "vue";
 import { HOME_PROPS } from "@/views/static.js";
 
 // 写法一
@@ -7,7 +7,7 @@ export default defineComponent({
   props: {
     ...HOME_PROPS
   },
-  setup(props, { emit, slots }) {
+  setup(props) {
     const renderContent = () => {
       return (
         <h1>{ props.title }</h1>

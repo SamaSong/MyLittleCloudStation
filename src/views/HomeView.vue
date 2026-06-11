@@ -6,7 +6,7 @@
 
 <script setup>
 import IndexHome from "@/views/indexHome.jsx";
-import { getCurrentInstance, onMounted, ref, useTemplateRef } from "vue";
+import { onMounted } from "vue";
 
 onMounted(() => {
 
