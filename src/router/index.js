@@ -91,6 +91,14 @@ const router = createRouter({
         title: 'cesium',
       }
     },
+    {
+      path: '/fullStackPractice',
+      name: 'fullStackPractice',
+      component: lazyLoad('components/fullStackPractice/index.vue'),
+      meta: {
+        title: 'fullStackPractice',
+      }
+    },
     ...buildContentRoutes(),
   ],
 })

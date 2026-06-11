@@ -43,6 +43,7 @@ import {
   useTemplateRef
 } from "vue";
 import Mock from 'mockjs'
+import _ from 'lodash'
 // 引入组件
 import MyInput from "@/common/components/MyInput.vue";
 import MyInputX from "@/common/components/MyInputX.jsx";
@@ -127,6 +128,20 @@ const initWebSocket = () => {
     console.error('WebSocket 错误:', event);
   });
 }
+
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+const setZeroes = function(matrix) {
+  let matrixMap = new Map()
+};
+
+const matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+
+let xxx = setZeroes(matrix)
+
+console.log('xxx ==> ', xxx)
 
 onBeforeMount(async () => {
   // initWebSocket()
