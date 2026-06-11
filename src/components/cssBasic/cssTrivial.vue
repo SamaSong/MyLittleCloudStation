@@ -1,6 +1,7 @@
 <script setup>
   import ArticleLayout from '@/common/components/ArticleLayout.vue'
-  import AnchorComponents from "@/common/components/anchorComponents.jsx";
+  import ArticleSection from '@/common/components/ArticleSection.vue'
+  import AnchorComponents from '@/common/components/anchorComponents.jsx'
   import { CSS_ANCHOR_POINT } from './static.js'
 </script>
 
@@ -9,8 +10,7 @@
     title="CSS琐碎知识🧀"
     description="记录 CSS 与常见 UI 组件交互时容易复用的零散知识。"
   >
-    <div data-custom="1、Element相关">
-      <h2 id="_1、Element相关">1、Element相关</h2>
+    <ArticleSection title="1、Element相关">
       <AnchorComponents :data="CSS_ANCHOR_POINT" />
       <h3 id="css_1">锚点定位 Element：scrollIntoView() 方法</h3>
         <span class="content">
@@ -50,7 +50,7 @@
             </ul>
           </li>
         </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>
 

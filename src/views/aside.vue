@@ -2,6 +2,7 @@
   import { defineEmits, onMounted, ref } from 'vue'
   import asideConfig from '@/common/config/asideConfig.js'
   import { useMenuItemNameStore } from '@/stores/menuItemName.js'
+  import { getAnchorHref } from '@/common/tools/anchor.js'
 
   const menuRef = ref(null) // el-menu实例
   const activeName = ref(null)
@@ -12,10 +13,6 @@
   const clickSubMenu = (path, name) => {
     emit('jumpTo', path)
     activeName.value = name
-  }
-
-  const handleHref = (href) => {
-    return '#_' + href
   }
 
   const clickMenuItem = (name) => {
@@ -56,7 +53,7 @@
             <a
               class="menu-item-a"
               :class="{ 'item-active' : menuStore.menuItemName === subItem.name }"
-              :href="handleHref(subItem.name)"
+              :href="getAnchorHref(subItem.name)"
               @click="clickMenuItem(subItem.name)"
             >{{ subItem.name }}</a>
           </el-menu-item>

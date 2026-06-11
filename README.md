@@ -128,21 +128,22 @@ export default {
 - `name`：侧边栏显示名称，也用于搜索匹配。
 - `path`：路由路径。
 - `component`：相对 `src` 的组件路径。路由通过 `import.meta.glob` 懒加载。
-- `children`：文章内锚点列表。每一项的 `name` 必须和页面中的 `data-custom` 保持一致。
+- `children`：文章内锚点列表。每一项的 `name` 必须和页面中的 `ArticleSection title` 保持一致。
 
 页面锚点要求：
 
 ```vue
-<div data-custom="Fetch">
-  <h2 id="_Fetch">Fetch</h2>
-</div>
+<ArticleSection title="Fetch">
+  正文内容
+</ArticleSection>
 ```
 
 约定：
 
-- `data-custom` 用于滚动时同步右侧/侧边当前知识点。
-- `h2` 的 `id` 通常为 `_${children.name}`。
-- 搜索命中具体知识点时，会跳转到 `#_${children.name}` 对应元素。
+- `ArticleSection` 会根据 `title` 自动生成 `data-custom` 和 `h2 id`。
+- 侧边栏、搜索、页面章节统一通过 `src/common/tools/anchor.js` 生成锚点 id。
+- 搜索命中具体知识点时，会跳转到 `getAnchorId(children.name)` 对应元素。
+- 特殊自定义布局如果不能使用 `ArticleSection`，需要手动使用 `getAnchorId(name)` 生成标题 id。
 
 ## 页面书写模式
 
@@ -153,6 +154,7 @@ export default {
 ```vue
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import { demoExample } from './xxx.examples.js'
 </script>
@@ -162,13 +164,12 @@ import { demoExample } from './xxx.examples.js'
     title="页面标题"
     description="页面简介。"
   >
-    <div data-custom="1、章节标题">
-      <h2 id="_1、章节标题">1、章节标题</h2>
+    <ArticleSection title="1、章节标题">
       <span class="content">
         正文内容。
       </span>
       <CodeBlock :code="demoExample" />
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>
 ```
@@ -185,7 +186,7 @@ export const demoExample = `function demo() {
 页面书写建议：
 
 - 页面只负责结构和说明，长代码放到 `*.examples.js`。
-- 一个页面可以包含多个 `data-custom` 章节。
+- 一个页面可以包含多个 `ArticleSection` 章节。
 - 新增章节后同步更新对应 `src/common/config/aside/*.js`。
 - 普通正文使用 `.content`。
 - 重点词可使用 `.bgc`、`.sub-important`、`.b`、`.blue` 等全局样式。
@@ -218,12 +219,36 @@ Slots：
   title="TypeScript-高级类型"
   description="整理泛型、type、interface 等内容。"
 >
-  <div data-custom="泛型">
-    <h2 id="_泛型">泛型</h2>
+  <ArticleSection title="泛型">
     <span class="content">正文内容。</span>
-  </div>
+  </ArticleSection>
 </ArticleLayout>
 ```
+
+### ArticleSection
+
+文件：`src/common/components/ArticleSection.vue`
+
+用于生成文章章节。组件会根据 `title` 自动生成：
+
+- `data-custom`：滚动高亮使用。
+- `h2 id`：侧边栏锚点和搜索跳转使用。
+
+Props：
+
+| 名称 | 类型 | 必填 | 默认值 | 说明 |
+| --- | --- | --- | --- | --- |
+| `title` | `String` | 是 | - | 章节标题，同时作为锚点名称 |
+
+使用：
+
+```vue
+<ArticleSection title="Fetch">
+  <span class="content">正文内容。</span>
+</ArticleSection>
+```
+
+只要侧边栏配置中存在 `{ name: 'Fetch' }`，就可以跳转到该章节。
 
 ### CodeBlock
 
@@ -486,17 +511,17 @@ src/components/webAPI/cacheApi.examples.js
 ```vue
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import { cacheExample } from './cacheApi.examples.js'
 </script>
 
 <template>
   <ArticleLayout title="缓存 API" description="整理浏览器缓存相关 API。">
-    <div data-custom="Cache Storage">
-      <h2 id="_Cache Storage">Cache Storage</h2>
+    <ArticleSection title="Cache Storage">
       <span class="content">正文。</span>
       <CodeBlock :code="cacheExample" />
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>
 ```
@@ -527,8 +552,8 @@ npm run build
 - import 顺序建议：`vue`、第三方库、`@/...`、相对路径。
 - 示例代码优先放到 `*.examples.js`。
 - `CodeBlock` 优先使用 `:code`，不要在模板中堆大段代码。
-- 每个侧边栏 `children.name` 必须对应页面里的 `data-custom`。
-- 标题 id 使用 `_${children.name}`，便于搜索和锚点跳转。
+- 每个侧边栏 `children.name` 必须对应页面里的 `ArticleSection title`。
+- 标题 id 由 `ArticleSection` 和 `getAnchorId` 统一生成，不要在页面中手写。
 - 页面正文尽量按“概念说明 + 使用场景 + 代码示例 + 注意点”组织。
 - 不要随意改动 `public` 中资源路径，页面里可以直接用 `/images/xxx.png`。
 

@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.js'
 </script>
@@ -9,8 +10,7 @@ import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.j
     title="VUE3琐碎知识🧀"
     description="记录 Vue 3 组件封装、渲染函数和日常开发中容易复用的实践点。"
   >
-    <div data-custom="如何二次封装组件（终极版）">
-      <h2 id="_如何二次封装组件（终极版）">如何二次封装组件（终极版）</h2>
+    <ArticleSection title="如何二次封装组件（终极版）">
       <span class="content">
         当我们需要二次封装vue组件时，关键点在于原生组件的“属性”、“事件”、“插槽”、“方法”的暴露。（如果使用的是vsCode，还可以有类型的暴露）。
       </span>
@@ -30,9 +30,8 @@ import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.j
       <h3>暴露方法</h3>
       <span class="content">当这个组件挂载的时候会去调用changeRef方法，这个方法会返回一个exposed的对象，这个对象里就是这个组件暴露的方法。</span>
       <span class="content">然后我们通过getCurrentInstance()获取当前组件实例，并把当前组件实例的exposed替换为exposed</span>
-    </div>
-    <div data-custom="组合式函数封装">
-      <h2 id="_组合式函数封装">组合式函数封装</h2>
+    </ArticleSection>
+    <ArticleSection title="组合式函数封装">
       <span class="content">
         当一段逻辑同时包含响应式状态、生命周期、副作用清理时，适合抽成 composable。它和普通工具函数的区别是：composable 可以使用 Vue 的响应式 API，并负责在组件卸载时清理副作用。
       </span>
@@ -42,6 +41,6 @@ import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.j
         <li>返回 ref 或 computed，让使用方保留响应式能力。</li>
         <li>凡是注册事件、定时器、观察器，都要在 onUnmounted 中释放。</li>
       </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

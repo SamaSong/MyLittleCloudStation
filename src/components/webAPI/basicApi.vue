@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   arrayBufferExample,
@@ -27,8 +28,7 @@ import {
     title="基本API"
     description="整理浏览器中处理二进制、文本编码、Blob、File 和 FileReader 的常用 API。"
   >
-    <div data-custom="ArrayBuffer，二进制数组">
-      <h2 id="_ArrayBuffer，二进制数组">ArrayBuffer，二进制数组</h2>
+    <ArticleSection title="ArrayBuffer，二进制数组">
       <span class="content">在 JavaScript 中有很多种二进制数据格式，
         <span class="bgc">ArrayBuffer</span>，<span class="bgc">Uint8Array</span>，<span class="bgc">DataView</span>，<span class="bgc">Blob</span>，<span class="bgc">File</span> 及其他。
         <br>
@@ -43,9 +43,8 @@ import {
         <span class="bgc">ArrayBuffer</span> 不是某种东西的数组。ArrayBuffer 与 Array 没有任何共同之处
       </span>
       <span class="content"><span class="b">如要操作 ArrayBuffer，我们需要使用“视图”对象。</span></span>
-    </div>
-    <div data-custom="TextDecoder 和 TextEncoder">
-      <h2 id="_TextDecoder和TextEncoder">TextDecoder 和 TextEncoder</h2>
+    </ArticleSection>
+    <ArticleSection title="TextDecoder 和 TextEncoder">
       <span class="content">如果二进制数据实际上是一个字符串怎么办？例如，我们收到了一个包含文本数据的文件。</span>
       <h3>TextDecoder</h3>
       <span class="content">内建的 TextDecoder 对象在给定缓冲区（buffer）和编码格式（encoding）的情况下，允许将值读取为实际的 JavaScript 字符串。</span>
@@ -76,9 +75,8 @@ import {
         <li>encodeInto(str, destination) —— 将 str 编码到 destination 中，该目标必须为 Uint8Array。</li>
       </ul>
       <CodeBlock :code="textEncoderExample" />
-    </div>
-    <div data-custom="Blob">
-      <h2 id="_Blob">Blob</h2>
+    </ArticleSection>
+    <ArticleSection title="Blob">
       <span class="content">Blob 由一个可选的字符串 type（通常是 MIME 类型）和 blobParts 组成 —— 一系列其他 Blob 对象，字符串和 BufferSource。<br>构造函数的语法为：</span>
       <CodeBlock :code="blobConstructorExample" />
       <ul>
@@ -146,9 +144,8 @@ import {
         但是，如果我们需要执行低级别的处理时，我们可以从 blob.arrayBuffer() 中获取最低级别的 ArrayBuffer：
       </span>
       <CodeBlock :code="blobToArrayBufferExample" />
-    </div>
-    <div data-custom="File和FileReader">
-      <h2 id="_File和FileReader">File 和 FileReader</h2>
+    </ArticleSection>
+    <ArticleSection title="File和FileReader">
       <span class="content">File 对象继承自 Blob，并扩展了与文件系统相关的功能。<br>有两种方式可以获取它。<br>第一种，与 Blob 类似，有一个构造器：</span>
       <CodeBlock :code="fileConstructorExample" />
       <ul>
@@ -188,6 +185,6 @@ import {
         <li><span class="b">readAsDataURL(blob)</span> —— 读取二进制数据，并将其编码为 base64 的 data url。</li>
         <li><span class="b">abort()</span> —— 取消操作。</li>
       </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

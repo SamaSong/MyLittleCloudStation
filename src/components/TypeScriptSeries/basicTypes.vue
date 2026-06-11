@@ -1,5 +1,6 @@
 <script setup>
   import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
   import CodeBlock from "@/common/components/codeBlock.vue";
   import {
     unknownAssignExample,
@@ -43,8 +44,7 @@
       在 JavaScript 中的这些内置构造函数: Number 、 String 、 Boolean ,
       ⽤于 创建对应的包装对象, 在⽇常开发时==很少使⽤==,在 TypeScript 中也是同理,所以 在 TypeScript 中进⾏类型声明时,通常都是⽤⼩写的 number 、 string 、 boolean。
     </span>
-    <div data-custom="unknown">
-      <h2 id="_unknown">unknown</h2>
+    <ArticleSection title="unknown">
       <span class="content">
         unknown 的含义是: 未知类型。适⽤于: 起初不确定数据的具体类型,要后期才能确定。<br>
         1、unknown 可以理解为⼀个类型安全的 any 。
@@ -58,9 +58,8 @@
         3、读取 any 类型数据的任何属性都不会报错,⽽ unknown 正好与之相反。
       </span>
       <CodeBlock language="ts" :code="unknownPropertyExample" />
-    </div>
-    <div data-custom="never">
-      <h2 id="_never">never</h2>
+    </ArticleSection>
+    <ArticleSection title="never">
       <span class="content">
         never 的含义是:任何值都不是,即: 不能有值,例如 undefined 、 null 、 '' 、 0 都不⾏!<br>
         1、⼏乎不⽤ never 去直接限制变量,因为没有意义,例如:
@@ -74,9 +73,8 @@
         3、never 也可⽤于限制函数的返回值。
       </span>
       <CodeBlock language="ts" :code="neverReturnExample" />
-    </div>
-    <div data-custom="void">
-      <h2 id="_void">void</h2>
+    </ArticleSection>
+    <ArticleSection title="void">
       <span class="content">
         void 的含义是空,即: 函数不返回任何值, 调⽤者也不应依赖其返回值进⾏任何操作!<br>
         1、void 通常⽤于函数返回值声明
@@ -107,9 +105,8 @@
         1、从语法上讲:函数是可以返回 undefined 的,⾄于显式返回,还是隐式返回,这⽆ 所谓!<br>
         2、从语义上讲:函数调⽤者不应关⼼函数返回的值,也不应依赖返回值进⾏任何操作! 即使我们知道它返回了 undefined 。<br>
       </div>
-    </div>
-    <div data-custom="object">
-      <h2 id="_object">object</h2>
+    </ArticleSection>
+    <ArticleSection title="object">
       <div class="blue">关于 **object** 与 **Object** ,直接说结论:实际开发中⽤的相对较少,因为范围太⼤了。</div>
       <h3>object(⼩写)</h3>
       <span class="content">
@@ -141,16 +138,14 @@
       </ul>
       <h3>声明数组类型</h3>
       <CodeBlock language="ts" :code="arrayTypeExample" />
-    </div>
-    <div data-custom="tuple">
-      <h2 id="_tuple">tuple</h2>
+    </ArticleSection>
+    <ArticleSection title="tuple">
       <span class="content">
         元组 (Tuple) 是⼀种==特殊的数组类型==,可以存储固定数量的元素,并且每个元素的类型是==已知==的且可以==不同==。元组⽤于精确描述⼀组值的类型， ? 表示可选元素。
       </span>
       <CodeBlock language="ts" :code="tupleExample" />
-    </div>
-    <div data-custom="enum">
-      <h2 id="_enum">enum</h2>
+    </ArticleSection>
+    <ArticleSection title="enum">
       <span class="content">
         枚举( enum )可以定义==⼀组命名常量==,它能增强代码的可读性,也让代码更好维护。<br>
         如下代码的功能是:根据调⽤ walk 时传⼊的不同参数,执⾏不同的逻辑,存在的问题是调⽤ walk 时传参时没有任何提示,编码者很容易写错字符串内容;并且⽤于判断逻辑的 up 、 down 、 left 、 right 是连续且==相关的⼀组值==,那此时就特别适合使⽤==枚举( enum )==。
@@ -180,9 +175,8 @@
         何为编译时内联?<br>
         所谓"内联"其实就是 TypeScript 在编译时,会将枚举成员引⽤替换为它们的实际值, ⽽不是⽣成额外的枚举对象。这可以减少⽣成的 JavaScript 代码量,并提⾼运⾏时性能。
       </div>
-    </div>
-    <div data-custom="⼀个特殊情况">
-      <h2 id="_⼀个特殊情况">⼀个特殊情况</h2>
+    </ArticleSection>
+    <ArticleSection title="⼀个特殊情况">
       <span class="content">先来观察如下两段代码:</span>
       <span class="content">
         代码段1(正常):在函数定义时,限制函数返回值为 void ,那么函数的返回值就必须是空。
@@ -198,6 +192,6 @@
       </div>
       <CodeBlock language="ts" :code="forEachVoidExample" />
       <div class="blue">官⽅⽂档的说明: <a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#assignability-of-functions" target="_blank">Assignability of Functions</a> </div>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   genericFunctionExample,
@@ -30,8 +31,7 @@ import {
     title="TypeScript-高级类型"
     description="整理泛型、type、抽象类、interface 以及相似概念的区别。"
   >
-    <div data-custom="泛型">
-      <h2 id="_泛型">泛型</h2>
+    <ArticleSection title="泛型">
       <span class="content">泛型允许我们在定义函数、类或接⼝时,使⽤类型参数来表示未指定的类型,这些参数在具体使⽤时,才被指定具体的类型,泛型能让同⼀段代码适⽤于多种类型,同时仍然保持类型的安全性。</span>
       <span class="content">举例:如下代码中 {{ `<T>` }} 就是泛型,(不⼀定⾮叫 T ),设置泛型后即可在函数中使⽤ T 来表 示该类型:</span>
       <h3>泛型函数</h3>
@@ -44,9 +44,8 @@ import {
       <CodeBlock language="ts" :code="genericConstraintExample" />
       <h3>泛型类</h3>
       <CodeBlock language="ts" :code="genericClassExample" />
-    </div>
-    <div data-custom="type">
-      <h2 id="_type">type</h2>
+    </ArticleSection>
+    <ArticleSection title="type">
       <span class="content">
         type 可以为任意类型创建别名,让代码更简洁、可读性更强,同时能更⽅便地进⾏类型复⽤和 扩展。
       </span>
@@ -65,9 +64,8 @@ import {
         交叉类型(Intersection Types)允许将多个类型合并为⼀个类型。合并后的类型将拥有所有被合并类型的成员。交叉类型通常⽤于对象类型。
       </span>
       <CodeBlock language="ts" :code="intersectionTypeExample" />
-    </div>
-    <div data-custom="抽象类">
-      <h2 id="_抽象类">抽象类</h2>
+    </ArticleSection>
+    <ArticleSection title="抽象类">
       <ul>
         <li><b>概述</b>:抽象类是⼀种⽆法被实例化的类,专⻔⽤来定义类的结构和⾏为,类中可以写抽象 ⽅法,也可以写具体实现。抽象类主要⽤来为其派⽣类提供⼀个基础结构,要求其派⽣类  必须实现其中的抽象⽅法。</li>
         <li><b>简记</b>:抽象类<span class="bgc">不能实例化</span>,其意义是<span class="bgc">可以被继承</span>,抽象类⾥可以有<span class="bgc">普通⽅法</span>、也可以有<span class="bgc">抽象⽅法</span>。 </li>
@@ -91,9 +89,8 @@ import {
           <li>共享代码和逻辑:当多个类需要共享部分代码时,抽象类可以避免代码重复。</li>
         </ul>
       </div>
-    </div>
-    <div data-custom="interface(接⼝)">
-      <h2 id="_interface(接⼝)">interface(接⼝)</h2>
+    </ArticleSection>
+    <ArticleSection title="interface(接⼝)">
       <span class="content">interface 是⼀种`定义结构`的⽅式,主要作⽤是为:类、对象、函数等规定`⼀种契约`,这样 可以确保代码的⼀致性和类型安全,但要注意 interface `只能`定义`格式`,`不能`包含`任何实现` !</span>
       <h3>定义类结构</h3>
       <CodeBlock language="ts" :code="classInterfaceExample" />
@@ -114,9 +111,8 @@ import {
           <li>扩展已有接⼝:⼀般⽤于扩展第三⽅库的类型, 这种特性在⼤型项⽬中可能会⽤到。</li>
         </ul>
       </div>
-    </div>
-    <div data-custom="⼀些相似概念的区别">
-      <h2 id="_⼀些相似概念的区别">⼀些相似概念的区别</h2>
+    </ArticleSection>
+    <ArticleSection title="⼀些相似概念的区别">
       <h3>interface 与 type 的区别</h3>
       <div class="blue">
         相同点: interface 和 type 都可以⽤于定义对象结构,在定义对象结构时两者可以 互换。<br>
@@ -143,6 +139,6 @@ import {
       </div>
       <span class="content">⼀个类可以实现多个接⼝ TypeScript</span>
       <CodeBlock language="ts" :code="multipleInterfacesExample" />
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

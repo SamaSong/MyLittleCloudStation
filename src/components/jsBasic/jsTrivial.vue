@@ -1,7 +1,8 @@
 <script setup>
   import ArticleLayout from '@/common/components/ArticleLayout.vue'
-  import CodeBlock from "@/common/components/codeBlock.vue";
-  import AnchorComponents from "@/common/components/anchorComponents.jsx";
+  import ArticleSection from '@/common/components/ArticleSection.vue'
+  import CodeBlock from '@/common/components/codeBlock.vue'
+  import AnchorComponents from '@/common/components/anchorComponents.jsx'
   import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
   import {
     primitiveWrapperExample,
@@ -31,8 +32,7 @@
     title="JS琐碎知识🧀"
     description="记录 JavaScript、对象、数组、字符串、路由和其他开发中的零散知识点。"
   >
-    <div data-custom="1、JS相关">
-      <h2 id="_1、JS相关">1、JS相关</h2>
+    <ArticleSection title="1、JS相关">
       <AnchorComponents :data="JS_ANCHOR_POINT"/>
       <h3 id="js_1">展开运算符</h3>
       <span class="content">
@@ -74,9 +74,8 @@
       <h4 style="font-weight: 600;">与String.matchAll()的对比</h4>
       <span class="content">ES2020引入了String.matchAll()，它返回一个迭代器，可以更安全地遍历所有匹配：</span>
       <CodeBlock :code="matchAllExample" />
-    </div>
-    <div data-custom="2、对象相关">
-      <h2 id="_2、对象相关">2、对象相关</h2>
+    </ArticleSection>
+    <ArticleSection title="2、对象相关">
       <AnchorComponents :data="OBJ_ANCHOR_POINT"/>
       <h3 id="obj_1">不常用但好用的方法</h3>
       <span class="content">1、Object.fromEntries()</span><br>
@@ -88,9 +87,8 @@
       <span class="content">3、Object.hasOwn()</span>
       <ul><li>判断对象自身是否有指定的属性（不继承）。</li></ul>
       <CodeBlock :code="objectHasOwnExample" />
-    </div>
-    <div data-custom="3、数组相关">
-      <h2 id="_3、数组相关">3、数组相关</h2>
+    </ArticleSection>
+    <ArticleSection title="3、数组相关">
       <AnchorComponents :data="ARR_ANCHOR_POINT" />
       <h3 id="arr_1">flatMap方法</h3>
       <span class="content">
@@ -123,18 +121,16 @@
       <span class="content">
         <span class="bgc">fill</span>方法接受三个参数 value, start 以及 end. start 和 end 参数是可选的, 其默认值分别为 0 和 this 对象的 length 属性值。
       </span>
-    </div>
-    <div data-custom="4、字符串相关">
-      <h2 id="_4、字符串相关">4、字符串相关</h2>
+    </ArticleSection>
+    <ArticleSection title="4、字符串相关">
       <AnchorComponents :data="STRING_ANCHOR_POINT" />
       <h3 id="str_1">String.trim()</h3>
       <span class="content">
         trim()方法返回一个两头都去掉空白的字符串，并不影响原字符串本身。应用场景为：搜索框中的字符串处理。
       </span>
       <CodeBlock :code="trimExample" />
-    </div>
-    <div data-custom="5、路由相关">
-      <h2 id="_5、路由相关">5、路由相关</h2>
+    </ArticleSection>
+    <ArticleSection title="5、路由相关">
       <AnchorComponents :data="ROUTE__ANCHOR_POINT" />
       <h3 id="route_1">开发路由的思路</h3>
       <span class="content">
@@ -153,9 +149,8 @@
         当需要一个路由地址下的页面无需登录也可以访问时，除了使用路由白名单，也需要使用接口白名单，因为一般接口如果没有携带token的话会被重定向到login页
       </span>
       <CodeBlock :code="requestWhiteListExample" />
-    </div>
-    <div data-custom="6、其他">
-      <h2 id="_6、其他">6、其他</h2>
+    </ArticleSection>
+    <ArticleSection title="6、其他">
       <AnchorComponents :data="OTHERS_ANCHOR_POINT" />
       <h3 id="others_1">正则匹配全字符内容的差异</h3>
       <span class="content">
@@ -183,7 +178,7 @@
       <CodeBlock :code="tabMessageSenderExample" />
       <h3 id="others_3">文件导出</h3>
       <span class="content">在文件导出（如 Excel、PDF 等）的接口请求中，设置 responseType: 'blob' 非常重要，它告诉浏览器期望的响应数据格式为二进制大对象（Blob）。responseType: 'blob' 是处理文件下载的标配，能保证二进制数据的完整性，同时兼容错误信息的提取。</span>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>
 

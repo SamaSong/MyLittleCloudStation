@@ -1,6 +1,7 @@
 <script setup>
   import ArticleLayout from '@/common/components/ArticleLayout.vue'
-  import CodeBlock from "@/common/components/codeBlock.vue";
+  import ArticleSection from '@/common/components/ArticleSection.vue'
+  import CodeBlock from '@/common/components/codeBlock.vue'
   import {
     definePropertiesExample,
     computedPropertyExample,
@@ -25,8 +26,7 @@
       数据或者函数。
       </span>
     </template>
-    <div data-custom="1、对象">
-      <h2 id="_1、对象">1、对象</h2>
+    <ArticleSection title="1、对象">
       <span class="content">
         通过New Object()创建一个对象。<br>
         ECMAScript 提供了 Object.defineProperties()方法。这个方法可以通过多个描述符一次性定义多个属性。它接收两个参数：要为之添
@@ -59,9 +59,8 @@
         意味着在对象解构的上下文中，原始值会被当成对象。这也意味着（根据 ToObject()的定义），null
         和 undefined 不能被解构，否则会抛出错误。</span>
       </span>
-    </div>
-    <div data-custom="2、创建对象">
-      <h2 id="_2、创建对象">2、创建对象</h2>
+    </ArticleSection>
+    <ArticleSection title="2、创建对象">
       <h3>工厂模式</h3>
       <span class="content">
         工厂模式是一种众所周知的设计模式，广泛应用于软件工程领域，用于抽象创建特定对象的过程。
@@ -125,9 +124,8 @@
         返回对象值的数组，Object.entries()返回键/值对的数组。<br>
       </span>
       <CodeBlock :code="objectIterationExample" />
-    </div>
-    <div data-custom="3、继承">
-      <h2 id="_3、继承">3、继承</h2>
+    </ArticleSection>
+    <ArticleSection title="3、继承">
       <span class="content">
         继承是面向对象编程中讨论最多的话题。很多面向对象语言都支持两种继承：接口继承和实现继承。实现继承是 ECMAScript 唯一支持的继承方式，而这主要是通过原型链实现的。
       </span>
@@ -146,9 +144,8 @@
       <CodeBlock :code="constructorStealingWithArgsExample" />
       <span class="content"><span class="sub-important">盗用构造函数的主要缺点，也是使用构造函数模式自定义类型的问题：必须在构造函数中定义方法，因此函数不能重用。</span></span>
       <span class="content"><span class="sub-important">其他继承方式请阅读JavaScript高级程序设计(第4版)8.3</span></span>
-    </div>
-    <div data-custom="4、类">
-      <h2 id="_4、类">4、类</h2>
+    </ArticleSection>
+    <ArticleSection title="4、类">
       <span class="content">
         类（class）是ECMAScript 中新的基础性语法糖结构。
       </span>
@@ -187,6 +184,6 @@
       <span class="content">
         <span class="sub-important">建议直接阅读JavaScript高级程序设计(第4版)8.4.4</span>
       </span>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

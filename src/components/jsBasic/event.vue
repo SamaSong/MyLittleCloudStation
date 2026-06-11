@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   delegateHtmlExample,
@@ -14,8 +15,7 @@ import {
     title="事件"
     description="JavaScript 与 HTML 的交互是通过事件实现的，事件代表文档或浏览器窗口中某个有意义的时刻。"
   >
-    <div data-custom="1、事件流">
-      <h2 id="_1、事件流">1、事件流</h2>
+    <ArticleSection title="1、事件流">
       <h3>事件冒泡</h3>
       <span class="content">
         	IE 事件流被称为事件冒泡，这是因为事件被定义为从最具体的元素（文档树中最深的节点）开始触
@@ -34,22 +34,19 @@ import {
         为提前拦截事件提供了可能。然后，实际的目标元素接收到事件。最后一个阶段是冒泡，最迟要在这个
         阶段响应事件。
       </span>
-    </div>
-    <div data-custom="2、事件处理程序">
-      <h2 id="_2、事件处理程序">2、事件处理程序</h2>
+    </ArticleSection>
+    <ArticleSection title="2、事件处理程序">
       <span class="content">
         事件意味着用户或浏览器执行的某种动作。比如，单击（click）、加载（load）、鼠标悬停（mouseover）。为响应事件而调用的函数被称为事件处理程序（或事件监听器）。
       </span>
-    </div>
-    <div data-custom="3、事件对象">
-      <h2 id="_3、事件对象">3、事件对象</h2>
+    </ArticleSection>
+    <ArticleSection title="3、事件对象">
       <span class="content">
         在 DOM 中发生事件时，所有相关信息都会被收集并存储在一个名为 event 的对象中。这个对象包
         含了一些基本信息，比如导致事件的元素、发生的事件类型，以及可能与特定事件相关的任何其他数据。
       </span>
-    </div>
-    <div data-custom="4、事件类型">
-      <h2 id="_4、事件类型">4、事件类型</h2>
+    </ArticleSection>
+    <ArticleSection title="4、事件类型">
       <ul>
         <li>用户界面事件（UIEvent）：涉及与 BOM 交互的通用浏览器事件。</li>
         <li>焦点事件（FocusEvent）：在元素获得和失去焦点时触发。</li>
@@ -59,9 +56,8 @@ import {
         <li>键盘事件（KeyboardEvent）：使用键盘在页面上执行某些操作时触发。</li>
         <li>合成事件（CompositionEvent）：在使用某种 IME（Input Method Editor，输入法编辑器）输入字符时触发。</li>
       </ul>
-    </div>
-    <div data-custom="5、内存与性能">
-      <h2 id="_5、内存与性能">5、内存与性能</h2>
+    </ArticleSection>
+    <ArticleSection title="5、内存与性能">
       <span class="content">
         在 JavaScript 中，页面中事件处理程序的数量与页面整体性能直接相关。原
         因有很多。首先，每个函数都是对象，都占用内存空间，对象越多，性能越差。其次，为指定事件处理
@@ -99,9 +95,8 @@ import {
         <li>节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。</li>
         <li>减少整个页面所需的内存，提升整体性能。</li>
       </ul>
-    </div>
-    <div data-custom="6、事件循环">
-      <h2 id="_6、事件循环">6、事件循环</h2>
+    </ArticleSection>
+    <ArticleSection title="6、事件循环">
       <span class="content">
         JavaScript 主线程一次只执行一个任务。同步代码先进入调用栈，异步回调会进入任务队列；每轮宏任务执行结束后，浏览器会先清空微任务队列，再进入渲染和下一轮宏任务。
       </span>
@@ -111,6 +106,6 @@ import {
         <li>常见微任务：Promise.then、queueMicrotask、MutationObserver。</li>
         <li>微任务过多会阻塞页面渲染，递归追加微任务时要特别谨慎。</li>
       </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

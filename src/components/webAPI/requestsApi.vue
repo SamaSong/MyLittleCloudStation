@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from "@/common/components/codeBlock.vue";
 import {
   fetchSyntaxExample,
@@ -24,8 +25,7 @@ import {
     title="网络请求API"
     description="整理 Fetch、FormData、下载进度、AbortController、keepalive 和 URL 对象等网络请求能力。"
   >
-    <div data-custom="Fetch">
-      <h2 id="_Fetch">Fetch</h2>
+    <ArticleSection title="Fetch">
       <span class="content">有很多方式可以向服务器发送网络请求，并从服务器获取信息。<span class="bgc">fetch()</span>方法是一种现代通用的方法。<br>基本语法：</span>
       <CodeBlock :code="fetchSyntaxExample" />
       <ul>
@@ -58,9 +58,8 @@ import {
         Response header 位于 response.headers 中的一个类似于 Map 的 header 对象。
         它不是真正的 Map，但是它具有类似的方法，我们可以按名称（name）获取各个 header，或迭代它们：
       </span>
-    </div>
-    <div data-custom="FormData">
-      <h2 id="_FormData">FormData</h2>
+    </ArticleSection>
+    <ArticleSection title="FormData">
       <span class="content">FormData 对象用于捕获 HTML 表单，并使用 fetch 或其他网络方法提交。<br>构造函数是：</span>
       <CodeBlock :code="formDataExample" />
       <ul>
@@ -75,9 +74,8 @@ import {
         <li>formData.set(name, value)</li>
         <li>formData.set(name, blob, fileName)</li>
       </ul>
-    </div>
-    <div data-custom="Fetch：下载进度">
-      <h2 id="_Fetch：下载进度">Fetch：下载进度</h2>
+    </ArticleSection>
+    <ArticleSection title="Fetch：下载进度">
       <span class="content"><span class="bgc">fetch</span> 方法允许去跟踪 下载 进度。</span>
       <span class="content">要跟踪下载进度，我们可以使用 response.body 属性。它是 ReadableStream —— 一个特殊的对象，它可以逐块（chunk）提供 body。在 Streams API 规范中有对 ReadableStream 的详细描述。</span>
       <span class="content">与 response.text()，response.json() 和其他方法不同，response.body 给予了对进度读取的完全控制，我们可以随时计算下载了多少。<br>这是从 response.body 读取 response 的示例代码：</span>
@@ -88,9 +86,8 @@ import {
         <li><span class="b">value</span> —— 字节的类型化数组：Uint8Array。</li>
       </ul>
       <CodeBlock :code="downloadProgressExample" />
-    </div>
-    <div data-custom="Fetch：中止（Abort）">
-      <h2 id="_Fetch：中止（Abort）">Fetch：中止（Abort）</h2>
+    </ArticleSection>
+    <ArticleSection title="Fetch：中止（Abort）">
       <span class="content">有一个特殊的内建对象：AbortController。它不仅可以中止 fetch，还可以中止其他异步任务。</span>
       <h3>AbortController 对象</h3>
       <span class="content">创建一个控制器（controller）：</span>
@@ -120,9 +117,8 @@ import {
       <span class="content">AbortController 是可伸缩的。它允许一次取消多个 fetch。</span>
       <span class="content">如果我们有自己的与 fetch 不同的异步任务，我们可以使用单个 AbortController 中止这些任务以及 fetch。在我们的任务中，我们只需要监听其 abort 事件：</span>
       <CodeBlock :code="abortMultipleJobsExample" />
-    </div>
-    <div data-custom="Fetch API">
-      <h2 id="Fetch API">Fetch API</h2>
+    </ArticleSection>
+    <ArticleSection title="Fetch API">
       <span class="content">fetch 的剩余 API</span>
       <CodeBlock :code="fetchOptionsExample" />
       <h3>keepalive</h3>
@@ -146,9 +142,8 @@ import {
           </ul>
         </li>
       </ul>
-    </div>
-    <div data-custom="URL 对象">
-      <h2 id="_URL 对象">URL 对象</h2>
+    </ArticleSection>
+    <ArticleSection title="URL 对象">
       <span class="content">内建的 URL 类提供了用于创建和解析 URL 的便捷接口。</span>
       <h3>创建 URL 对象</h3>
       <CodeBlock :code="urlConstructorExample" />
@@ -165,6 +160,6 @@ import {
         <li>search —— 以问号 ? 开头的一串参数</li>
         <li>hash 以哈希字符 # 开头</li>
       </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

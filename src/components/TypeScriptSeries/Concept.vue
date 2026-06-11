@@ -1,5 +1,6 @@
 <script setup>
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
 import {
   typeDeclarationExample,
@@ -14,8 +15,7 @@ import {
     title="TypeScript概念（基本内容）"
     description="整理 TypeScript 的基础定位、静态类型检查、类型声明和类型推断。"
   >
-    <div data-custom="概念">
-      <h2 id="_概念">概念</h2>
+    <ArticleSection title="概念">
       <h3>简介</h3>
       <span class="content">
         	1、TypeScript 由微软开发,是基于 JavaScript 的⼀个扩展语⾔。
@@ -30,9 +30,8 @@ import {
         	同样的功能，TypeScript的代码量要大于JavaScript,但由于TypeScript的代码结构更加清晰，在后期代码
         的维护中TypeScript却远胜于JavaScript。
       </span>
-    </div>
-    <div data-custom="类型声明">
-      <h2 id="_类型声明">类型声明</h2>
+    </ArticleSection>
+    <ArticleSection title="类型声明">
       <span class="content">
         使⽤<span class="bgc"> : </span>来对变量或函数形参,进⾏类型声明:
       </span>
@@ -41,17 +40,15 @@ import {
         在 : 后也可以写字⾯量类型,不过实际开发中⽤的不多。
       </span>
       <CodeBlock language="ts" :code="literalTypeExample" />
-    </div>
-    <div data-custom="类型判断">
-      <h2 id="_类型判断">类型判断</h2>
+    </ArticleSection>
+    <ArticleSection title="类型判断">
       <span class="content">
         &nbsp;	&nbsp; &nbsp;	&nbsp;TS 会根据我们的代码,进⾏类型推导,例如下⾯代码中的变量 d ,只能存储数字。
       </span>
       <CodeBlock language="ts" :code="typeInferenceExample" />
       <span class="content"><span class="sub-important">但要注意,类型推断不是万能的,⾯对复杂类型时推断容易出问题,所以尽量还是明确的编写类型声明!</span></span>
-    </div>
-    <div data-custom="类型收窄">
-      <h2 id="_类型收窄">类型收窄</h2>
+    </ArticleSection>
+    <ArticleSection title="类型收窄">
       <span class="content">
         类型收窄是把一个较宽的联合类型，通过判断语句逐步缩小到更具体类型的过程。实际开发中，它比直接使用 as 断言更安全，也能让编辑器在分支内给出正确提示。
       </span>
@@ -61,6 +58,6 @@ import {
         <li>Array.isArray 适合判断数组，优先于 instanceof Array。</li>
         <li>可选属性访问前先判断存在性，避免运行时读取 undefined。</li>
       </ul>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

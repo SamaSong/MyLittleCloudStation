@@ -1,6 +1,7 @@
 <script setup>
   import ArticleLayout from '@/common/components/ArticleLayout.vue'
-  import CodeBlock from "@/common/components/codeBlock.vue";
+  import ArticleSection from '@/common/components/ArticleSection.vue'
+  import CodeBlock from '@/common/components/codeBlock.vue'
   import {
     windowGlobalExample,
     queryStringArgsExample,
@@ -13,8 +14,7 @@
     title="BOM、DOM"
     description="DOM、BOM 相关的一些概念以及属性。"
   >
-    <div data-custom="1、window">
-      <h2 id="_1、window">1、window</h2>
+    <ArticleSection title="1、window">
       <span class="content">
         	BOM 的核心是 window 对象，表示浏览器的实例。window 对象在浏览器中有两重身份，一个是
         ECMAScript 中的 Global 对象，另一个就是浏览器窗口的 JavaScript 接口。这意味着网页中定义的所有
@@ -24,15 +24,13 @@
         因为 window 对象被复用为 ECMAScript 的 Global 对象，所以通过 var 声明的所有全局变量和函数都会变成 window 对象的属性和方法。
       </span>
       <CodeBlock :code="windowGlobalExample" />
-    </div>
-    <div data-custom="2、定时器">
-      <h2 id="_2、定时器">2、定时器</h2>
+    </ArticleSection>
+    <ArticleSection title="2、定时器">
       <span class="content">
         setTimeout()用于指定在一定时间后执行某些代码，而 setInterval()用于指定每隔一段时间执行某些代码。
       </span>
-    </div>
-    <div data-custom="3、location 对象">
-      <h2 id="_3、location 对象">3、location 对象</h2>
+    </ArticleSection>
+    <ArticleSection title="3、location 对象">
       <span class="content">
         location 是最有用的 BOM 对象之一，提供了当前窗口中加载文档的信息，以及通常的导航功能。
         这个对象独特的地方在于，它既是 window 的属性，也是 document 的属性。也就是说，
@@ -52,9 +50,8 @@
         URLSearchParams 构造函数传入一个查询字符串，就可以创建一个实例。这个实例上暴露了 get()、has()、set()和 delete()等方法。
       </span>
       <CodeBlock :code="urlSearchParamsExample" />
-    </div>
-    <div data-custom="4、DOM节点操作方法">
-      <h2 id="_4、DOM节点操作方法">4、DOM节点操作方法</h2>
+    </ArticleSection>
+    <ArticleSection title="4、DOM节点操作方法">
       <span class="content">
         最常用的方法是
         appendChild()，用于在 childNodes 列表末尾添加节点。添加新节点会更新相关的关系指针，包括
@@ -70,6 +67,6 @@
         replaceChild()方法接收两个参数：要插入的节点和要替换的节点。要替换的节点会被返回并从文档
         树中完全移除，要插入的节点会取而代之。
       </span>
-    </div>
+    </ArticleSection>
   </ArticleLayout>
 </template>

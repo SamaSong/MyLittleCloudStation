@@ -34,7 +34,7 @@
         class="api-section"
       >
         <div class="section-heading">
-          <h2 :id="`_${section.title}`">{{ section.title }}</h2>
+          <h2 :id="getAnchorId(section.title)">{{ section.title }}</h2>
           <p>{{ section.description }}</p>
         </div>
 
@@ -54,7 +54,7 @@
       </article>
 
       <section class="tips-section" data-custom="开发注意点">
-        <h2 id="_开发注意点">开发注意点</h2>
+        <h2 :id="getAnchorId('开发注意点')">开发注意点</h2>
         <ul>
           <li>
             Vue 组件卸载时调用 <code>viewer.destroy()</code>，否则 WebGL 上下文、
@@ -83,6 +83,7 @@ import { onMounted, onUnmounted, useTemplateRef } from 'vue'
 import * as Cesium from 'cesium'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
 import CodeBlock from '@/common/components/codeBlock.vue'
+import { getAnchorId } from '@/common/tools/anchor.js'
 
 // Cesium Ion 令牌
 Cesium.Ion.defaultAccessToken = import.meta.env.VITE_APP_CESIUM_TOKEN

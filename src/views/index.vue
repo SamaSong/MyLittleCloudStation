@@ -6,6 +6,7 @@
   import asideConfig from '@/common/config/asideConfig.js'
   import {computed, nextTick, onBeforeUnmount, onMounted, ref, watch} from "vue";
   import debounce from '@/common/tools/debounce.js'
+  import { getAnchorId } from '@/common/tools/anchor.js'
 
   const router = useRouter()
   const menuStore = useMenuItemNameStore()
@@ -82,7 +83,7 @@
           group: group.name,
           child: child.name,
           path: group.path,
-          anchorId: `_${child.name}`,
+          anchorId: getAnchorId(child.name),
           type: 'child'
         })) ?? []
       }) ?? []
