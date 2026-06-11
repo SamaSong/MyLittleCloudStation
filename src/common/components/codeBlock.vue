@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 
 const props = defineProps({
+  code: {
+    type: String,
+    default: '',
+  },
   language: {
     type: String,
     default: 'js',
@@ -41,9 +45,7 @@ const copyCode = async () => {
       </button>
     </div>
     <pre v-highlight>
-      <code ref="codeRef">
-        <slot></slot>
-      </code>
+      <code ref="codeRef">{{ props.code }}<slot v-if="!props.code"></slot></code>
     </pre>
   </div>
 </template>

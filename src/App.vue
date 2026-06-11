@@ -1,8 +1,5 @@
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
 import Index from '@/views/index.vue'
-
-console.log('欢迎来到我的前端云小站')
 </script>
 
 <template>

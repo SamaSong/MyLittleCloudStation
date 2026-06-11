@@ -1,12 +1,36 @@
 <script setup>
+  import ArticleLayout from '@/common/components/ArticleLayout.vue'
   import CodeBlock from "@/common/components/codeBlock.vue";
   import AnchorComponents from "@/common/components/anchorComponents.jsx";
   import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
+  import {
+    primitiveWrapperExample,
+    addEventListenerExample,
+    arrayDestructuringExample,
+    regexpExecLoopExample,
+    matchAllExample,
+    objectFromEntriesExample,
+    objectEntriesExample,
+    objectHasOwnExample,
+    flatMapSyntaxExample,
+    flatMapCompareExample,
+    arrayFromSyntaxExample,
+    trimExample,
+    importMetaGlobExample,
+    lazyLoadRouteExample,
+    urlSearchParamsExample,
+    requestWhiteListExample,
+    regexpReplaceExample,
+    tabMessageReceiverExample,
+    tabMessageSenderExample,
+  } from './jsTrivial.examples.js'
 </script>
 
 <template>
-  <div class="content-container">
-    <h1 class="title">JS琐碎知识🧀</h1>
+  <ArticleLayout
+    title="JS琐碎知识🧀"
+    description="记录 JavaScript、对象、数组、字符串、路由和其他开发中的零散知识点。"
+  >
     <div data-custom="1、JS相关">
       <h2 id="_1、JS相关">1、JS相关</h2>
       <AnchorComponents :data="JS_ANCHOR_POINT"/>
@@ -20,28 +44,9 @@
         包装对象:如 Number 对象、 String 对象、 Boolean 对象,是复杂类型,在 内存中占⽤更多空间,在⽇常开发时很少由开发⼈员⾃⼰创建包装对象。<br>
         ⾃动装箱:JavaScript 在必要时会⾃动将原始类型包装成对象,以便调⽤⽅法或访问属性。<br>
       </span>
-      <CodeBlock>
-        <pre>// 原始类型字符串
-          let str = 'hello';
-          // 当访问str.length时,JavaScript引擎做了以下⼯作:
-          // 1. ⾃动装箱:创建⼀个临时的String对象包装原始字符串
-          let size = (function(){
-            let tempStringObject = new String(str);
-            // 2. 访问String对象的length属性
-            let lengthValue = tempStringObject.length;
-            // 3. 销毁临时对象,返回⻓度值
-            // (JavaScript引擎⾃动处理对象销毁,开发者⽆感知)
-            return lengthValue;
-          })();
-
-          console.log(size); // 输出: 5</pre>
-      </CodeBlock>
+      <CodeBlock :code="primitiveWrapperExample" />
       <h3 id="js_3">关于window.addEventListener</h3>
-      <CodeBlock>
-        <pre>// 基本语法
-        window.addEventListener('事件类型', 回调函数, [使用捕获]);
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="addEventListenerExample" />
       <span class="content">常见事件类型：</span>
       <ul>
         <li><span class="bgc">load</span> - 页面完全加载</li>
@@ -61,51 +66,14 @@
       <span class="content">
         善用数组的结构赋值，比如在Object.keys、Object.values后，当确定数组的元素数时
       </span>
-      <CodeBlock>
-        <pre>const [key] = Object.keys(arr)
-          const [vlaue] = Object.values(arr)
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="arrayDestructuringExample" />
       <h3 id="js_5">while循环配合RegExp.exec()实现多次循环</h3>
       <span class="content">RegExp.exec() 方法在一个指定字符串中执行一个搜索匹配。返回一个结果数组或 null。</span>
       <span class="content">RegExp.exec()在全局模式（g标志） 或粘性模式（y标志）下，每次调用都会更新正则表达式的lastIndex属性，从而能够遍历字符串中的所有匹配项。</span>
-      <CodeBlock>
-        <pre>// 示例代码
-        const regex = /\d+/g;  // 匹配一个或多个数字
-        const str = "abc123def456ghi789";
-
-        console.log("初始状态: regex.lastIndex =", regex.lastIndex); // 0
-
-        let match;
-        let iteration = 1;
-
-        while ((match = regex.exec(str)) !== null) {
-            console.log(`\n第 ${iteration} 次迭代:`);
-            console.log(`匹配结果: ${match[0]}`);
-            console.log(`匹配位置: ${match.index}`);
-            console.log(`匹配后 lastIndex: ${regex.lastIndex}`);
-            iteration++;
-        }
-
-        console.log("\n循环结束，所有匹配已找到");</pre>
-      </CodeBlock>
+      <CodeBlock :code="regexpExecLoopExample" />
       <h4 style="font-weight: 600;">与String.matchAll()的对比</h4>
       <span class="content">ES2020引入了String.matchAll()，它返回一个迭代器，可以更安全地遍历所有匹配：</span>
-      <CodeBlock>
-        <pre>const regex = /\d+/g;
-        const str = "abc123def456";
-
-        // 使用matchAll() - 更现代的方法
-        for (const match of str.matchAll(regex)) {
-            console.log(match[0]);
-        }
-
-        // 对比传统的exec()循环
-        let match;
-        while ((match = regex.exec(str)) !== null) {
-            console.log(match[0]);
-        }</pre>
-      </CodeBlock>
+      <CodeBlock :code="matchAllExample" />
     </div>
     <div data-custom="2、对象相关">
       <h2 id="_2、对象相关">2、对象相关</h2>
@@ -113,23 +81,13 @@
       <h3 id="obj_1">不常用但好用的方法</h3>
       <span class="content">1、Object.fromEntries()</span><br>
       <ul><li>将键值对列表（如数组）转换为对象。</li></ul>
-      <CodeBlock>
-        <pre>const entries = [['a', 1], ['b', 2]];
-          const obj = Object.fromEntries(entries); // { a: 1, b: 2 }</pre>
-      </CodeBlock>
+      <CodeBlock :code="objectFromEntriesExample" />
       <span class="content">2、Object.entries()</span>
       <ul><li>返回给定对象自身可枚举属性的键值对数组。</li></ul>
-      <CodeBlock>
-        <pre>const obj = { a: 1, b: 2 };
-        Object.entries(obj); // [['a', 1], ['b', 2]]</pre>
-      </CodeBlock>
+      <CodeBlock :code="objectEntriesExample" />
       <span class="content">3、Object.hasOwn()</span>
       <ul><li>判断对象自身是否有指定的属性（不继承）。</li></ul>
-      <CodeBlock>
-        <pre>const obj = { a: 1 };
-        Object.hasOwn(obj, 'a'); // true
-        Object.hasOwn(obj, 'toString'); // false</pre>
-      </CodeBlock>
+      <CodeBlock :code="objectHasOwnExample" />
     </div>
     <div data-custom="3、数组相关">
       <h2 id="_3、数组相关">3、数组相关</h2>
@@ -138,11 +96,7 @@
       <span class="content">
         flatMap() 方法首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 连着深度值为1的 flat 几乎相同，但 flatMap 通常在合并成一种方法的效率稍微高一些。
       </span>
-      <CodeBlock>
-        <pre>var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
-              // 返回新数组的元素
-          }[, thisArg])</pre>
-      </CodeBlock>
+      <CodeBlock :code="flatMapSyntaxExample" />
       <span class="content">
         返回值一个新的数组，其中每个元素都是回调函数的结果，并且结构深度 depth 值为1。
       </span>
@@ -150,28 +104,12 @@
       <span class="content">
         Map 与 flatMap区别
       </span>
-      <CodeBlock>
-        <pre>var arr1 = [1, 2, 3, 4];
-
-          arr1.map(x => [x * 2]);
-          // [[2], [4], [6], [8]]
-
-          arr1.flatMap(x => [x * 2]);
-          // [2, 4, 6, 8]
-
-          // 只会将 flatMap 中的函数返回的数组 “压平” 一层
-          arr1.flatMap(x => [[x * 2]]);
-          // [[2], [4], [6], [8]]
-          </pre>
-      </CodeBlock>
+      <CodeBlock :code="flatMapCompareExample" />
       <h3 id="arr_2">Array.from()</h3>
       <span class="content">
         <span class="bgc">Array.from()</span> 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
       </span>
-      <CodeBlock><pre>
-        Array.from(arrayLike[, mapFn[, thisArg]])
-      </pre>
-      </CodeBlock>
+      <CodeBlock :code="arrayFromSyntaxExample" />
       <span class="content">
         Array.from() 可以通过伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）或者 可迭代对象（可以获取对象中的元素,如 Map和 Set 等）
       </span>
@@ -193,15 +131,7 @@
       <span class="content">
         trim()方法返回一个两头都去掉空白的字符串，并不影响原字符串本身。应用场景为：搜索框中的字符串处理。
       </span>
-      <CodeBlock>
-        <pre>var orig = '   foo  ';
-          console.log(orig.trim()); // 'foo'
-
-          // 另一个.trim()例子，只从一边删除
-
-          var orig = 'foo    ';
-          console.log(orig.trim()); // 'foo'</pre>
-      </CodeBlock>
+      <CodeBlock :code="trimExample" />
     </div>
     <div data-custom="5、路由相关">
       <h2 id="_5、路由相关">5、路由相关</h2>
@@ -210,72 +140,19 @@
       <span class="content">
         当我们在处理路由时，对于相同路径的组件加载，大可不必罗列路由配置。可以使用<span class="bgc">import.meta.glob</span>。例如：
       </span>
-      <CodeBlock>
-        <pre>import.meta.glob('../components/**/*.vue')
-        // import.meta.glob() 默认返回懒加载函数，每个匹配的文件对应一个 () => import('./xxx.vue') 形式的动态导入函数。
-        // 会让 Vite 在构建阶段扫描 src/components/** 目录下的所有 .vue 文件，为每个文件生成一个按需导入的函数。返回结果是一个以文件相对路径为键、以懒加载函数为值的对象。
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="importMetaGlobExample" />
       <span class="content">
         如果有在不同目录下的懒加载路由。通过对象展开运算符把两个扫描结果合并成一个大对象。
       </span>
-      <CodeBlock>
-        <pre>const moduleMap = {
-          ...import.meta.glob('../views/**/*.vue'),
-          ...import.meta.glob('../components/**/*.vue')
-        }
-        const lazyLoad = (relativePath) => {
-          const loader = moduleMap[toGlobPath(relativePath)]
-          if (!loader) {
-            throw new Error(`[router] 未找到对应的组件文件：${relativePath}`)
-          }
-          return loader
-        }
-        // 通过形如lazyLoad的函数返回对应的组件懒加载函数
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="lazyLoadRouteExample" />
       <h3 id="route_2">如何优雅的获取路由参数</h3>
       <span class="content">URLSearchParams API（现代浏览器）</span>
-      <CodeBlock>
-        <pre>// 获取当前URL参数
-        const urlParams = new URLSearchParams(window.location.search);
-
-        // 获取单个参数
-        const id = urlParams.get('id');           // ?id=123 → "123"
-        const name = urlParams.get('name');       // ?name=John → "John"
-        const nonExistent = urlParams.get('key'); // 不存在返回 null
-
-        // 检查参数是否存在
-        const hasToken = urlParams.has('token');  // 返回 true/false
-
-        // 遍历所有参数
-        for (const [key, value] of urlParams.entries()) {
-          console.log(`${key}: ${value}`);
-        }
-
-        // 转换为对象
-        const params = Object.fromEntries(urlParams.entries());</pre>
-      </CodeBlock>
+      <CodeBlock :code="urlSearchParamsExample" />
       <h3 id="route_3">跳转路由时使用接口白名单</h3>
       <span class="content">
         当需要一个路由地址下的页面无需登录也可以访问时，除了使用路由白名单，也需要使用接口白名单，因为一般接口如果没有携带token的话会被重定向到login页
       </span>
-      <CodeBlock>
-        <pre>// 接口白名单：无需 token 也允许访问
-          const requestWhiteList = [
-            "/****",
-          ];
-
-          const isWhiteRequest = requestWhiteList.some((url) => config.url.indexOf(url) > -1);
-
-          if (token) {
-            config.headers.Authorization = token;
-          } else if (!isWhiteRequest) {
-            // 白名单以外的接口仍然需要登录态
-            ****
-          }
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="requestWhiteListExample" />
     </div>
     <div data-custom="6、其他">
       <h2 id="_6、其他">6、其他</h2>
@@ -299,41 +176,15 @@
         <li>可以匹配多行内容</li>
       </ul>
       <div class="attention">括号 () 还创建了一个捕获组，可以提取匹配的内容。</div>
-      <CodeBlock>
-        <pre>str.replace(RegExp, (_, match) => {})
-          // _ : 带有匹配符合的内容
-          // match : 纯内容，没有匹配符号
-
-          //例如
-          let str = '#{答案}#'
-          const Reg = /\#{([\s\S]*?)}\#/gi;
-          str.replace(Reg, (_, match) => {
-            console.log('_ ==> ', _) // #{答案}#
-            console.log('match ==> ', match) // 答案
-          })
-        </pre>
-      </CodeBlock>
+      <CodeBlock :code="regexpReplaceExample" />
       <h3 id="others_2">跨页签通讯</h3>
       <span class="content">当我门需要跨页签通讯时可以采用以下方法: 例如当winA打开winB时</span>
-      <CodeBlock>
-        <pre>// winA
-        window.addEventListener('message', (event) => {
-          console.log('event.data ==> ', event.data)
-        })
-        // event.data 子窗口传递的message</pre>
-      </CodeBlock>
-      <CodeBlock>
-        <pre>// WinB
-        if (window.opener) {
-          window.opener.postMessage(message, targetOrigin, [transfer])
-        }
-        // message 要传递的数据，浏览器会自动序列化（无需手动 JSON.stringify）
-        // targetOrigin 目标窗口的源（协议 + 域名 + 端口），控制消息发送范围，核心安全参数 "任意源：*"</pre>
-      </CodeBlock>
+      <CodeBlock :code="tabMessageReceiverExample" />
+      <CodeBlock :code="tabMessageSenderExample" />
       <h3 id="others_3">文件导出</h3>
       <span class="content">在文件导出（如 Excel、PDF 等）的接口请求中，设置 responseType: 'blob' 非常重要，它告诉浏览器期望的响应数据格式为二进制大对象（Blob）。responseType: 'blob' 是处理文件下载的标配，能保证二进制数据的完整性，同时兼容错误信息的提取。</span>
     </div>
-  </div>
+  </ArticleLayout>
 </template>
 
 <style scoped lang="scss">

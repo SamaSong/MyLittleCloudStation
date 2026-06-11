@@ -1,11 +1,14 @@
 <script setup>
+  import ArticleLayout from '@/common/components/ArticleLayout.vue'
   import AnchorComponents from "@/common/components/anchorComponents.jsx";
   import { CSS_ANCHOR_POINT } from './static.js'
 </script>
 
 <template>
-  <div class="content-container">
-    <h1 class="title">CSS琐碎知识🧀</h1>
+  <ArticleLayout
+    title="CSS琐碎知识🧀"
+    description="记录 CSS 与常见 UI 组件交互时容易复用的零散知识。"
+  >
     <div data-custom="1、Element相关">
       <h2 id="_1、Element相关">1、Element相关</h2>
       <AnchorComponents :data="CSS_ANCHOR_POINT" />
@@ -48,7 +51,7 @@
           </li>
         </ul>
     </div>
-  </div>
+  </ArticleLayout>
 </template>
 
 <style scoped lang="scss">

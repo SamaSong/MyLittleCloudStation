@@ -1,7 +1,18 @@
+<script setup>
+import ArticleLayout from '@/common/components/ArticleLayout.vue'
+import CodeBlock from "@/common/components/codeBlock.vue";
+import {
+  delegateHtmlExample,
+  multipleHandlersExample,
+  delegatedHandlerExample,
+} from './event.examples.js'
+</script>
+
 <template>
-  <div class="content-container">
-    <h1 class="title">事件</h1>
-    <span class="sub-title">JavaScript 与 HTML 的交互是通过事件实现的，事件代表文档或浏览器窗口中某个有意义的时刻。</span>
+  <ArticleLayout
+    title="事件"
+    description="JavaScript 与 HTML 的交互是通过事件实现的，事件代表文档或浏览器窗口中某个有意义的时刻。"
+  >
     <div data-custom="1、事件流">
       <h2 id="_1、事件流">1、事件流</h2>
       <h3>事件冒泡</h3>
@@ -38,16 +49,15 @@
     </div>
     <div data-custom="4、事件类型">
       <h2 id="_4、事件类型">4、事件类型</h2>
-      <span class="content">
-        · 用户界面事件（UIEvent）：涉及与 BOM 交互的通用浏览器事件。<br/>
-        · 焦点事件（FocusEvent）：在元素获得和失去焦点时触发。<br/>
-        · 鼠标事件（MouseEvent）：使用鼠标在页面上执行某些操作时触发。<br/>
-        · 滚轮事件（WheelEvent）：使用鼠标滚轮（或类似设备）时触发。<br/>
-        · 输入事件（InputEvent）：向文档中输入文本时触发。<br/>
-        · 键盘事件（KeyboardEvent）：使用键盘在页面上执行某些操作时触发。<br/>
-        · 合成事件（CompositionEvent）：在使用某种 IME（Input Method Editor，输入法编辑器）输入
-        字符时触发。
-      </span>
+      <ul>
+        <li>用户界面事件（UIEvent）：涉及与 BOM 交互的通用浏览器事件。</li>
+        <li>焦点事件（FocusEvent）：在元素获得和失去焦点时触发。</li>
+        <li>鼠标事件（MouseEvent）：使用鼠标在页面上执行某些操作时触发。</li>
+        <li>滚轮事件（WheelEvent）：使用鼠标滚轮（或类似设备）时触发。</li>
+        <li>输入事件（InputEvent）：向文档中输入文本时触发。</li>
+        <li>键盘事件（KeyboardEvent）：使用键盘在页面上执行某些操作时触发。</li>
+        <li>合成事件（CompositionEvent）：在使用某种 IME（Input Method Editor，输入法编辑器）输入字符时触发。</li>
+      </ul>
     </div>
     <div data-custom="5、内存与性能">
       <h2 id="_5、内存与性能">5、内存与性能</h2>
@@ -63,45 +73,17 @@
         处理程序来管理一种类型的事件。例如，click 事件冒泡到 document。这意味着可以为整个页面指定
         一个 onclick 事件处理程序，而不用为每个可点击元素分别指定事件处理程序。比如有以下 HTML：
       </span>
-      <div id="html"></div>
+      <CodeBlock language="html" :code="delegateHtmlExample" />
       <span class="content">
         这里的 HTML 包含 3 个列表项，在被点击时应该执行某个操作。对此，通常的做法是像这样指定 3个事件处理程序：
       </span>
-      <CodeBlock>
-        <pre>let item2 = document.getElementById("doSomething");
-        let item3 = document.getElementById("sayHi");
-        item1.addEventListener("click", (event) => {
-         location.href = "http:// www.wrox.com";
-        });
-        item2.addEventListener("click", (event) => {
-         document.title = "I changed the document's title";
-        });
-        item3.addEventListener("click", (event) => {
-         console.log("hi");
-        });</pre>
-      </CodeBlock>
+      <CodeBlock :code="multipleHandlersExample" />
       <span class="content">
         如果对页面中所有需要使用 onclick 事件处理程序的元素都如法炮制，结果就会出现大片雷同的
         只为指定事件处理程序的代码。使用事件委托，只要给所有元素共同的祖先节点添加一个事件处理程序，
         就可以解决问题。比如：
       </span>
-      <CodeBlock>
-        <pre>let list = document.getElementById("myLinks");
-        list.addEventListener("click", (event) => {
-           let target = event.target;
-           switch(target.id) {
-           case "doSomething":
-           document.title = "I changed the document's title";
-           break;
-           case "goSomewhere":
-           location.href = "http:// www.wrox.com";
-           break;
-           case "sayHi":
-           console.log("hi");
-           break;
-         }
-        });</pre>
-      </CodeBlock>
+      <CodeBlock :code="delegatedHandlerExample" />
       <span class="content">
         这里只给元素添加了一个 onclick 事件处理程序。因为所有列表项都是这个
         元素的后代，所以它们的事件会向上冒泡，最终都会由这个函数来处理。但事件目标是每个被点击的列
@@ -110,33 +92,12 @@
         序。结果对用户来说没有区别，但这种方式占用内存更少。所有使用按钮的事件（大多数鼠标事件和键
         盘事件）都适用于这个解决方案。
       </span>
-      <span class="content">
-        事件委托具有如下优点。<br>
-        · document 对象随时可用，任何时候都可以给它添加事件处理程序（不用等待 DOMContentLoaded或 load 事件）。这意味着只要页面渲染出可点击的元素，就可以无延迟地起作用。<br>
-        · 节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。<br>
-        · 减少整个页面所需的内存，提升整体性能。
-      </span>
+      <span class="content">事件委托具有如下优点。</span>
+      <ul>
+        <li>document 对象随时可用，任何时候都可以给它添加事件处理程序（不用等待 DOMContentLoaded 或 load 事件）。这意味着只要页面渲染出可点击的元素，就可以无延迟地起作用。</li>
+        <li>节省花在设置页面事件处理程序上的时间。只指定一个事件处理程序既可以节省 DOM 引用，也可以节省时间。</li>
+        <li>减少整个页面所需的内存，提升整体性能。</li>
+      </ul>
     </div>
-  </div>
+  </ArticleLayout>
 </template>
-
-<script setup>
-import CodeBlock from "@/common/components/codeBlock.vue";
-import { onMounted } from "vue";
-
-function escapeHtml(html) {
-  return html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-onMounted(() => {
-  document.getElementById("html").innerHTML = `<pre>${ escapeHtml("<ul id=\"myLinks\"> \n" +
-    " <li id=\"goSomewhere\">Go somewhere</li> \n" +
-    " <li id=\"doSomething\">Do something</li> \n" +
-    " <li id=\"sayHi\">Say hi</li> \n" +
-    "</ul>") }<pre>`;
-})
-</script>
-
-<style scoped lang="scss">
-
-</style>

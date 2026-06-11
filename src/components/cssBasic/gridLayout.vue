@@ -8,7 +8,3 @@ import ArticleLayout from '@/common/components/ArticleLayout.vue'
     description="CSS Grid 适合处理二维布局，后续可以在这里补充容器属性、项目属性和常见布局示例。"
   />
 </template>
-
-<style scoped lang="scss">
-
-</style>

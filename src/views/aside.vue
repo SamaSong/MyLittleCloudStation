@@ -1,9 +1,9 @@
 <script setup>
+  import { defineEmits, onMounted, ref } from 'vue'
   import asideConfig from '@/common/config/asideConfig.js'
-  import {ref, defineEmits, onMounted} from "vue";
-  import { useMenuItemNameStore } from "@/stores/menuItemName.js";
+  import { useMenuItemNameStore } from '@/stores/menuItemName.js'
 
-  const menuRef = ref(null); // el-menu实例
+  const menuRef = ref(null) // el-menu实例
   const activeName = ref(null)
   const menuStore = useMenuItemNameStore()
 

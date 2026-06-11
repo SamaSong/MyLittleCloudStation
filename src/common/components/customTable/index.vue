@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ref, defineOptions, defineExpose } from "vue";
+import { defineExpose, defineOptions, ref } from 'vue'
 
 // 表格实例
 const tableRef = ref(null)
@@ -33,7 +33,3 @@ const proxy = new Proxy({}, {
 // 使用 Proxy 代理 tableRef，将所有未捕获的属性访问都转发给 tableRef.value
 defineExpose(Object.assign({}, proxy, tableCustomMethods))
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -47,7 +47,7 @@
               <h3>{{ api.name }}</h3>
               <p>{{ api.explain }}</p>
             </div>
-            <pre><code>{{ api.code }}</code></pre>
+            <CodeBlock :code="api.code" />
           </div>
         </div>
       </article>
@@ -78,9 +78,10 @@
 </template>
 
 <script setup>
-import {onMounted, onUnmounted, useTemplateRef} from 'vue'
+import { onMounted, onUnmounted, useTemplateRef } from 'vue'
 import * as Cesium from 'cesium'
 import 'cesium/Build/Cesium/Widgets/widgets.css'
+import CodeBlock from '@/common/components/codeBlock.vue'
 
 // Cesium Ion 令牌
 Cesium.Ion.defaultAccessToken = import.meta.env.VITE_APP_CESIUM_TOKEN
@@ -510,17 +511,8 @@ onUnmounted(() => {
   }
 }
 
-pre {
-  margin: 0;
-  padding: 14px;
-  overflow-x: auto;
-  border-radius: 8px;
-  background: #111827;
-  color: #e5e7eb;
-  line-height: 1.6;
-}
-
-code {
+.guide-header code,
+.tips-section code {
   font-family: Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
   font-size: 13px;
 }

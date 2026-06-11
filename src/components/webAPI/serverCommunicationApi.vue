@@ -1,13 +1,10 @@
 <script setup>
-
+import ArticleLayout from '@/common/components/ArticleLayout.vue'
 </script>
 
 <template>
-  <div class="content-container">
-    <h1>服务器通信API</h1>
-  </div>
+  <ArticleLayout
+    title="服务器通信API"
+    description="整理浏览器与服务器保持连接、双向通信和实时推送相关的 API。"
+  />
 </template>
-
-<style scoped lang="scss">
-
-</style>

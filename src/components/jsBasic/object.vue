@@ -1,15 +1,30 @@
 <script setup>
+  import ArticleLayout from '@/common/components/ArticleLayout.vue'
   import CodeBlock from "@/common/components/codeBlock.vue";
+  import {
+    definePropertiesExample,
+    computedPropertyExample,
+    destructuringExample,
+    factoryPatternExample,
+    constructorPatternExample,
+    prototypePatternExample,
+    objectIterationExample,
+    constructorStealingExample,
+    constructorStealingWithArgsExample,
+    classDefinitionExample,
+    classInstanceMemberExample,
+  } from './object.examples.js'
 </script>
 
 <template>
-  <div class="content-container">
-    <h1 class="title">对象、类与面向对象编程</h1>
-    <span class="sub-title">	ECMA-262 将对象定义为一组属性的无序集合。严格来说，这意味着对象就是一组没有特定顺序的
+  <ArticleLayout title="对象、类与面向对象编程">
+    <template #header>
+      <span class="sub-title">	ECMA-262 将对象定义为一组属性的无序集合。严格来说，这意味着对象就是一组没有特定顺序的
       值。对象的每个属性或方法都由一个名称来标识，这个名称映射到一个值。正因为如此（以及其他还未
       讨论的原因），可以把 ECMAScript 的对象想象成一张散列表，其中的内容就是一组名/值对，值可以是
       数据或者函数。
-    </span>
+      </span>
+    </template>
     <div data-custom="1、对象">
       <h2 id="_1、对象">1、对象</h2>
       <span class="content">
@@ -17,28 +32,7 @@
         ECMAScript 提供了 Object.defineProperties()方法。这个方法可以通过多个描述符一次性定义多个属性。它接收两个参数：要为之添
         加或修改属性的对象和另一个描述符对象，其属性与要添加或修改的属性一一对应。比如：
       </span>
-      <CodeBlock>
-        <pre>let book = {};
-          Object.defineProperties(book, {
-           year_: {
-            value: 2017
-           },
-           edition: {
-            value: 1
-           },
-           year: {
-             get() {
-              return this.year_;
-             },
-             set(newValue) {
-             if (newValue > 2017) {
-               this.year_ = newValue;
-               this.edition += newValue - 2017;
-             }
-            }
-           }
-          });</pre>
-      </CodeBlock>
+      <CodeBlock :code="definePropertiesExample" />
       <h3>合并对象</h3>
       <span class="content">
         ECMAScript 6 专门为合并对象提供了 Object.assign()方法。这个方法接收一个目标对象和一个
@@ -53,31 +47,12 @@
       <span class="content">
         有了可计算属性，就可以在对象字面量中完成动态属性赋值。中括号包围的对象属性键告诉运行时将其作为 JavaScript 表达式而不是字符串来求值：
       </span>
-      <CodeBlock>
-        <pre>const nameKey = 'name';
-          const ageKey = 'age';
-          const jobKey = 'job';
-          let person = {
-           [nameKey]: 'Matt',
-           [ageKey]: 27,
-           [jobKey]: 'Software engineer'
-          };
-          console.log(person); // { name: 'Matt', age: 27, job: 'Software engineer' }</pre>
-      </CodeBlock>
+      <CodeBlock :code="computedPropertyExample" />
       <h3>对象解构</h3>
       <span class="content">
         ECMAScript 6 新增了对象解构语法，可以在一条语句中使用嵌套数据实现一个或多个赋值操作。简单地说，对象解构就是使用与对象匹配的结构来实现对象属性赋值。
       </span>
-      <CodeBlock>
-        <pre>// 使用对象解构
-          let person = {
-           name: 'Matt',
-           age: 27
-          };
-          let { name: personName, age: personAge } = person;
-          console.log(personName); // Matt
-          console.log(personAge); // 27</pre>
-      </CodeBlock>
+      <CodeBlock :code="destructuringExample" />
       <span class="content">
 
         <span class="sub-important">解构在内部使用函数 ToObject()（不能在运行时环境中直接访问）把源数据结构转换为对象。这
@@ -91,20 +66,7 @@
       <span class="content">
         工厂模式是一种众所周知的设计模式，广泛应用于软件工程领域，用于抽象创建特定对象的过程。
       </span>
-      <CodeBlock>
-        <pre>function createPerson(name, age, job) {
-           let o = new Object();
-           o.name = name;
-           o.age = age;
-           o.job = job;
-           o.sayName = function() {
-            console.log(this.name);
-           };
-           return o;
-          }
-          let person1 = createPerson("Nicholas", 29, "Software Engineer");
-          let person2 = createPerson("Greg", 27, "Doctor");</pre>
-      </CodeBlock>
+      <CodeBlock :code="factoryPatternExample" />
       <h3>构造函数模式</h3>
       <span class="content">
         ECMAScript 中的构造函数是用于创建特定类型对象的。像 Object 和 Array 这
@@ -112,20 +74,7 @@
         自己的对象类型定义属性和方法。<br>
         比如，前面的例子使用构造函数模式可以这样写：
       </span>
-      <CodeBlock>
-        <pre>function Person(name, age, job){
-           this.name = name;
-           this.age = age;
-           this.job = job;
-           this.sayName = function() {
-            console.log(this.name);
-           };
-          }
-          let person1 = new Person("Nicholas", 29, "Software Engineer");
-          let person2 = new Person("Greg", 27, "Doctor");
-          person1.sayName(); // Nicholas
-          person2.sayName(); // Greg</pre>
-      </CodeBlock>
+      <CodeBlock :code="constructorPatternExample" />
       <span class="content">
         <span class="sub-important">
           构造函数和工厂函数的区别:<br>没有显式地创建对象。属性和方法直接赋值给了 this。没有 return。
@@ -141,33 +90,7 @@
         是，在它上面定义的属性和方法可以被对象实例共享。原来在构造函数中直接赋给对象实例的值，可以
         直接赋值给它们的原型，如下所示：
       </span>
-      <CodeBlock>
-        <pre>function Person() {}
-          Person.prototype.name = "Nicholas";
-          Person.prototype.age = 29;
-          Person.prototype.job = "Software Engineer";
-          Person.prototype.sayName = function() {
-           console.log(this.name);
-          };
-          let person1 = new Person();
-          person1.sayName(); // "Nicholas"
-          let person2 = new Person();
-          person2.sayName(); // "Nicholas"
-          console.log(person1.sayName == person2.sayName); // true
-          使用函数表达式也可以：
-          let Person = function() {};
-          Person.prototype.name = "Nicholas";
-          Person.prototype.age = 29;
-          Person.prototype.job = "Software Engineer";
-          Person.prototype.sayName = function() {
-           console.log(this.name);
-          };
-          let person1 = new Person();
-          person1.sayName(); // "Nicholas"
-          let person2 = new Person();
-          person2.sayName(); // "Nicholas"
-          console.log(person1.sayName == person2.sayName); // true</pre>
-      </CodeBlock>
+      <CodeBlock :code="prototypePatternExample" />
       <h3>原型</h3>
       <span class="content">
         无论何时，只要创建一个函数，就会按照特定的规则为这个函数创建一个 prototype 属性（指向
@@ -201,17 +124,7 @@
         Object.values()和 Object.entries()接收一个对象，返回它们内容的数组。Object.values()
         返回对象值的数组，Object.entries()返回键/值对的数组。<br>
       </span>
-      <CodeBlock>
-        <pre>const o = {
-           foo: 'bar',
-           baz: 1,
-           qux: {}
-          };
-          console.log(Object.values(o));
-          // ["bar", 1, {}]
-          console.log(Object.entries((o)));
-          // [["foo", "bar"], ["baz", 1], ["qux", {}]]</pre>
-      </CodeBlock>
+      <CodeBlock :code="objectIterationExample" />
     </div>
     <div data-custom="3、继承">
       <h2 id="_3、继承">3、继承</h2>
@@ -226,37 +139,11 @@
         构造函数中调用父类构造函数。因为毕竟函数就是在特定上下文中执行代码的简单对象，所以可以使用
         apply()和 call()方法以新创建的对象为上下文执行构造函数。来看下面的例子：
       </span>
-      <CodeBlock>
-        <pre>function SuperType() {
-           this.colors = ["red", "blue", "green"];
-          }
-          function SubType() {
-           // 继承 SuperType
-           SuperType.call(this);
-          }
-          let instance1 = new SubType();
-          instance1.colors.push("black");
-          console.log(instance1.colors); // "red,blue,green,black"
-          let instance2 = new SubType();
-          console.log(instance2.colors); // "red,blue,green"</pre>
-      </CodeBlock>
+      <CodeBlock :code="constructorStealingExample" />
       <span class="content">
         盗用构造函数还有另外一个优点，可以在子类构造函数中向父类构造函数传参。
       </span>
-      <CodeBlock>
-        <pre>function SuperType(name){
-           this.name = name;
-          }
-          function SubType() {
-           // 继承 SuperType 并传参
-           SuperType.call(this, "Nicholas");
-           // 实例属性
-           this.age = 29;
-          }
-          let instance = new SubType();
-          console.log(instance.name); // "Nicholas";
-          console.log(instance.age); // 29</pre>
-      </CodeBlock>
+      <CodeBlock :code="constructorStealingWithArgsExample" />
       <span class="content"><span class="sub-important">盗用构造函数的主要缺点，也是使用构造函数模式自定义类型的问题：必须在构造函数中定义方法，因此函数不能重用。</span></span>
       <span class="content"><span class="sub-important">其他继承方式请阅读JavaScript高级程序设计(第4版)8.3</span></span>
     </div>
@@ -269,12 +156,7 @@
       <span class="content">
         与函数类型相似，定义类也有两种主要方式：类声明和类表达式。这两种方式都使用 class 关键字加大括号：
       </span>
-      <CodeBlock>
-        <pre>// 类声明
-          class Person {}
-          // 类表达式
-          const Animal = class {};</pre>
-      </CodeBlock>
+      <CodeBlock :code="classDefinitionExample" />
       <h3>类的构成</h3>
       <span class="content">
         类可以包含构造函数方法、实例方法、获取函数、设置函数和静态类方法，但这些都不是必需的。
@@ -293,28 +175,7 @@
       <span class="content">
         每次通过new调用类标识符时，都会执行类构造函数。在这个函数内部，可以为新创建的实例（this）添加“自有”属性。每个实例都对应一个唯一的成员对象，这意味着所有成员都不会在原型上共享：
       </span>
-      <CodeBlock>
-        <pre>class Person {
-            constructor() {
-             // 这个例子先使用对象包装类型定义一个字符串
-             // 为的是在下面测试两个对象的相等性
-             this.name = new String('Jack');
-             this.sayName = () => console.log(this.name);
-             this.nicknames = ['Jake', 'J-Dog']
-           }
-          }
-          let p1 = new Person(),
-          p2 = new Person();
-          p1.sayName(); // Jack
-          p2.sayName(); // Jack
-          console.log(p1.name === p2.name); // false
-          console.log(p1.sayName === p2.sayName); // false
-          console.log(p1.nicknames === p2.nicknames); // false
-          p1.name = p1.nicknames[0];
-          p2.name = p2.nicknames[1];
-          p1.sayName(); // Jake
-          p2.sayName(); // J-Dog</pre>
-      </CodeBlock>
+      <CodeBlock :code="classInstanceMemberExample" />
       <h3>静态类方法</h3>
       <span class="content">
         可以在类上定义静态方法。这些方法通常用于执行不特定于实例的操作，也不要求存在类的实例。与原型成员类似，静态成员每个类上只能有一个。
@@ -327,9 +188,5 @@
         <span class="sub-important">建议直接阅读JavaScript高级程序设计(第4版)8.4.4</span>
       </span>
     </div>
-  </div>
+  </ArticleLayout>
 </template>
-
-<style scoped lang="scss">
-
-</style>

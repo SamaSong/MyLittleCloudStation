@@ -1,11 +1,18 @@
 <script setup>
+  import ArticleLayout from '@/common/components/ArticleLayout.vue'
   import CodeBlock from "@/common/components/codeBlock.vue";
+  import {
+    windowGlobalExample,
+    queryStringArgsExample,
+    urlSearchParamsExample,
+  } from './bom-dom.examples.js'
 </script>
 
 <template>
-  <div class="content-container">
-    <h1 class="title">BOM、DOM</h1>
-    <span class="sub-title">DOM、BOM相关的一些概念以及属性</span>
+  <ArticleLayout
+    title="BOM、DOM"
+    description="DOM、BOM 相关的一些概念以及属性。"
+  >
     <div data-custom="1、window">
       <h2 id="_1、window">1、window</h2>
       <span class="content">
@@ -16,13 +23,7 @@
       <span class="content">
         因为 window 对象被复用为 ECMAScript 的 Global 对象，所以通过 var 声明的所有全局变量和函数都会变成 window 对象的属性和方法。
       </span>
-      <CodeBlock>
-        <pre>var age = 29;
-          var sayAge = () => alert(this.age);
-          alert(window.age); // 29
-          sayAge(); // 29
-          window.sayAge(); // 29</pre>
-      </CodeBlock>
+      <CodeBlock :code="windowGlobalExample" />
     </div>
     <div data-custom="2、定时器">
       <h2 id="_2、定时器">2、定时器</h2>
@@ -44,31 +45,13 @@
         location.search 返回了从问号开始直到 URL 末尾的所有内容，但没有办法逐个访问每个查询参数。
         下面的函数解析了查询字符串，并返回一个以每个查询参数为属性的对象：
       </span>
-      <CodeBlock>
-        <pre>let getQueryStringArgs = function() {
-             // 取得没有开头问号的查询字符串
-             let qs = (location.search.length > 0 ? location.search.substring(1) : ""),
-             // 保存数据的对象
-             args = {};
-             // 把每个参数添加到 args 对象
-             for (let item of qs.split("&").map(kv => kv.split("="))) {
-               let name = decodeURIComponent(item[0]),
-               value = decodeURIComponent(item[1]);
-               if (name.length) {
-                args[name] = value;
-               }
-              }
-              return args;
-            }</pre>
-      </CodeBlock>
+      <CodeBlock :code="queryStringArgsExample" />
       <h3 style="font-weight: bold">URLSearchParams</h3>
       <span class="content">
         URLSearchParams 提供了一组标准 API 方法，通过它们可以检查和修改查询字符串。给
         URLSearchParams 构造函数传入一个查询字符串，就可以创建一个实例。这个实例上暴露了 get()、has()、set()和 delete()等方法。
       </span>
-      <CodeBlock>
-        <pre>let searchParams = new URLSearchParams(location.search);</pre>
-      </CodeBlock>
+      <CodeBlock :code="urlSearchParamsExample" />
     </div>
     <div data-custom="4、DOM节点操作方法">
       <h2 id="_4、DOM节点操作方法">4、DOM节点操作方法</h2>
@@ -88,9 +71,5 @@
         树中完全移除，要插入的节点会取而代之。
       </span>
     </div>
-  </div>
+  </ArticleLayout>
 </template>
-
-<style scoped lang="scss">
-
-</style>

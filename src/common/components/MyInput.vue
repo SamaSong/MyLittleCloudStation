@@ -5,18 +5,14 @@
 </template>
 
 <script setup>
-import { getCurrentInstance, h } from "vue";
-import { ElInput } from "element-plus";
+import { getCurrentInstance, h } from 'vue'
+import { ElInput } from 'element-plus'
 
 defineProps([])
 
-const vm = getCurrentInstance();
+const vm = getCurrentInstance()
 
 const changeRef = (exposed) => {
-  vm.exposed = exposed;
+  vm.exposed = exposed
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>
