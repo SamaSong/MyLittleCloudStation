@@ -165,3 +165,7 @@ if (window.opener) {
 }
 // message 要传递的数据，浏览器会自动序列化（无需手动 JSON.stringify）
 // targetOrigin 目标窗口的源（协议 + 域名 + 端口），控制消息发送范围，核心安全参数 "任意源：*"`
+
+export const frameExample = `requestAnimationFrame(() => {
+  console.log('浏览器这一帧已经准备绘制')
+});`

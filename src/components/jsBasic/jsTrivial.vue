@@ -24,6 +24,7 @@
     regexpReplaceExample,
     tabMessageReceiverExample,
     tabMessageSenderExample,
+    frameExample,
   } from './jsTrivial.examples.js'
 </script>
 
@@ -178,6 +179,8 @@
       <CodeBlock :code="tabMessageSenderExample" />
       <h3 id="others_3">文件导出</h3>
       <span class="content">在文件导出（如 Excel、PDF 等）的接口请求中，设置 responseType: 'blob' 非常重要，它告诉浏览器期望的响应数据格式为二进制大对象（Blob）。responseType: 'blob' 是处理文件下载的标配，能保证二进制数据的完整性，同时兼容错误信息的提取。</span>
+      <h3 id="others_4">判断浏览器在某一帧渲染完毕</h3>
+      <CodeBlock :code="frameExample" />
     </ArticleSection>
   </ArticleLayout>
 </template>
