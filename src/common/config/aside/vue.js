@@ -25,6 +25,9 @@ export default {
         {
           name: '组合式函数封装',
         },
+        {
+          name: 'Teleport',
+        },
       ],
     },
   ],

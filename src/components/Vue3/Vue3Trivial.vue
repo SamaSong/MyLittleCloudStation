@@ -2,13 +2,19 @@
 import ArticleLayout from '@/common/components/ArticleLayout.vue'
 import ArticleSection from '@/common/components/ArticleSection.vue'
 import CodeBlock from '@/common/components/codeBlock.vue'
-import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.js'
+import {
+  composableExample,
+  inputWrapperExample,
+  teleportModalExample,
+  teleportDisabledExample,
+  teleportDeferExample,
+} from './Vue3Trivial.examples.js'
 </script>
 
 <template>
   <ArticleLayout
     title="VUE3琐碎知识🧀"
-    description="记录 Vue 3 组件封装、渲染函数和日常开发中容易复用的实践点。"
+    description="记录 Vue 3 组件封装、渲染函数、Teleport 和日常开发中容易复用的实践点。"
   >
     <ArticleSection title="如何二次封装组件（终极版）">
       <span class="content">
@@ -41,6 +47,46 @@ import { composableExample, inputWrapperExample } from './Vue3Trivial.examples.j
         <li>返回 ref 或 computed，让使用方保留响应式能力。</li>
         <li>凡是注册事件、定时器、观察器，都要在 onUnmounted 中释放。</li>
       </ul>
+    </ArticleSection>
+    <ArticleSection title="Teleport">
+      <span class="content">
+        Teleport 是 Vue 3 的内置组件，可以把组件内的一部分模板渲染到指定的 DOM 位置，常用于弹窗、全屏遮罩和通知。在模板中直接使用即可，无需导入。
+      </span>
+      <h3>为什么需要 Teleport</h3>
+      <span class="content">
+        弹窗嵌套在页面深处时，可能受到祖先元素的 transform、层叠上下文或 overflow 裁剪影响。将弹窗传送到 body 下，可以脱离这些容器的限制，同时继续在原组件中管理开关状态。
+      </span>
+      <h3>基本用法</h3>
+      <CodeBlock language="vue" :code="teleportModalExample" />
+      <h3>常用属性</h3>
+      <ul>
+        <li><code>to</code>：必填，指定传送目标，支持 CSS 选择器（如 body、#modals）或 DOM 元素对象。</li>
+        <li><code>disabled</code>：为 true 时，内容在原位置渲染；为 false 时，内容传送到目标位置。可以动态切换。</li>
+        <li><code>defer</code>：Vue 3.5+ 支持，将目标解析推迟到本次挂载或更新周期的其他内容渲染完成后。</li>
+      </ul>
+      <h3>按需禁用传送</h3>
+      <span class="content">
+        例如桌面端将内容作为浮层展示，移动端则保留在原位置。下面的 isMobile 是由调用方维护的响应式布尔值：
+      </span>
+      <CodeBlock language="vue" :code="teleportDisabledExample" />
+      <span class="content">disabled 只控制渲染位置，不控制显示和隐藏；显示状态仍需通过内容元素上的 v-if 或 v-show 管理。</span>
+      <h3>延迟解析目标（Vue 3.5+）</h3>
+      <span class="content">如果目标容器由 Vue 渲染，并且出现在 Teleport 后面，可以使用 defer：</span>
+      <CodeBlock language="vue" :code="teleportDeferExample" />
+      <span class="sub-important">
+        defer 要求目标在同一次挂载或更新周期内出现，并不会一直等待目标。如果目标要在异步请求完成后或一秒后才出现，仍会报错。
+      </span>
+      <h3>注意事项</h3>
+      <ul>
+        <li>默认情况下，Teleport 挂载时目标必须已存在。使用 body，或在应用入口 HTML 中预先声明目标容器，通常最简单。</li>
+        <li>Teleport 只改变实际 DOM 位置，组件的逻辑父子关系不变，props、组件事件和 provide / inject 仍正常工作。</li>
+        <li>多个 Teleport 可以共享同一个目标，内容按挂载顺序追加，后挂载的内容不会覆盖之前的内容。</li>
+        <li>scoped 样式仍可匹配被传送的元素，但依赖原祖先的 CSS 选择器、继承样式和 CSS 变量需要按新的 DOM 位置检查。</li>
+        <li>可以在 Teleport 内搭配 Transition，为弹窗内容添加进入和离开动画。</li>
+      </ul>
+      <span class="content">
+        参考：<a href="https://cn.vuejs.org/guide/built-ins/teleport.html" target="_blank" rel="noopener noreferrer">Vue 官方文档：Teleport</a>。
+      </span>
     </ArticleSection>
   </ArticleLayout>
 </template>
