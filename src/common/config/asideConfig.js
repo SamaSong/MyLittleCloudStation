@@ -5,6 +5,7 @@ import algorithmConfig from './aside/algorithm.js'
 import typeScriptConfig from './aside/typescript.js'
 import webApiConfig from './aside/webApi.js'
 import cesiumConfig from './aside/cesium.js'
+import bpmnJsConfig from './aside/bpmn-js.js'
 
 export default [
   vueConfig,
@@ -14,4 +15,5 @@ export default [
   typeScriptConfig,
   webApiConfig,
   cesiumConfig,
+  bpmnJsConfig
 ]

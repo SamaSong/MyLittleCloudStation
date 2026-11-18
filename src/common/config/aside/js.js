@@ -85,7 +85,10 @@ export default {
           name: '5、路由相关',
         },
         {
-          name: '6、其他',
+          name: '6、VueUse相关',
+        },
+        {
+          name: '7、其他',
         },
       ],
     },

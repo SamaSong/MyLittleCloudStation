@@ -141,6 +141,81 @@ if (token) {
   ****
 }`
 
+export const useDraggableBasicExample = `<script setup>
+import { ref } from 'vue'
+import { useDraggable } from '@vueuse/core'
+
+const el = ref(null)
+const { x, y, position, style, isDragging } = useDraggable(el, {
+  initialValue: { x: 40, y: 40 },
+  preventDefault: true,
+})
+
+function resetPosition() {
+  position.value = { x: 40, y: 40 }
+}
+</script>
+
+<template>
+  <div ref="el" :style="style" class="draggable">
+    <p>{{ isDragging ? '拖拽中' : '拖动此面板' }}</p>
+    <p>x: {{ Math.round(x) }}, y: {{ Math.round(y) }}</p>
+  </div>
+  <button @click="resetPosition">重置位置</button>
+</template>
+
+<style scoped>
+.draggable {
+  position: fixed;
+  padding: 16px;
+  background: #e8f5e9;
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+}
+</style>`
+
+export const useDraggableHandleExample = `<script setup>
+import { ref } from 'vue'
+import { useDraggable } from '@vueuse/core'
+
+const el = ref(null)
+const handle = ref(null)
+const container = ref(null)
+const { style } = useDraggable(el, {
+  initialValue: { x: 20, y: 20 },
+  handle, // 只从标题栏开始拖拽，面板内容仍可操作
+  containerElement: container,
+  preventDefault: true,
+  onStart(position, event) {
+    // 此处可以检查业务条件；返回 false 可取消本次拖拽
+    console.log('开始拖拽', position, event.pointerType)
+  },
+  onMove(position) {
+    console.log('当前位置', position)
+  },
+  onEnd(position) {
+    // 适合在这里保存最终位置
+    console.log('结束拖拽', position)
+  },
+})
+</script>
+
+<template>
+  <div ref="container" class="container">
+    <div ref="el" :style="style" class="panel">
+      <div ref="handle" class="handle">拖动标题栏</div>
+      <input placeholder="内容区可正常输入" />
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.container { position: relative; width: 100%; height: 300px; }
+.panel { position: absolute; width: 220px; padding: 12px; background: #e8f5e9; }
+.handle { cursor: move; user-select: none; touch-action: none; }
+</style>`
+
 export const regexpReplaceExample = `str.replace(RegExp, (_, match) => {})
 // _ : 带有匹配符合的内容
 // match : 纯内容，没有匹配符号

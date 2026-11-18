@@ -3,7 +3,7 @@
   import ArticleSection from '@/common/components/ArticleSection.vue'
   import CodeBlock from '@/common/components/codeBlock.vue'
   import AnchorComponents from '@/common/components/anchorComponents.jsx'
-  import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
+  import { JS_ANCHOR_POINT, OBJ_ANCHOR_POINT, ARR_ANCHOR_POINT, STRING_ANCHOR_POINT, ROUTE__ANCHOR_POINT, VUEUSE_ANCHOR_POINT, OTHERS_ANCHOR_POINT } from './static.js'
   import {
     primitiveWrapperExample,
     addEventListenerExample,
@@ -21,6 +21,8 @@
     lazyLoadRouteExample,
     urlSearchParamsExample,
     requestWhiteListExample,
+    useDraggableBasicExample,
+    useDraggableHandleExample,
     regexpReplaceExample,
     tabMessageReceiverExample,
     tabMessageSenderExample,
@@ -31,7 +33,7 @@
 <template>
   <ArticleLayout
     title="JS琐碎知识🧀"
-    description="记录 JavaScript、对象、数组、字符串、路由和其他开发中的零散知识点。"
+    description="记录 JavaScript、对象、数组、字符串、路由、VueUse 和其他开发中的零散知识点。"
   >
     <ArticleSection title="1、JS相关">
       <AnchorComponents :data="JS_ANCHOR_POINT"/>
@@ -151,7 +153,57 @@
       </span>
       <CodeBlock :code="requestWhiteListExample" />
     </ArticleSection>
-    <ArticleSection title="6、其他">
+    <ArticleSection title="6、VueUse相关">
+      <AnchorComponents :data="VUEUSE_ANCHOR_POINT" />
+      <h3 id="vueuse_1">useDraggable</h3>
+      <span class="content">
+        <span class="bgc">useDraggable</span> 是 VueUse 提供的元素拖拽工具，基于 Pointer Events 支持鼠标、触屏和触控笔，适合悬浮面板、工具栏等需要自由移动位置的场景。
+      </span>
+      <span class="content">
+        调用方式为 <span class="bgc">useDraggable(target, options)</span>：target 是要移动的 DOM 元素或元素 ref，options 为可选配置。以下示例需要先安装 <span class="bgc">@vueuse/core</span>，在组件的 setup 中调用即可，无需等到 onMounted 后再调用。
+      </span>
+      <h4>1、基本用法</h4>
+      <span class="content">
+        用 ref 绑定目标元素，将返回的 style 绑定到元素上，并设置定位方式。initialValue 指定初始坐标，默认是 <span class="bgc">{ x: 0, y: 0 }</span>。
+      </span>
+      <CodeBlock :code="useDraggableBasicExample" language="vue" />
+      <h4>2、返回值</h4>
+      <ul>
+        <li><span class="bgc">x / y</span>：响应式横、纵坐标（像素），可在脚本中通过 x.value、y.value 读取或修改。</li>
+        <li><span class="bgc">position</span>：响应式位置对象，包含 x、y；修改 position.value 可以重置或调整位置。</li>
+        <li><span class="bgc">isDragging</span>：只读的拖拽状态，可用于显示提示或切换样式。</li>
+        <li><span class="bgc">style</span>：计算得到的 CSS 字符串，形如 left: 40px; top: 40px;，不包含 position 属性。</li>
+      </ul>
+      <span class="content">这些返回值在 Vue 模板中会自动解包，无需写 .value。</span>
+      <h4>3、常用配置</h4>
+      <ul>
+        <li><span class="bgc">handle</span>：指定拖拽手柄，默认是目标元素；常用标题栏作为手柄，避免输入框、按钮操作触发拖拽。</li>
+        <li><span class="bgc">containerElement</span>：指定用于计算坐标和拖拽边界的容器；通常搭配容器 position: relative、目标 position: absolute。</li>
+        <li><span class="bgc">axis</span>：限制拖拽方向，支持 'x'、'y'、'both'，默认 'both'。</li>
+        <li><span class="bgc">disabled</span>：禁用拖拽，默认 false；可传入 ref 或 getter，按业务状态动态控制。</li>
+        <li><span class="bgc">exact</span>：默认 false；设为 true 时，只允许直接按下目标元素触发拖拽，按下其子元素不会触发。</li>
+        <li><span class="bgc">preventDefault / stopPropagation</span>：分别阻止浏览器默认行为、阻止事件传播，默认均为 false，按需开启。</li>
+        <li><span class="bgc">pointerTypes / buttons</span>：默认监听 ['mouse', 'touch', 'pen']，默认只允许主按键 [0]；只允许鼠标时可设置 pointerTypes: ['mouse']。</li>
+        <li><span class="bgc">draggingElement</span>：接收 pointermove、pointerup 的元素，默认 window；它与 handle、containerElement 的职责不同。</li>
+      </ul>
+      <h4>4、拖拽手柄、容器与回调</h4>
+      <span class="content">
+        onStart、onMove、onEnd 分别在开始、移动、结束时调用，参数为位置对象和 PointerEvent。只有 onStart 返回 false 可以取消本次拖拽；onMove 会频繁触发，保存位置或提交接口请求通常放在 onEnd。
+      </span>
+      <CodeBlock :code="useDraggableHandleExample" language="vue" />
+      <h4>5、使用注意事项</h4>
+      <ul>
+        <li>useDraggable 更新坐标，实际移动依靠样式绑定。悬浮元素一般用 position: fixed；容器内元素用 absolute，并让坐标计算容器与 CSS 定位容器保持一致。</li>
+        <li>target、handle 应指向实际 DOM 元素；直接把 Vue 组件实例作为 target 可能无法正确取得元素。</li>
+        <li>拖拽区域设置 touch-action: none 可避免触屏拖动被浏览器滚动手势接管，user-select: none 可避免选中文字；有输入框时只给手柄设置这些样式。</li>
+        <li>initialValue 用来初始化位置；需要在使用中重置位置时，直接修改 position.value 或 x.value、y.value。</li>
+        <li>列表拖拽排序、跨区域放置等交互需要额外处理排序或放置逻辑，useDraggable 本身主要负责元素坐标。</li>
+      </ul>
+      <span class="content">
+        参考：<a href="https://vueuse.org/core/useDraggable/" target="_blank" rel="noopener noreferrer">VueUse 官方文档</a>。不同版本的配置可能有差异，使用时以安装版本的文档和类型声明为准。
+      </span>
+    </ArticleSection>
+    <ArticleSection title="7、其他">
       <AnchorComponents :data="OTHERS_ANCHOR_POINT" />
       <h3 id="others_1">正则匹配全字符内容的差异</h3>
       <span class="content">

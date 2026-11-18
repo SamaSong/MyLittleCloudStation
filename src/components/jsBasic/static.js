@@ -26,6 +26,10 @@ export const ROUTE__ANCHOR_POINT = [
   ['route_3', '跳转路由时使用接口白名单']
 ]
 
+export const VUEUSE_ANCHOR_POINT = [
+  ['vueuse_1', 'useDraggable'],
+]
+
 export const OTHERS_ANCHOR_POINT = [
   ['others_1', '正则匹配全字符内容的差异'],
   ['others_2', '跨页签通讯'],
